@@ -1,0 +1,15 @@
+# how to auth 2fa
+
+```bash
+npm profile enable-2fa auth-and-writes
+# generateToken
+node index.js
+```
+
+npm 2FA tokens
+
+74309559565f0e0394eb6b3e77015eb53f28548d20cc8b7d84cfdb52dc6ea5e2
+7397b8258e1db0fc7d05e68dc326c91f0e037a1194dcdf69643643508abff54f
+9277ad1e0419a6f4958b6740894308b1a86bc43b06fd25f70ddb78126ee44730
+22a5c6cb1fe8a5d534716cd9d999604273b8ca5a9040727da30ae0ba06bc7adf
+8ac1c6baada7de50010b58474328f3dfd522d7fbb713ebfa21867ef8cb5ce6b2

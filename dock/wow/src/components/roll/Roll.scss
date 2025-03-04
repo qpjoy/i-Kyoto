@@ -1,0 +1,65 @@
+.chat-box {
+  position: relative;
+  height: 100%;
+  background-color: black;
+  // margin-top: -20%;
+  opacity: 0.9;
+}
+
+.roll-machine {
+  position: relative;
+  width: 350px;
+  height: 350px;
+  top: 0;
+}
+
+.roll-button {
+  position: relative;
+  background-color: red;
+}
+
+.roll-result {
+  position: absolute;
+  top: 32%;
+  transform: translate(0, -50%);
+  text-align: center;
+  // color: red;
+  font-weight: bold;
+  font-size: 1.5em;
+  padding-left: 1.5em;
+  letter-spacing: 1.5em;
+  color: transparent;
+  // color: white; /* Base color of the text */
+  text-shadow:
+    -1px -1px 0 red,
+    1px -1px 0 orange,
+    -2px 0 0 yellow,
+    2px 0 0 green,
+    -1px 1px 0 blue,
+    1px 1px 0 indigo,
+    0 2px 0 violet;
+  // background: linear-gradient(left, red, orange, yellow, green, blue, indigo, violet);
+  -webkit-background-clip: text;
+  // color: transparent;
+  // word-spacing: 2em;
+}
+
+.roll-username {
+  color: cyan;
+}
+
+.video-container {
+  position: relative;
+
+  video {
+    width: 100%;
+  }
+}
+#DanmuContainer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 43%;
+  z-index: 9999;
+}

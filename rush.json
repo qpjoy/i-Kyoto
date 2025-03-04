@@ -9,15 +9,7 @@
   "nodeSupportedVersionRange": ">=18.20.3 <19.0.0 || >=20.14.0 <21.0.0",
   "gitPolicy": {},
   "approvedPackagesPolicy": {
-    "reviewCategories": [
-      "published",
-      "internal",
-      "tools",
-      "fe",
-      "be",
-      "de",
-      "rock"
-    ],
+    "reviewCategories": ["published", "internal", "tools", "fe", "be", "de", "rock"],
     "ignoredNpmScopes": ["@types"]
   },
   "repository": {
@@ -55,6 +47,13 @@
     {
       "packageName": "@qpjoy/main_pushcode",
       "projectFolder": "dock/pushcode/fe/main",
+      "reviewCategory": "fe",
+      "tags": ["fe"]
+    },
+    // wow roll game
+    {
+      "packageName": "wow",
+      "projectFolder": "dock/wow",
       "reviewCategory": "fe",
       "tags": ["fe"]
     },
