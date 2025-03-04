@@ -96,6 +96,28 @@
       "projectFolder": "rock/react-nest-docker/be",
       "reviewCategory": "rock",
       "tags": ["rock"]
+    },
+    // # tools
+    {
+      "packageName": "qp-my-toolchain",
+      "projectFolder": "tech/tools/my-toolchain",
+      "reviewCategory": "tools",
+      "tags": ["tools"],
+      "shouldPublish": true
+    },
+    {
+      "packageName": "@qpjoy/types",
+      "projectFolder": "tech/tools/qp-types",
+      "reviewCategory": "tools",
+      "tags": ["tools"],
+      "shouldPublish": true
+    },
+    {
+      "packageName": "@qpjoy/tools_file_csv",
+      "projectFolder": "tech/tools/file/csv",
+      "reviewCategory": "tools",
+      "tags": ["tools"],
+      "shouldPublish": true
     }
   ],
   "allowedProjectTags": ["tools", "fe", "be", "de", "rock"]

@@ -1,0 +1,16 @@
+{
+  "name": "@qpjoy/types",
+  "version": "0.0.3",
+  "description": "Type definitions for qp-core",
+  "keywords": [],
+  "license": "MIT",
+  "author": "Qpjoy",
+  "main": "index.js",
+  "bin": {
+    "start": "index.js"
+  },
+  "scripts": {
+    "build": "",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

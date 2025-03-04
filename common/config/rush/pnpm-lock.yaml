@@ -774,6 +774,33 @@ importers:
         specifier: ^5.4.3
         version: 5.8.2
 
+  ../../tech/tools/file/csv:
+    devDependencies:
+      "@types/node":
+        specifier: ^22.10.5
+        version: 22.13.9
+      typescript:
+        specifier: ^5.7.2
+        version: 5.8.2
+
+  ../../tech/tools/my-toolchain:
+    dependencies:
+      colors:
+        specifier: ^1.4.0
+        version: 1.4.0
+    devDependencies:
+      "@types/node":
+        specifier: 16.11.47
+        version: 16.11.47
+      rimraf:
+        specifier: ^2.7.1
+        version: 2.7.1
+      typescript:
+        specifier: ^4.7.4
+        version: 4.9.5
+
+  ../../tech/tools/qp-types: {}
+
 packages:
   7zip-bin@5.2.0:
     resolution:
@@ -5668,6 +5695,12 @@ packages:
     resolution:
       {
         integrity: sha512-pQ2hoqvXiJt2FP9WQVLPRO+AmiIm/ZYkavPlIQnx282u4ZrVdztx0pkh3jjpQt0Kz+YI0YhSG264y08UJKoUQg==
+      }
+
+  "@types/node@16.11.47":
+    resolution:
+      {
+        integrity: sha512-fpP+jk2zJ4VW66+wAMFoBJlx1bxmBKx4DUFf68UHgdGCOuyUTDlLWqsaNPJh7xhNDykyJ9eIzAygilP/4WoN8g==
       }
 
   "@types/node@16.9.1":
@@ -18126,6 +18159,14 @@ packages:
       eslint: ^8.57.0 || ^9.0.0
       typescript: ">=4.8.4 <5.9.0"
 
+  typescript@4.9.5:
+    resolution:
+      {
+        integrity: sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==
+      }
+    engines: { node: ">=4.2.0" }
+    hasBin: true
+
   typescript@5.6.3:
     resolution:
       {
@@ -22792,6 +22833,8 @@ snapshots:
   "@types/multer@1.4.12":
     dependencies:
       "@types/express": 5.0.0
+
+  "@types/node@16.11.47": {}
 
   "@types/node@16.9.1": {}
 
@@ -31944,6 +31987,8 @@ snapshots:
       typescript: 5.8.2
     transitivePeerDependencies:
       - supports-color
+
+  typescript@4.9.5: {}
 
   typescript@5.6.3: {}
 
