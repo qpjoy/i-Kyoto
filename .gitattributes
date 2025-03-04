@@ -6,7 +6,7 @@ npm-shrinkwrap.json          merge=binary
 yarn.lock                    merge=binary
 # git lfs track "*.psd" "*.zip" "*.mp4" "*.gz"
 *.zip filter=lfs diff=lfs merge=lfs -text
-*.mp4 filter=lfs diff=lfs merge=lfs -text
+# *.mp4 filter=lfs diff=lfs merge=lfs -text
 *.gz filter=lfs diff=lfs merge=lfs -text
 *.psd filter=lfs diff=lfs merge=lfs -text
 *.xls filter=lfs diff=lfs merge=lfs -text
