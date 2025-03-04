@@ -38,6 +38,8 @@
   "projectFolderMaxDepth": 8,
   "variants": [],
   "projects": [
+    // # dock
+    // pushcode
     {
       "packageName": "@qpjoy/be_pushcode",
       "projectFolder": "dock/pushcode/be",
@@ -55,6 +57,13 @@
       "projectFolder": "dock/pushcode/fe/main",
       "reviewCategory": "fe",
       "tags": ["fe"]
+    },
+    // # rock
+    {
+      "packageName": "@qpjoy/react_nest_docker",
+      "projectFolder": "rock/react-nest-docker/be",
+      "reviewCategory": "rock",
+      "tags": ["rock"]
     }
   ],
   "allowedProjectTags": ["tools", "fe", "be", "de", "rock"]

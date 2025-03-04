@@ -94,7 +94,7 @@ jspm_packages/
 *.iml
 
 # Visual Studio Code
-.vscode/
+# .vscode/
 !.vscode/tasks.json
 !.vscode/launch.json
 
@@ -122,3 +122,8 @@ dist-storybook/
 .heft/
 
 *.local.ts
+
+releases/
+uploads/*
+
+.dbdata/

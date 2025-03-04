@@ -27,6 +27,14 @@
       "allowedCategories": [ "fe" ]
     },
     {
+      "name": "@eslint/eslintrc",
+      "allowedCategories": [ "rock" ]
+    },
+    {
+      "name": "@eslint/js",
+      "allowedCategories": [ "rock" ]
+    },
+    {
       "name": "@fastify/static",
       "allowedCategories": [ "be" ]
     },
@@ -60,15 +68,19 @@
     },
     {
       "name": "@nestjs/cli",
-      "allowedCategories": [ "be" ]
+      "allowedCategories": [ "be", "rock" ]
     },
     {
       "name": "@nestjs/common",
-      "allowedCategories": [ "be" ]
+      "allowedCategories": [ "be", "rock" ]
     },
     {
       "name": "@nestjs/core",
-      "allowedCategories": [ "be" ]
+      "allowedCategories": [ "be", "rock" ]
+    },
+    {
+      "name": "@nestjs/jwt",
+      "allowedCategories": [ "rock" ]
     },
     {
       "name": "@nestjs/passport",
@@ -76,7 +88,7 @@
     },
     {
       "name": "@nestjs/platform-express",
-      "allowedCategories": [ "be" ]
+      "allowedCategories": [ "be", "rock" ]
     },
     {
       "name": "@nestjs/platform-fastify",
@@ -88,7 +100,7 @@
     },
     {
       "name": "@nestjs/schematics",
-      "allowedCategories": [ "be" ]
+      "allowedCategories": [ "be", "rock" ]
     },
     {
       "name": "@nestjs/sequelize",
@@ -100,7 +112,11 @@
     },
     {
       "name": "@nestjs/testing",
-      "allowedCategories": [ "be" ]
+      "allowedCategories": [ "be", "rock" ]
+    },
+    {
+      "name": "@nestjs/typeorm",
+      "allowedCategories": [ "rock" ]
     },
     {
       "name": "@nestjs/websockets",
@@ -121,6 +137,14 @@
     {
       "name": "@svgr/webpack",
       "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "@swc/cli",
+      "allowedCategories": [ "rock" ]
+    },
+    {
+      "name": "@swc/core",
+      "allowedCategories": [ "rock" ]
     },
     {
       "name": "@typescript-eslint/eslint-plugin",
@@ -155,6 +179,10 @@
       "allowedCategories": [ "be" ]
     },
     {
+      "name": "bcryptjs",
+      "allowedCategories": [ "rock" ]
+    },
+    {
       "name": "chalk",
       "allowedCategories": [ "be" ]
     },
@@ -164,15 +192,19 @@
     },
     {
       "name": "class-transformer",
-      "allowedCategories": [ "be" ]
+      "allowedCategories": [ "be", "rock" ]
     },
     {
       "name": "class-validator",
-      "allowedCategories": [ "be" ]
+      "allowedCategories": [ "be", "rock" ]
     },
     {
       "name": "classnames",
       "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "cookie-parser",
+      "allowedCategories": [ "rock" ]
     },
     {
       "name": "copy-webpack-plugin",
@@ -208,15 +240,15 @@
     },
     {
       "name": "eslint",
-      "allowedCategories": [ "be", "fe" ]
+      "allowedCategories": [ "be", "fe", "rock" ]
     },
     {
       "name": "eslint-config-prettier",
-      "allowedCategories": [ "be" ]
+      "allowedCategories": [ "be", "rock" ]
     },
     {
       "name": "eslint-plugin-prettier",
-      "allowedCategories": [ "be" ]
+      "allowedCategories": [ "be", "rock" ]
     },
     {
       "name": "eslint-plugin-react-hooks",
@@ -228,7 +260,7 @@
     },
     {
       "name": "express",
-      "allowedCategories": [ "fe" ]
+      "allowedCategories": [ "fe", "rock" ]
     },
     {
       "name": "fastify",
@@ -241,6 +273,10 @@
     {
       "name": "file-loader",
       "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "globals",
+      "allowedCategories": [ "rock" ]
     },
     {
       "name": "gsap",
@@ -256,7 +292,11 @@
     },
     {
       "name": "jest",
-      "allowedCategories": [ "be" ]
+      "allowedCategories": [ "be", "rock" ]
+    },
+    {
+      "name": "json2csv",
+      "allowedCategories": [ "rock" ]
     },
     {
       "name": "jsonwebtoken",
@@ -272,7 +312,11 @@
     },
     {
       "name": "multer",
-      "allowedCategories": [ "be" ]
+      "allowedCategories": [ "be", "rock" ]
+    },
+    {
+      "name": "mysql2",
+      "allowedCategories": [ "rock" ]
     },
     {
       "name": "nodemailer",
@@ -296,7 +340,7 @@
     },
     {
       "name": "passport-jwt",
-      "allowedCategories": [ "be" ]
+      "allowedCategories": [ "be", "rock" ]
     },
     {
       "name": "pg",
@@ -332,7 +376,7 @@
     },
     {
       "name": "prettier",
-      "allowedCategories": [ "be" ]
+      "allowedCategories": [ "be", "rock" ]
     },
     {
       "name": "qcloud-cos-sts",
@@ -372,11 +416,11 @@
     },
     {
       "name": "reflect-metadata",
-      "allowedCategories": [ "be" ]
+      "allowedCategories": [ "be", "rock" ]
     },
     {
       "name": "rxjs",
-      "allowedCategories": [ "be" ]
+      "allowedCategories": [ "be", "rock" ]
     },
     {
       "name": "sass",
@@ -400,7 +444,7 @@
     },
     {
       "name": "source-map-support",
-      "allowedCategories": [ "be" ]
+      "allowedCategories": [ "be", "rock" ]
     },
     {
       "name": "style-loader",
@@ -408,7 +452,7 @@
     },
     {
       "name": "supertest",
-      "allowedCategories": [ "be" ]
+      "allowedCategories": [ "be", "rock" ]
     },
     {
       "name": "tailwindcss",
@@ -424,23 +468,31 @@
     },
     {
       "name": "ts-jest",
-      "allowedCategories": [ "be" ]
+      "allowedCategories": [ "be", "rock" ]
     },
     {
       "name": "ts-loader",
-      "allowedCategories": [ "be" ]
+      "allowedCategories": [ "be", "rock" ]
     },
     {
       "name": "ts-node",
-      "allowedCategories": [ "be" ]
+      "allowedCategories": [ "be", "rock" ]
     },
     {
       "name": "tsconfig-paths",
-      "allowedCategories": [ "be" ]
+      "allowedCategories": [ "be", "rock" ]
+    },
+    {
+      "name": "typeorm",
+      "allowedCategories": [ "rock" ]
     },
     {
       "name": "typescript",
-      "allowedCategories": [ "be", "fe" ]
+      "allowedCategories": [ "be", "fe", "rock" ]
+    },
+    {
+      "name": "typescript-eslint",
+      "allowedCategories": [ "rock" ]
     },
     {
       "name": "url-loader",
