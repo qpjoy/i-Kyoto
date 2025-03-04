@@ -1,0 +1,59 @@
+import Protocol from "@/assets/pushcode/协议.png";
+import ForAll from "@/assets/pushcode/为所有用户安装.png";
+import Install from "@/assets/pushcode/安装向导.png";
+import Welcome from "@/assets/pushcode/欢迎.png";
+import Live from "@/assets/pushcode/开始直播.png";
+import Companion from "@/assets/pushcode/直播伴侣.png";
+import Automation from "@/assets/pushcode/自动化.png";
+import OBSServer from "@/assets/pushcode/OBS服务器.png";
+
+import CustomerService from "./CustomerService";
+
+<h1 align="center">PushCode 推流助手使用文档</h1>
+
+<CustomerService />
+
+### 使用教程
+
+- 安装流程：
+
+  - 打开「开始」菜单，输入 Windows PowerShell；
+  - 管理员身份运行 PowerShell，输入： "Set-ExecutionPolicy RemoteSigned" 回车, 再输入 "Y" 确认；
+  - 下载安装包，右键以管理员身份打开安装程序，为所有用户安装。安装完成继续安装 Wireshark，安装完成后右键管理员运行软件即可使用。
+
+  <img alt="协议" src={Protocol} style={{ width: "80%" }} />
+
+  <img alt="为所有用户安装" src={ForAll} style={{ width: "80%" }} />
+
+  <img alt="安装向导" src={Install} style={{ width: "80%" }} />
+
+- 打开 PushCode 软件后进行账号注册，每台设备仅限注册一个账号，每个账号有
+  7 天免费试用期，试用期结束后需付费后继续使用
+
+  <img alt="欢迎注册" src={Welcome} />
+
+- 开播流程
+
+  - 自动开播流程
+
+    - 点击 PushCode 软件左侧「抖音服务」，打开「自动化流程」按钮，系统将检测并启动
+      OBS 并自动完成设置，手动选择对应网卡（打开电脑设置 - 网络状态 - 更改适配器选项，即可查询目前使用的网卡），打开「抖音直播伴侣」软件，点击「开始直播」后，系统将自动开始
+      OBS 直播，直播开始后关闭「抖音直播伴侣」，下播点击 OBS 「停止直播」即可。
+
+      <img alt="自动化" src={Automation} />
+
+  - 手动开播流程
+
+    - 点击 PushCode 软件左侧「抖音服务」，选择对应网卡（打开电脑设置 - 网络状态 - 更改适配器选项，即可查询目前使用的网卡），打开「抖音直播伴侣」软件，点击「开始直播」后，复制获取的「服务器」「串流密钥」到 OBS，将内容粘贴在「直播 - 服务器/推流码」，点击「应用」和「确定」
+
+      <img alt="OBS服务器" src={OBSServer} />
+
+    - 打开「抖音直播伴侣」，右上角点击「退出并关闭直播间」
+
+      <img alt="直播伴侣" src={Companion} />
+
+    - 点击 OBS「开始直播」
+
+      <img alt="开始直播" src={Live} />
+
+    - 关闭 PushCode 软件，正常进行后续直播，下播点击 OBS 「停止直播」即可。

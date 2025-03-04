@@ -1,0 +1,45 @@
+main {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(310deg, rgba(128, 128, 128, 0.05) 0%, rgba(255, 255, 255, 0.6) 100%);
+  height: auto;
+  z-index: -1;
+}
+
+.section-box {
+  width: 80%;
+  margin: auto;
+}
+
+@media screen and (max-width: 500px) {
+  .section-box {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 500px) {
+  .section-box {
+    width: 90%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .section-box {
+    width: 80%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .section-box {
+    width: 70%;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .section-box {
+    width: 60%;
+  }
+}

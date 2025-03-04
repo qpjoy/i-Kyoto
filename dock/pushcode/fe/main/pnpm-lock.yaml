@@ -1,0 +1,22 @@
+lockfileVersion: "9.0"
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+  .:
+    devDependencies:
+      "@types/mdx":
+        specifier: ^2.0.13
+        version: 2.0.13
+
+packages:
+  "@types/mdx@2.0.13":
+    resolution:
+      {
+        integrity: sha512-+OWZQfAYyio6YkJb3HLxDrvnx6SWWDbC0zVPfBRzUk0/nqoDyf6dNxQi3eArPe8rJ473nobTMQ/8Zk+LxJ+Yuw==
+      }
+
+snapshots:
+  "@types/mdx@2.0.13": {}

@@ -1,0 +1,478 @@
+// DO NOT ADD COMMENTS IN THIS FILE.  They will be lost when the Rush tool resaves it.
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/rush/v5/approved-packages.schema.json",
+  "packages": [
+    {
+      "name": "@babel/core",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "@babel/preset-env",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "@babel/preset-react",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "@elastic/elasticsearch",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "@emotion/react",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "@emotion/styled",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "@fastify/static",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "@fontsource/roboto",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "@liaoliaots/nestjs-redis",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "@mdx-js/rollup",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "@miniben90/x-win",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "@mui/icons-material",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "@mui/material",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "@mui/x-charts",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "@nestjs/cli",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "@nestjs/common",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "@nestjs/core",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "@nestjs/passport",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "@nestjs/platform-express",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "@nestjs/platform-fastify",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "@nestjs/platform-socket.io",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "@nestjs/schematics",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "@nestjs/sequelize",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "@nestjs/swagger",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "@nestjs/testing",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "@nestjs/websockets",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "@nut-tree-fork/nut-js",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "@reduxjs/toolkit",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "@socket.io/redis-adapter",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "@svgr/webpack",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "@typescript-eslint/eslint-plugin",
+      "allowedCategories": [ "be", "fe" ]
+    },
+    {
+      "name": "@typescript-eslint/parser",
+      "allowedCategories": [ "be", "fe" ]
+    },
+    {
+      "name": "@vitejs/plugin-react",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "amfe-flexible",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "app-root-path",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "axios",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "babel-loader",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "bcrypt",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "chalk",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "cheerio",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "class-transformer",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "class-validator",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "classnames",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "copy-webpack-plugin",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "cross-env",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "css-loader",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "dayjs",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "electron",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "electron-builder",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "electron-devtools-installer",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "electron-packager",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "eslint",
+      "allowedCategories": [ "be", "fe" ]
+    },
+    {
+      "name": "eslint-config-prettier",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "eslint-plugin-prettier",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "eslint-plugin-react-hooks",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "eslint-plugin-react-refresh",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "express",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "fastify",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "fastify-multer",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "file-loader",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "gsap",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "html-webpack-plugin",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "ioredis",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "jest",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "jsonwebtoken",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "lodash",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "mini-css-extract-plugin",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "multer",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "nodemailer",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "nodemon",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "notistack",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "obs-websocket-js",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "passport",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "passport-jwt",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "pg",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "pg-hstore",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "postcss",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "postcss-import",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "postcss-loader",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "postcss-nested",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "postcss-preset-env",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "postcss-pxtorem",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "prettier",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "qcloud-cos-sts",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "qs",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "react",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "react-dom",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "react-helmet",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "react-icons",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "react-redux",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "react-router-dom",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "redux-persist",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "reflect-metadata",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "rxjs",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "sass",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "scrollreveal",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "sequelize",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "sequelize-typescript",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "socket.io",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "source-map-support",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "style-loader",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "supertest",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "tailwindcss",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "tencentcloud-sdk-nodejs",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "tesseract.js",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "ts-jest",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "ts-loader",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "ts-node",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "tsconfig-paths",
+      "allowedCategories": [ "be" ]
+    },
+    {
+      "name": "typescript",
+      "allowedCategories": [ "be", "fe" ]
+    },
+    {
+      "name": "url-loader",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "uuid",
+      "allowedCategories": [ "be", "fe" ]
+    },
+    {
+      "name": "vite",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "vite-tsconfig-paths",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "webpack",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "webpack-cli",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "webpack-dev-server",
+      "allowedCategories": [ "fe" ]
+    },
+    {
+      "name": "xlsx",
+      "allowedCategories": [ "be" ]
+    }
+  ]
+}

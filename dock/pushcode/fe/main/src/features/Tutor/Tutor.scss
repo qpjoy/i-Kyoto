@@ -1,0 +1,114 @@
+.tutor-header {
+  height: 4rem;
+  background: linear-gradient(to bottom, rgba(14, 109, 160, 1), rgba(33, 189, 206, 1));
+}
+
+// https://www.w3schools.com/cssref/playdemo.php?filename=playcss_list-style-type&preval=lower-roman
+.tutor-content {
+  padding: 2rem 4rem;
+
+  ul {
+    display: block;
+    list-style-type: decimal;
+  }
+
+  ul ul {
+    list-style-type: lower-latin;
+  }
+
+  ul ul ul {
+    list-style-type: lower-roman;
+  }
+
+  // & > ul > li::before {
+  //   content: "";
+  //   position: "absolute";
+  //   background-color: gray;
+  //   border-radius: "50%";
+  // }
+}
+
+.tutor-content img {
+  width: 70%;
+  margin: 1rem auto;
+}
+
+@media screen and (max-width: 500px) {
+  .tutor-header {
+    height: 0.8rem;
+  }
+
+  .tutor-content {
+    padding: 0.2rem 0.4rem;
+    font-size: 0.3rem;
+  }
+
+  .tutor-content img {
+    width: 100%;
+    margin: 0.1rem auto;
+  }
+}
+
+@media screen and (min-width: 500px) {
+  .tutor-header {
+    height: 0.5rem;
+  }
+
+  .tutor-content {
+    padding: 0.2rem 0.4rem;
+    font-size: 0.15rem;
+  }
+
+  .tutor-content img {
+    width: 100%;
+    margin: 0.1rem auto;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .tutor-header {
+    height: 0.5rem;
+  }
+
+  .tutor-content {
+    padding: 0.2rem 0.4rem;
+    font-size: 0.15rem;
+  }
+
+  .tutor-content img {
+    width: 100%;
+    margin: 0.1rem auto;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .tutor-header {
+    height: 0.35rem;
+  }
+
+  .tutor-content {
+    padding: 0.2rem 0.4rem;
+    font-size: 0.1125rem;
+  }
+
+  .tutor-content img {
+    width: 100%;
+    margin: 0.1rem auto;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .tutor-header {
+    height: 0.25rem;
+  }
+
+  .tutor-content {
+    padding: 0.2rem 0.4rem;
+    font-size: 0.1rem;
+  }
+
+  .tutor-content img {
+    width: 100%;
+    margin: 0.1rem auto;
+  }
+}

@@ -1,0 +1,1 @@
+Start-Process -FilePath "D:\Program Files\Wireshark665\tshark" -ArgumentList @("-i", "1", "-l", "-T", "fields", "-e", "frame.time", "-e", "eth.src", "-e", "eth.dst", "-e", "ip.src", "-e", "ip.dst", "-e", "tcp.srcport", "-e", "tcp.dstport", "-e", "amf.string", "-e", "data") -Wait -Verb RunAs
