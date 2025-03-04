@@ -51,6 +51,19 @@
       "reviewCategory": "fe",
       "tags": ["fe"]
     },
+    {
+      "packageName": "@qpjoy/state",
+      "projectFolder": "tech/fe/typescript/utils/state",
+      "reviewCategory": "fe",
+      "tags": ["fe"]
+    },
+    {
+      "packageName": "@qpjoy/ts_basic",
+      "projectFolder": "tech/fe/typescript/basic",
+      "reviewCategory": "fe",
+      "tags": ["fe"],
+      "shouldPublish": true
+    },
     // # dock
     {
       "packageName": "@qpjoy/be_pushcode",

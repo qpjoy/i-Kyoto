@@ -1,0 +1,48 @@
+{
+  "name": "@qpjoy/state",
+  "version": "0.0.1",
+  "license": "MIT",
+  "author": "Qpjoy",
+  "exports": {
+    ".": {
+      "import": "./dist/mjs/index.js",
+      "require": "./dist/cjs/index.js",
+      "types": "./dist/types/index.d.ts"
+    }
+  },
+  "main": "dist/cjs/index.js",
+  "module": "dist/mjs/index.js",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist",
+    "src/*"
+  ],
+  "scripts": {
+    "lint": "tsc --noemit && eslint ./ --fix",
+    "test": "jest"
+  },
+  "dependencies": {
+    "my-state1": "file:./"
+  },
+  "devDependencies": {
+    "@figliolia/ts-packager": "^1.0.9",
+    "@types/node": "^16.7.13",
+    "@types/react": "^18.2.69",
+    "@typescript-eslint/eslint-plugin": "^5.59.1",
+    "@typescript-eslint/parser": "^5.59.1",
+    "eslint": "^8.39.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-import-resolver-typescript": "^3.5.5",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "prettier": "^2.8.8",
+    "tsx": "^4.7.1",
+    "typescript": "^5.4.3"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
+  }
+}

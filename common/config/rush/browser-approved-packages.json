@@ -43,6 +43,10 @@
       "allowedCategories": ["be"]
     },
     {
+      "name": "@figliolia/ts-packager",
+      "allowedCategories": ["fe"]
+    },
+    {
       "name": "@fontsource/roboto",
       "allowedCategories": ["fe"]
     },
@@ -255,12 +259,28 @@
       "allowedCategories": ["be", "fe", "rock"]
     },
     {
+      "name": "eslint-config-airbnb",
+      "allowedCategories": ["fe"]
+    },
+    {
+      "name": "eslint-config-airbnb-typescript",
+      "allowedCategories": ["fe"]
+    },
+    {
       "name": "eslint-config-prettier",
-      "allowedCategories": ["be", "rock"]
+      "allowedCategories": ["be", "fe", "rock"]
+    },
+    {
+      "name": "eslint-import-resolver-typescript",
+      "allowedCategories": ["fe"]
+    },
+    {
+      "name": "eslint-plugin-import",
+      "allowedCategories": ["fe"]
     },
     {
       "name": "eslint-plugin-prettier",
-      "allowedCategories": ["be", "rock"]
+      "allowedCategories": ["be", "fe", "rock"]
     },
     {
       "name": "eslint-plugin-react-hooks",
@@ -268,6 +288,10 @@
     },
     {
       "name": "eslint-plugin-react-refresh",
+      "allowedCategories": ["fe"]
+    },
+    {
+      "name": "eslint-plugin-simple-import-sort",
       "allowedCategories": ["fe"]
     },
     {
@@ -329,6 +353,10 @@
     {
       "name": "multer",
       "allowedCategories": ["be", "rock"]
+    },
+    {
+      "name": "my-state1",
+      "allowedCategories": ["fe"]
     },
     {
       "name": "mysql2",
@@ -396,7 +424,7 @@
     },
     {
       "name": "prettier",
-      "allowedCategories": ["be", "rock"]
+      "allowedCategories": ["be", "fe", "rock"]
     },
     {
       "name": "qcloud-cos-sts",
@@ -505,6 +533,10 @@
     {
       "name": "tsconfig-paths",
       "allowedCategories": ["be", "rock"]
+    },
+    {
+      "name": "tsx",
+      "allowedCategories": ["fe"]
     },
     {
       "name": "typeorm",
