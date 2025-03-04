@@ -127,3 +127,7 @@ releases/
 uploads/*
 
 .dbdata/
+
+# videos
+**/*.mp4
+**/*.gz

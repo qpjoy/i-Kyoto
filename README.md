@@ -56,6 +56,8 @@ cd common/autoinstallers/rush-prettier
 pnpm install prettier pretty-quick
 rush update-autoinstaller --name rush-prettier
 
+######### common/config/rush/command-line.json  add prettier command
+
 # pack tgz包
 rush publish --pack --include-all --publish --release-folder releases/release-fe
 # 确保有该target分支,apply生成log，需要提供远端分支
