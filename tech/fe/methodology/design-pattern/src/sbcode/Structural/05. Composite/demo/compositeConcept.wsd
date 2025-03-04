@@ -1,0 +1,44 @@
+@startuml
+
+' left to right direction
+skinparam PackageStyle rectangle
+skinparam ClassAttributeIconSize 0
+
+package "Client Application" as ClientApplication {}
+
+interface IComponent {
+    + referenceToParent?: Folder
+    + dir(string): void
+    + detach(): void
+}
+
+ClientApplication -> IComponent
+
+together LeafComposite{
+    class File {
+        + name: string
+        + referenceToParent?: Folder
+
+        + constructor(string)
+        + dir(string): void
+        + detach(): void
+    }
+
+    class Folder {
+        + name: string
+        + components: list
+        + referenceToParent?: Folder
+
+        + constructor(string)
+        + dir(string): void
+        + attach(IComponent): void
+        + detach(): void
+        + delete(IComponent): void
+    }
+}
+
+IComponent <|-[dashed]- File
+IComponent <|-[dashed]- Folder
+IComponent <-right-o Folder
+@enduml
+

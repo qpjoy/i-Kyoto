@@ -1,0 +1,25 @@
+@startuml
+
+skinparam ClassAttributeIconSize 0
+
+class AbstractClass {
+    + templateMethod(type): type
+    + stepOne(type): type
+    + stepTwo(type): type
+    + stepThree(type): type
+}
+
+class ConcreteClassA {
+    + stepTwo(type): type
+}
+
+class ConcreteClassB {
+    + stepOne(type): type
+    + stepTwo(type): type
+    + stepThree(type): type
+}
+
+AbstractClass <|-- ConcreteClassA
+AbstractClass <|-- ConcreteClassB
+
+@enduml

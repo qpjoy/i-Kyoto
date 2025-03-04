@@ -1,0 +1,42 @@
+@startuml
+
+left to right direction
+
+skinparam PackageStyle rectangle
+skinparam ClassAttributeIconSize 0
+
+skinparam Linetype ortho
+
+package "Client Application" as ClientApplication {}
+
+package Context {}
+
+package "Abstract Syntax Tree" as SyntaxTree {
+    class AbstractExpression {
+        + interpret()
+    }
+
+    class TerminalExpression {
+        + value
+        + interpret()
+    }
+
+    class NonTerminalExpression {
+        + left
+        + right
+        + interpret()
+    }
+
+    TerminalExpression -[hidden]left- NonTerminalExpression
+
+    AbstractExpression <|-- TerminalExpression
+    AbstractExpression <|-- NonTerminalExpression
+    AbstractExpression <--o NonTerminalExpression
+}
+
+ClientApplication -left-> Context
+
+ClientApplication -[hidden]down- AbstractExpression
+ClientApplication o--> SyntaxTree
+Context <-down- SyntaxTree
+

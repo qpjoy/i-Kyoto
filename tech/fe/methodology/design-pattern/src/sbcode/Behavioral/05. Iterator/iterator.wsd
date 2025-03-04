@@ -1,0 +1,36 @@
+@startuml
+
+left to right direction
+
+skinparam PackageStyle rectangle
+skinparam ClassAttributeIconSize 0
+
+package "Client Application" as ClientApplication {}
+
+interface IIterator {
+    + hasNext(): boolean
+    + next(): IAggregate
+}
+
+class Iterator {
+    + index: number
+    + aggregates: IAggregate[]
+    + constructor(IAggregate)
+    + hasNext(): boolean
+    + next(): IAggregate
+}
+
+ClientApplication o--> Iterator
+IIterator <|-[dashed]right- Iterator : \t\t
+
+interface IAggregate {
+    + method(type): type
+}
+
+class Aggregate {
+    + field: type
+    + method(type): type
+}
+
+Iterator o--> Aggregate
+IAggregate <|-[dashed]right- Aggregate : \t\t

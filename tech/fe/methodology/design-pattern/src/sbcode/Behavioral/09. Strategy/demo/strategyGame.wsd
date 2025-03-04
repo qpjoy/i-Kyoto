@@ -1,0 +1,45 @@
+@startuml
+
+left to right direction
+
+class GameCharacter {
+    - position: [number, number]
+    + move(IMoveConstructor)
+}
+
+interface IMoveConstructor {
+    + new(): IMove
+}
+
+GameCharacter o-down-> IMoveConstructor
+
+' together gameElements {
+    
+    class Crawling {
+        + move(position: [number, number]): void
+    }
+
+    class Sprinting {
+        + move(position: [number, number]): void
+    }
+
+    class Walking {
+        + move(position: [number, number]): void
+    }
+' }
+
+interface IMove {
+    + move(position: [number, number]): void
+}
+
+' GameCharacter -right- Crawling
+' Crawling -right- Sprinting
+' Sprinting -right- Walking
+
+IMoveConstructor *-right-> IMove : \r\r\r\r\r\r
+
+Crawling ..|> IMove
+Sprinting ..|> IMove
+Walking ..|> IMove
+
+@enduml

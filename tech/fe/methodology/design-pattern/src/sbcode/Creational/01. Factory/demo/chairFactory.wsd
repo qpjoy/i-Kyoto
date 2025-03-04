@@ -1,0 +1,67 @@
+@startuml
+
+left to right direction
+
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+' skinparam linetype polyline
+
+class ChairFactory {
+    +getChair(string): IChair
+}
+
+package "Client Application" as clientApplication {}
+
+
+package "Subclasses Implementing a common Interface" as subclasses {
+    together tConcreteProducts{
+        class SmallChair {
+            +height: number
+            +width: number
+            +depth: number
+        }
+
+        class MediumChair {
+            +height: number
+            +width: number
+            +depth: number
+        }
+
+        class BigChair {
+            +height: number
+            +width: number
+            +depth: number
+        }
+
+        SmallChair -[hidden]left- MediumChair
+        MediumChair -[hidden]left- BigChair
+    }
+
+    together tProduct{
+        interface IChair {
+            +getDimensions(): {}
+        }
+
+        class Chair {
+            +height: number
+            +width: number
+            +depth: number
+            +getDimensions(): {}
+        }
+    }
+}
+
+ChairFactory <-right-o clientApplication : \t
+
+ChairFactory o-down--> IChair
+
+Chair -[dashed]right-|> IChair : \t
+
+MediumChair -[hidden]up- Chair
+
+
+SmallChair -left-|> Chair
+MediumChair -up-|> Chair
+BigChair -right-|> Chair
+
+@enduml

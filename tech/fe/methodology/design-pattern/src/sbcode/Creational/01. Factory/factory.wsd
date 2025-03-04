@@ -1,0 +1,50 @@
+@startuml
+
+skinparam PackageStyle rectangle
+
+left to right direction
+
+package "Client Application" as ClientApp {}
+
+class BurgerFactory {
+    createBurger(): IBurger
+}
+
+package "汉堡包加工生产中心" as BurgerCreator {
+    interface IBurger {
+        + name: string;
+        - prepare(): void;
+    }
+
+    Class Burger {
+        + name: string;
+        - prepare(): void;
+    }
+
+    class CheeseBurger {
+        + name: string;
+        - prepare(): void;
+    }
+
+    class VeggieBurger {
+        + name: string;
+        - prepare(): void;
+    }
+
+    class FishBurger {
+        + name: string;
+        - prepare(): void;
+    }
+}
+
+ClientApp -left-> BurgerFactory
+
+BurgerFactory o--> IBurger
+
+IBurger <|.left. Burger : \r
+
+Burger <|-- CheeseBurger
+Burger <|-- VeggieBurger
+Burger <|-- FishBurger
+
+@enduml

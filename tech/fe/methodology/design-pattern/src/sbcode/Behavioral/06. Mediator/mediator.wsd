@@ -1,0 +1,36 @@
+@startuml
+
+package Before <<cloud>> {
+    class "Colleague1" as ColleagueB1 {
+        + method1(): string
+    }
+
+    class "Colleague2" as ColleagueB2 {
+        + method2(): string
+    }
+
+    ColleagueB1 <--> ColleagueB2
+}
+
+
+package After <<cloud>> {
+    class "Colleague1" as ColleagueA1 {
+        + method1(): string
+    }
+
+    class Mediator {
+        + colleague1: Colleague1
+        + colleague2: Colleague2
+        + colleague1Method(type): type
+        + colleague2Method(type): type
+    }
+
+    class "Colleague2" as ColleagueA2 {
+        + method2(): string
+    }
+
+    ColleagueA1 <--> Mediator
+    Mediator <--> ColleagueA2
+}
+
+@enduml

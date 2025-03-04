@@ -1,0 +1,52 @@
+@startuml
+
+skinparam PackageStyle rectangle
+skinparam ClassAttributeIconSize 0
+
+class ICubeA {
+    + width: number
+    + height: number
+    + depth: number
+    + manufacture(width, height, depth)
+}
+
+class ICubeB {
+    + top_left_front: [number, number, number]
+    + bottom_right_back: [number, number, number]
+    + create(top_left_front, bottom_right_back)
+}
+
+ICubeA --[hidden]right-- ICubeB : /t/t/t/t/t/t/t/t/t/t/t/t/t/t
+
+class CubeA {
+    + width: number
+    + height: number
+    + depth: number
+    + manufacture(width, height, depth)
+}
+
+class CubeBAdapter {
+    + width: number
+    + height: number
+    + depth: number
+    + manufacture(width, height, depth)
+}
+
+class CubeB {
+    + top_left_front: [number, number, number]
+    + bottom_right_back: [number, number, number]
+    + create(top_left_front, bottom_right_back)
+}
+
+ICubeA <|-[dashed]down- CubeA
+ICubeA <|-[dashed]- CubeBAdapter
+ICubeB <|-[dashed]- CubeB
+CubeA -[hidden]right- CubeBAdapter
+CubeBAdapter *-right-> CubeB
+
+ClientApplication o-up-> CubeA
+ClientApplication o-up-> CubeBAdapter
+
+package "Client Application" as ClientApplication {}
+
+@enduml

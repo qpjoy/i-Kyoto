@@ -1,0 +1,47 @@
+@startuml
+skinparam PackageStyle rectangle
+
+class Command1 {
+    - receiver: Receiver
+    + constructor(Receiver)
+    + execute(): void
+}
+
+class Invoker {
+    - commands: { [id: string]: ICommand }
+    + register(string, ICommand): void
+    + execute(string): void
+}
+
+interface ICommand {
+    + execute(): void
+}
+
+class Receiver {
+    + runCommand1(): void
+    + runCommand2(): void
+}
+
+Command1 <--o Invoker
+Command1 ..|> ICommand
+Command1 *--> Receiver
+
+class Command2 {
+    - receiver: Receiver
+    + constructor(Receiver)
+    + execute(): void
+}
+
+Invoker -[hidden]right- ICommand
+ICommand -[hidden]right- Receiver
+
+Invoker o--> Command2
+ICommand <|.. Command2
+Receiver <--* Command2
+
+package "Client Application" as ClientApplication {}
+
+Command2 -[hidden]- ClientApplication : \r
+
+Invoker <--o ClientApplication
+Receiver <--o ClientApplication

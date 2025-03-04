@@ -1,0 +1,44 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+' skinparam linetype polyline
+skinparam linetype ortho
+
+left to right direction
+
+together appDirector {
+    package "Client Application" as clientApplication {}
+
+    class Director {
+        +construct(): Product
+    }
+
+    clientApplication o-left-> Director
+}
+
+appDirector -- builderI
+
+together builderI {
+    interface IBuilder {
+        +buildPartA(type): this
+        +buildPartB(type): this
+        +buildPartC(type): this
+    }
+
+    class Builder {
+        +buildPartA(type): this
+        +buildPartB(type): this
+        +buildPartC(type): this
+    }
+
+    IBuilder <.left. Builder
+}
+
+Director o--> Builder
+
+Builder *--> Product
+
+class Product {
+    +parts: string[]
+}

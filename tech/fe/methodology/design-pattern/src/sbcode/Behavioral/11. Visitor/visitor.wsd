@@ -1,0 +1,36 @@
+@startuml
+
+skinparam PackageStyle rectangle
+
+left to right direction
+skinparam ClassAttributeIconSize 0
+
+interface IVisitable {
+    + accept(IVisitor)
+}
+
+class Element {
+    + field: type
+    + elements: Set<Element>
+    + method(type): type
+    + accept(IVisitor)
+}
+
+package "Client Application" as ClientApplication {}
+
+interface IVisitor {
+    + visit(Element)
+}
+
+class Visitor {
+    + field: type
+    + visit(Element)
+}
+
+Element .left.|> IVisitable : \r\r\r
+Element o-left-> IVisitable : \r
+
+Element <--o ClientApplication
+ClientApplication o--> Visitor
+
+Visitor .left.|> IVisitor : \r

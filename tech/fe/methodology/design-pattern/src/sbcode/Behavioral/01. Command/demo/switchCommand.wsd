@@ -1,0 +1,53 @@
+@startuml
+
+skinparam ClassAttributeIconSize 0
+skinparam PackageStyle rectangle
+
+class SwitchOnCommand {
+    - receiver: Light
+    + constructor(Light): void
+    + execute(): void
+}
+
+class Switch {
+    - commands: { [id: string]: ICommand }
+    - history: [number, string]
+    + constructor()
+    + register(string, ICommand): void
+    + execute(string): void
+    + showHistory(): void
+    + replayLast(number): void
+}
+
+interface ISwitchCommand {
+    + execute(): void
+}
+
+class Light {
+    + turnOn(): void
+    + turnOff(): void
+}
+
+SwitchOnCommand <--o Switch
+SwitchOnCommand ..|> ISwitchCommand
+SwitchOnCommand *--> Light
+
+Switch -[hidden]right- ISwitchCommand
+ISwitchCommand -[hidden]right- Light
+
+class SwitchOffCommand {
+    - receiver: Light
+    + constructor(Light): void
+    + execute(): void
+}
+
+Switch o--> SwitchOffCommand
+ISwitchCommand <|.. SwitchOffCommand
+Light <--* SwitchOffCommand
+
+package "Client Application" as ClientApplication {}
+
+SwitchOffCommand -[hidden]- ClientApplication : \r\r\r
+
+Switch <--o ClientApplication
+Light <--o ClientApplication

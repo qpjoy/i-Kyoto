@@ -1,0 +1,17 @@
+@startuml
+
+skinparam PackageStyle rectangle
+
+package "Client Application" as ClientApplication {}
+
+class NumberWheel {
+    + index: number
+    + next(): number
+}
+
+ClientApplication o-right-> NumberWheel
+
+note "return this.index * 2% 11" as NoteNW
+
+NumberWheel::next o.[hidden] NoteNW
+NumberWheel::next o. NoteNW

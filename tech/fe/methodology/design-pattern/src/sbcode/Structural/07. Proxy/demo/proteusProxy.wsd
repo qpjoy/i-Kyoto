@@ -1,0 +1,41 @@
+@startuml
+
+skinparam PackageStyle rectangle
+skinparam ClassAttributeIconSize 0
+
+package "Client Application" as ClientApplication {}
+
+interface IProteus {
+    + tellMeTheFuture(): void
+    + tellMeYourForm(): void
+}
+
+ClientApplication -[hidden]right- IProteus
+
+class Lion {
+    - name: string
+    + tellMeTheFuture(): void
+    + tellMeYourForm(): void
+}
+
+ClientApplication o--> Lion
+
+class Serpent {
+    + name: string
+    + tellMeTheFuture(): void
+    + tellMeYourForm(); void
+}
+
+IProteus <|-[dashed]- Serpent
+
+' Lion -right-> Serpent
+' Lion -[dashed]down-> IProteus
+IProteus <|-[dashed]- Lion
+
+class Leopard {
+    - name: string
+    + tellMeTheFuture(): void
+    + tellMeYourForm(): void
+}
+
+IProteus <|-[dashed]- Leopard

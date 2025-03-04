@@ -1,0 +1,32 @@
+@startuml
+
+skinparam PackageStyle rectangle
+skinparam ClassAttributeIconSize 0
+
+package "Client Application" as ClientApplication {}
+
+interface ISubject {
+    + request(type): type
+}
+
+ClientApplication -[hidden]right- ISubject
+
+class ProxySubject {
+    + request(type): type
+}
+
+ClientApplication o--> ProxySubject
+
+class RealSubject {
+    + request(type): type
+}
+
+ISubject <|-[dashed]- RealSubject
+
+ProxySubject -right-> RealSubject
+' ProxySubject -[dashed]down-> ISubject
+ISubject <|-[dashed]- ProxySubject
+
+package "...\rRealSubject.request()\r..." as SubjectRequest {}
+
+RealSubject -[dashed]right- SubjectRequest

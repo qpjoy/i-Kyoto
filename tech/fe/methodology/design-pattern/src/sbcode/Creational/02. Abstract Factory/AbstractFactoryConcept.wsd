@@ -1,0 +1,116 @@
+@startuml
+
+left to right direction
+
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+' skinparam padding 0
+' skinparam linetype polyline
+
+
+class AbstractFactory {
+    +getFurniture(string): IProductA
+}
+
+package "Client Application" as clientApplication {}
+
+
+clientApplication o-left-> AbstractFactory
+
+
+package " " as factoryPicker {
+    together subLeft {
+        class FactoryA {
+            +field: type
+            +creteObject(string): IProductA
+        }
+
+        class FactoryB {
+            +field: type
+            +createObject(string): IProductB
+        }
+
+        FactoryA -[hidden]left- FactoryB : \r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r
+    }
+
+
+    together subRight {
+        package "Subclasses Implementing a common Interface" as subClasses {
+            together tConcreteProducts{
+                class ConcreteProductA {
+                    +field: type
+                }
+
+                class ConcreteProductB {
+                    +field: type
+                }
+
+                class ConcreteProductC {
+                    +field: type
+                }
+
+                ConcreteProductA -[hidden]left- ConcreteProductB
+                ConcreteProductB -[hidden]left- ConcreteProductC
+            }
+
+            together tProduct{
+                interface IProductA {
+                    +field: type
+                }
+
+                class ConcreteProduct {
+                    +field: type
+                }
+            }
+
+            ConcreteProduct -right-|> IProductA : \r\r
+            ConcreteProductB -[hidden]up- ConcreteProduct
+            ConcreteProductA -left-|> ConcreteProduct
+            ConcreteProductB -up-|> ConcreteProduct
+            ConcreteProductC -right-|> ConcreteProduct
+        }
+
+        package "Subclasses Implementing a common Interface" as subClasses2 {
+            together tConcreteTables{
+                class ConcreteProduct_A{
+                    +field: type
+                }
+
+                class ConcreteProduct_B {
+                    +field: type
+                }
+
+                class ConcreteProduct_C {
+                    +field: type
+                }
+
+                ConcreteProduct_A -[hidden]left- ConcreteProduct_B
+                ConcreteProduct_B -[hidden]left- ConcreteProduct_C
+            }
+
+            together tTable{
+                interface IProductB {
+                    +field: type
+                }
+
+                class ConcreteProduct_ {
+                    +field: type
+                }
+            }
+
+            ConcreteProduct_ -right-|> IProductB : \r\r
+            ConcreteProduct_ -[hidden]up- ConcreteProduct_B
+            ConcreteProduct_ <|-- ConcreteProduct_A
+            ConcreteProduct_ <|-- ConcreteProduct_B
+            ConcreteProduct_ <|-- ConcreteProduct_C
+        }
+    }
+
+    FactoryA o-down-> IProductA
+    FactoryB o-down-> IProductB
+}
+
+AbstractFactory o-down-> FactoryA
+AbstractFactory o-down-> FactoryB
+
+@enduml

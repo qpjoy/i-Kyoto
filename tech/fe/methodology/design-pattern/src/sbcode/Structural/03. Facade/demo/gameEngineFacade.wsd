@@ -1,0 +1,84 @@
+@startuml
+
+left to right direction
+skinparam PackageStyle rectangle
+skinparam ClassAttributeIconSize 0
+' skinparam Linetype polyline
+' skinparam Linetype ortho
+
+
+package "\tClient\t" as Client {}
+
+class "GameAPI(Facade)" as GameAPI {
+    - wallets: Wallets
+    - reports: Reports
+    - users: Users
+    - gameEngine: GameEngine
+
+    + getBalance(number): number
+    + gameState(string): { [id:string]: [number, string] }
+    + getHistory(): { [id: string]: [number, string] }
+    + changePwd(string, string): boolean
+    + submitEntry(string, number): boolean
+    + registerUser({ [id: string]: string }): string
+}
+
+class GameEngine {
+    + instance: GameEngine
+    - startTime: number
+    - clock: number
+    - entries: [string, number][]
+    - gameOpen: boolean
+    - reports: Reports
+    - {field}wallets: Wallets
+
+    + {method}getGameState: GameState
+    + submitEntry(userId, number): boolean
+}
+
+Client -right-> GameAPI
+GameAPI *-right-> GameEngine
+
+
+class Reports {
+    + instance: Reports
+    - reports: { [id: string]: [number, string] }
+    - rowId: number
+
+    + getHistory(): { [id: string]: [number, string] }
+    + logEvent(string): boolean
+}
+
+class Wallets {
+    + instance: Wallets
+    - wallets: { [id: string]: numer }
+    - reports: Reports
+
+    + getBalance(userId): number
+    + adjustBalance(userId, number): number
+    + createWallet(userId): boolean
+}
+
+class Users {
+    + instance: Users
+    - users: { [id: string]: { [id: string]: string }}
+    - reports: Reports
+    - wallets: Wallets
+
+    + registerUser({ [id: string]: string }): string
+    + editUser(string, { [id: string]: string }): boolean
+    + changePwd(userId, string): boolean
+}
+
+Reports <-right-* Wallets
+Reports <-right-* Users
+Wallets <-right-* Users
+
+GameAPI *-down-> Reports : \t\t\t
+GameAPI *-down-> Wallets 
+GameAPI *-down-> Users
+
+GameEngine *--> Reports
+GameEngine *-right-> Wallets
+
+@enduml

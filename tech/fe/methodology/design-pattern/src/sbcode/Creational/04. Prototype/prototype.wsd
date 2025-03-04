@@ -1,0 +1,22 @@
+@startuml
+
+left to right direction
+
+skinparam ClassAttributeIconSize 0
+skinparam PackageStyle rectangle
+
+class MyClass {
+    + field: type
+    + clone(): type
+}
+
+package "Client Application" as clientApplication {
+
+}
+
+MyClass <-right-o clientApplication
+
+interface IPrototype {
+    + clone(): type
+}
+MyClass ...|> IPrototype

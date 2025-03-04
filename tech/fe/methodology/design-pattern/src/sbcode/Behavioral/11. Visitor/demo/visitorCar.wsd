@@ -1,0 +1,82 @@
+@startuml
+
+skinparam PackageStyle rectangle
+
+skinparam Linetype stereotype
+
+
+together rowFir {
+    package "Client Application" as ClientApplication {}
+
+    class PrintPartsVisitor {
+        + visit(AbstractCarPart): void
+    }
+
+    interface IVisitor {
+        + visit(AbstractCarPart): void
+    }
+}
+
+
+ClientApplication o-right-> PrintPartsVisitor : \t
+PrintPartsVisitor .right.|> IVisitor : \t
+
+class TotalPriceVisitor {
+    + totalPrice: number
+    + visit(AbstractCarPart): void
+}
+
+ClientApplication o--> TotalPriceVisitor
+PrintPartsVisitor -[hidden]- TotalPriceVisitor
+TotalPriceVisitor ..|> IVisitor
+
+interface IVisitable {
+    + accept(IVisitor): void
+}
+
+TotalPriceVisitor -[hidden]- IVisitable
+
+IVisitable <|.. Car
+IVisitable <|.. Body
+IVisitable <|.. Engine
+IVisitable <|.. Wheel
+
+together rowSec {
+    class Car {
+        - parts: AbstractCarPart[]
+        + constructor(string)
+        + accept(IVisitor): void
+    }
+
+    class Body {}
+
+    class Engine {}
+
+    class Wheel {}
+}
+
+
+ClientApplication o--> Car
+
+Car -[hidden]right- Body
+Body -[hidden]right- Engine
+Engine -[hidden]right- Wheel
+
+Car o-right-> Body : \t
+Car o-right-> Engine : \t
+Car o-right-> Wheel : \t
+
+Car --|> AbstractCarPart
+Body --|> AbstractCarPart
+Engine --|> AbstractCarPart
+Wheel --|> AbstractCarPart
+
+class AbstractCarPart {
+    - name: string
+    - sku: string | undefined
+    - price: number | undefined
+    + name(string): string
+    + sku(string): string
+    + price(number): number
+    + accept(IVisitor): void
+}

@@ -1,0 +1,33 @@
+@startuml
+
+skinparam PackageStyle rectangle
+skinparam ClassAttributeIconSize 0
+
+package "Client Application" as ClientApplication {}
+
+class Context {
+    + field: type
+    + method(type): type
+}
+
+ClientApplication o--> Context
+
+class FlyweightFactory {
+    + field: type
+    + getFlyweight(type): type
+}
+
+Context o-right-> FlyweightFactory
+
+interface IFlyweight {
+    + field: type
+    + method(type): type
+}
+
+class Flyweight {
+    + field: type
+    + method(type): type
+}
+
+IFlyweight <|-[dashed]- Flyweight
+FlyweightFactory o-right-> Flyweight

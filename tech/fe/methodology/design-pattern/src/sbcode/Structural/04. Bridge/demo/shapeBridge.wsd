@@ -1,0 +1,45 @@
+@startuml
+
+left to right direction
+skinparam ClassAttributeIconSize 0
+skinparam PackageStyle rectangle
+
+package "Client Application" as ClientApplication {}
+
+class Square {
+    - implementer: IShapeImplementer
+    + draw()
+}
+
+interface IShape {
+    + draw()
+}
+
+class Circle {
+    - implementer: IShapeImplementer
+    + draw()
+}
+
+ClientApplication o--> Square
+ClientApplication o--> Circle
+
+Square -[dashed]right-|> IShape : \t\t
+IShape <|-[dashed]right- Circle : \t\t
+
+class SquareImplementer {
+    + drawImplementation()
+}
+
+interface IShapeImplementer {
+    + drawImplementation()
+}
+
+class CircleImplementer {
+    + drawImplementation()
+}
+
+Square *--> SquareImplementer
+Circle *--> CircleImplementer
+
+SquareImplementer -[dashed]right-|> IShapeImplementer : \t\t
+IShapeImplementer <|-[dashed]right- CircleImplementer : \t\t

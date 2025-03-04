@@ -39,15 +39,19 @@
       "tags": ["fe"],
       "shouldPublish": true
     },
-    // algorithm
     {
       "packageName": "@qpjoy/algorithm",
       "projectFolder": "tech/fe/methodology/algorithm",
       "reviewCategory": "fe",
       "tags": ["fe"]
     },
+    {
+      "packageName": "@qpjoy/design_pattern",
+      "projectFolder": "tech/fe/methodology/design-pattern",
+      "reviewCategory": "fe",
+      "tags": ["fe"]
+    },
     // # dock
-    // pushcode
     {
       "packageName": "@qpjoy/be_pushcode",
       "projectFolder": "dock/pushcode/be",

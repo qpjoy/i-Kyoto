@@ -1,0 +1,48 @@
+@startuml
+
+skinparam ClassAttributeIconSize 0
+
+interface IComponent {
+    + notify(string): void
+    + receive(string): void
+}
+
+class Component1 {
+    - mediator: Mediator
+    - name: string
+    + notify(string): void
+    + receive(string): void
+}
+
+class Component2 {
+    - mediaor: Mediator
+    - name: string
+    + notify(string): void
+    + receive(string): void
+}
+
+class Component3 {
+    - mediator: Mediator
+    - name: string
+    + notify(string): void
+    + receive(string): void
+}
+
+IComponent <-[dashed]- Component1
+IComponent <-[dashed]- Component2
+IComponent <-[dashed]- Component3
+
+class Mediator {
+    - {field}components: Set(<IComponent>)
+    + add(IComponent)
+    + notify(string, IComponent): void
+}
+
+Component1 *--> Mediator
+Component2 *--> Mediator
+Component3 *--> Mediator
+
+note "...\nif component != originator:\n  component.receive(message)\n" as NoteCom
+
+Mediator::notify o.[hidden].NoteCom
+Mediator::notify o.right.NoteCom

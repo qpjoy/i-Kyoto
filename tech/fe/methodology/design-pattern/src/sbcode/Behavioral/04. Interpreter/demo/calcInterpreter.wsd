@@ -1,0 +1,87 @@
+@startuml
+
+skinparam PackageStyle rectangle
+skinparam ClassAttributeIconSize 0
+
+package "Client Application" as ClientApplication {}
+
+class AbstractExpression {
+    + interpret()
+}
+
+class Number {
+    + value
+    + interpret()
+}
+
+ClientApplication o-right-> AbstractExpression
+AbstractExpression <|-right- Number
+
+class Add {
+    + left
+    + right
+    + interpret()
+}
+
+class RomanNumeral {
+    + RomanNumeral
+    + context
+    + interpret()
+}
+
+class Subtract {
+    + left
+    + right
+    + interpret()
+}
+
+' Add -right- RomanNumeral
+' RomanNumeral -right- Subtract
+
+AbstractExpression <|-- Add
+AbstractExpression <--o Add
+AbstractExpression <|-- RomanNumeral
+AbstractExpression <|-- Subtract
+AbstractExpression <--o Subtract
+
+class RomanNumeral1 {
+    + one
+    + four
+    + five
+    + nine
+    + multiplier
+    + interpret()
+}
+
+RomanNumeral <|-- RomanNumeral1
+
+class RomanNumeral10 {
+    + one
+    + four
+    + five
+    + nine
+    + multiplier
+    + interpret()
+}
+
+class RomanNumeral100 {
+    + one
+    + four
+    + five
+    + nine
+    + multiplier
+    + interpret()
+}
+
+class RomanNumeral1000 {
+    + one
+    + four
+    + five
+    + nine
+    + multiplier
+    + interpret()
+}
+
+RomanNumeral1 <|-- RomanNumeral10
+RomanNumeral1 <|-- RomanNumeral100
+RomanNumeral1 <|-- RomanNumeral1000

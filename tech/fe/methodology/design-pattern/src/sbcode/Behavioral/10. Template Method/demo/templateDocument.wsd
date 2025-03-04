@@ -1,0 +1,27 @@
+@startuml
+
+abstract class abstractDocument {
+    + createDocument(string): void
+    + {abstract} title(Document): void
+    + description(Document): void
+    + author(Document): void
+    + backgroundColour(Document): void
+    + {abstract} text(Document, text): void
+    + footer(Document): void
+    + print(Document): void
+}
+
+class TextDocument {
+    + title(Document): void
+    + text(Document, text): void
+    + footer(Document): void
+}
+
+class HTMLDocument {
+    + title(Document): void
+    + textt(Document, text): void
+    + print(Document): void
+}
+
+abstractDocument <|-- TextDocument
+abstractDocument <|-- HTMLDocument

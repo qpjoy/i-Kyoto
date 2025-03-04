@@ -1,0 +1,44 @@
+@startuml
+
+skinparam ClassAttributeIconSize 0
+
+class StateContext {
+    - state: ExampleState
+    + state(ExampleState): ExampleState
+    + request(): void
+}
+
+together StateI {
+    class "ExampleState(Enum)" as ExampleState  {
+        Intializing = "Initializing"
+        Started = "Started"
+        Running = "Running"
+        Finished = "Finished"
+    }
+
+    interface IExampleState {
+        + request(): void
+    }
+}
+
+
+StateContext -right-> ExampleState
+StateContext ..|> IExampleState
+
+ExampleState -[hidden]down- IExampleState
+
+IExampleState <|.. Started
+IExampleState <|.. Running
+IExampleState <|.. Finished
+
+class Started {
+    + request(): void
+}
+
+class Running {
+    + request(): void
+}
+
+class Finished {
+    + request(): void
+}

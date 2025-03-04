@@ -1,0 +1,37 @@
+@startuml
+
+left to right direction
+
+skinparam PackageStyle rectangle
+skinparam ClassAttributeIconSize 0 
+' skinparam 
+
+package "Client Application" as ClientApplication {}
+
+class Subject {
+    - observers: Set<IObserver>
+    + subscribe(IObserver): type
+    + unsubscribe(IObserver): type
+    + notify(type): type
+}
+
+class Observer {
+    + notify(type): type
+}
+
+ClientApplication o-down-> Observer
+Subject <-right-* Observer
+
+interface IObservable {
+    + subscribe(IObserver): type
+    + unsubscribe(IObserver): type
+    + notify(type): type
+}
+
+interface IObserver {
+    + notify(type): type
+}
+
+Subject -[dashed]down-|> IObservable
+Observer -[dashed]down-|> IObserver
+

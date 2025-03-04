@@ -1,0 +1,25 @@
+@startuml
+
+skinparam PackageStyle rectangle
+skinparam ClassAttributeIconSize 0
+
+interface IComponent {
+    + method(): string
+}
+
+class Component {
+    + method(): type
+}
+
+class Decorator {
+    -object(): IComponent
+    + method(): type
+}
+
+package "Client Application" as clientApplication {}
+
+IComponent <|-[dashed]down- Component
+IComponent <|-[dashed]down- Decorator
+Component <-right-* Decorator : \t\t\t\t
+Component <-down-o clientApplication
+Decorator <-down-o clientApplication

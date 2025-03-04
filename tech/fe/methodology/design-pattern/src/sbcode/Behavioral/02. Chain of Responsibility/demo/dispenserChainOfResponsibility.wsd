@@ -1,0 +1,50 @@
+@startuml
+
+skinparam PackageStyle rectangle
+skinparam ClassAttributeIconSize 0
+skinparam Linetype ortho
+
+interface IDispenser {
+    + nextSuccessor(IDispenser)
+    + handle(number): void
+}
+
+class Dispenser10 {
+    - successor: IDispenser
+    + nextSuccessor(IDispenser)
+    + handle(number)
+}
+
+class Dispenser20 {
+    - successor: IDispenser
+    + nextSuccessor(IDispensor)
+    + handle(number)
+}
+
+class Dispenser50 {
+    - successor: IDispenser
+    + nextSuccessor(IDispensor)
+    + handle(number)
+}
+
+IDispenser <|-[dashed]- Dispenser10
+IDispenser <|-[dashed]- Dispenser20
+IDispenser <|-[dashed]- Dispenser50
+
+IDispenser <|--o Dispenser10
+IDispenser <|--o Dispenser20
+IDispenser <|--o Dispenser50
+
+package "\tClient\t" as Client {}
+
+class ATMDispenserChain {
+    + chain1: Despenser50
+    + chain2: Despenser20
+    + chain3: Despenser10
+}
+
+Client -right-> ATMDispenserChain
+
+Dispenser10 <--* ATMDispenserChain
+Dispenser20 <--* ATMDispenserChain
+Dispenser50 <--* ATMDispenserChain

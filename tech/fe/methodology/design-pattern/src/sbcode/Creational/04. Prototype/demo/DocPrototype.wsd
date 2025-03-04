@@ -1,0 +1,21 @@
+@startuml
+
+left to right direction
+
+skinparam ClassAttributeIconSize 0
+skinparam PackageStyle rectangle
+
+class Document {
+    + name: type
+    + list: [number[], number[]]
+    + clone(mode)
+}
+
+package "Client Application" as clientApplication {}
+
+Document <-right-o clientApplication
+
+interface IPrototype {
+    + clone(mode)
+}
+Document ...|> IPrototype

@@ -1,0 +1,40 @@
+@startuml
+
+skinparam PackageStyle rectangle
+skinparam ClassAttributeIconSize 0
+
+class IA {
+    + methodA(): void
+}
+
+class IB {
+    + methodB(): void
+}
+
+IA --[hidden]right-- IB : /t/t/t/t/t/t/t/t/t/t/t/t/t/t
+
+class ClassA {
+    + methodA(): void
+}
+
+class ClassBAdapter {
+    - classB: ClassB
+    + methodA(): void
+}
+
+class ClassB {
+    + methodB(): void
+}
+
+IA <|-[dashed]down- ClassA
+IA <|-[dashed]- ClassBAdapter
+IB <|-[dashed]- ClassB
+ClassA -[hidden]right- ClassBAdapter
+ClassBAdapter *-right-> ClassB
+
+ClientApplication o-up-> ClassA
+ClientApplication o-up-> ClassBAdapter
+
+package "Client Application" as ClientApplication {}
+
+@enduml

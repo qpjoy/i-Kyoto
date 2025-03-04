@@ -1,0 +1,48 @@
+@startuml
+
+skinparam PackageStyle rectangle
+skinparam ClassAttributeIconSize 0
+
+package "Client Application" as ClientApplication {}
+
+class Table {
+    + rows: Row[]
+    + constructor(number, number)
+    + draw(): void
+}
+
+ClientApplication o--> Table
+
+class Flyweight {
+    + code: number
+    + constructor(number)
+}
+
+ClientApplication -[hidden]right- Flyweight
+
+Flyweight <-right-o FlyweightFactory
+
+class Row {
+    + columns: Column[]
+    + constructor(number)
+    + getData(): string
+}
+
+Table o-right-> Row
+
+interface FlyweightFactory {
+    + flyweights: { [id: number]: Flyweight }
+    + getFlyweight(code): Flyweight
+    + getCount(): number
+}
+
+class Column {
+    + data: string
+    + width: number
+    + justify: number
+
+    + getData(): string
+}
+
+FlyweightFactory <|-[dashed]- Column
+Row o-right-> Column

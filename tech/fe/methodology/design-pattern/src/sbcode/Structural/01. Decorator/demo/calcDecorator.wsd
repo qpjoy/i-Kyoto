@@ -1,0 +1,34 @@
+@startuml
+
+skinparam PackageStyle rectangle
+skinparam ClassAttributeIconSize 0
+
+interface IValue {
+    + value(): number
+}
+
+class Add {
+    + value: number
+    + constructor(val1, val2): IValue
+}
+
+class Value {
+    + value: number
+    + constructor(val1, val2): IValue
+}
+
+class Sub {
+    + value: number
+    + constructor(val1, val2): IValue
+}
+
+package "Client Application" as clientApplication {}
+
+IValue <|-[dashed]down- Add
+IValue <|-[dashed]down- Value
+IValue <|-[dashed]down- Sub
+Add *-right-> Value : \t\t
+Value <-right-* Sub: \t\t
+Add <-down-o clientApplication
+Value <-down-o clientApplication
+Sub <-down-o clientApplication

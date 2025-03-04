@@ -1,0 +1,45 @@
+@startuml
+
+left to right direction
+skinparam ClassAttributeIconSize 0
+skinparam PackageStyle rectangle
+
+package "Client Application" as ClientApplication {}
+
+class RefinedAbstractionA {
+    - implementer: IImplementer
+    + method(type): type
+}
+
+interface IAbstraction {
+    + method(type): type
+}
+
+class RefinedAbstractionB {
+    - implementer: IImplementer
+    + method(type): type
+}
+
+ClientApplication o--> RefinedAbstractionA
+ClientApplication o--> RefinedAbstractionB
+
+RefinedAbstractionA -[dashed]right-|> IAbstraction : \t\t
+IAbstraction <|-[dashed]right- RefinedAbstractionB : \t\t
+
+class ConcreteImplementerA {
+    + method(type): type
+}
+
+interface IImplementer {
+    + method(type): type
+}
+
+class ConcreteImplementerB {
+    + method(type): type
+}
+
+RefinedAbstractionA *--> ConcreteImplementerA
+RefinedAbstractionB *--> ConcreteImplementerB
+
+ConcreteImplementerA -[dashed]right-|> IImplementer : \t\t
+IImplementer <|-[dashed]right- ConcreteImplementerB : \t\t

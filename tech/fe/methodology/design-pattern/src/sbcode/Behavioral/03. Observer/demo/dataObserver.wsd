@@ -1,0 +1,84 @@
+@startuml
+
+skinparam ClassAttributeIconSize 0
+skinparam PackageStyle rectangle
+
+package "The Client Application" as ClientApplication {
+    interface IDataView {
+        + notify(number[]): void
+        + draw(number[]): void
+        + delete(): void
+    }
+
+    class PieGraph {
+        - observable: IDataModel
+        - id: number
+        + constructor(IDataModel)
+        + notify(number[]): void
+        + draw(number[]) void
+        + delete(): void
+    }
+
+    class BarGraph {
+        - observable: IDataModel
+        - id: number
+        + constructor(IDataModel)
+        + notify(number[]): void
+        + draw(number[]) void
+        + delete(): void
+    }
+
+    class TableView {
+        - observable: IDataModel
+        - id: number
+        + constructor(IDataModel)
+        + notify(number[]): void
+        + draw(number[]) void
+        + delete(): void
+    }
+
+    class DataModel {
+        - observers: {[id: number]: IDataView}
+        - counter: number
+        - dataController: IDataController
+
+        + subscribe(IDataView): number
+        + unsubscribe(IDataView): void
+        + notify(number[]): void
+    }
+
+    class IDataModel {
+        + subscribe(IDataView): number
+        + unsubscribe(IDataView): void
+        + notify(number[]): void
+    }
+
+    IDataView <|-[dashed]- PieGraph
+    IDataView <|-[dashed]- BarGraph
+    IDataView <|-[dashed]- TableView
+
+    PieGraph *--> DataModel
+    BarGraph *--> DataModel
+    TableView *--> DataModel
+
+    DataModel -[dashed]right-> IDataModel
+}
+
+package "Hypothetical External Datasource" as ExternalDatasource {
+    class DataController {
+        - observers: set<IDataModel>
+        + subscribe(IDataModel): void
+        + unsubscribe(IDataModel): void
+        + notify(number[]): void
+    }
+    
+    interface IDataController {
+        + subscribe(IDataModel): void
+        + unsubscribe(IDataModel): void
+        + notify(number[]): void
+    }
+
+    DataController -[dashed]right-|> IDataController : \t
+}
+
+DataModel *--> DataController

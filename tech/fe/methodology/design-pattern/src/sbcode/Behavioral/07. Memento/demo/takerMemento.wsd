@@ -1,0 +1,43 @@
+@startuml
+
+
+skinparam PackageStyle rectangle
+skinparam ClassAttributeIconSize 0
+
+package "Client Application" as ClientApplication {}
+
+class CareTaker {
+    - originator: GameCharacter
+    - mementos: Memento[]
+    + save(): void
+    + restore(index): void
+}
+
+class GameCharacter {
+    - score: number
+    - inventory: Set<string>
+    - level: number
+    - location: { x: number; y: number; z: number}
+    + memento(Memento): Memento
+    + score(): number
+    + registerKill(): void
+    + addInventory(string): void
+    + progressToNextLevel(): void
+    + moveForeward(number): void
+    + status(): string
+}
+
+ClientApplication o-right-> GameCharacter : \t
+ClientApplication o--> CareTaker
+GameCharacter <--o CareTaker
+
+class Memento {
+    + score: number
+    + inventory: Set<string>
+    + level: number
+    + location: { x: number; y: number; z: number}
+}
+
+GameCharacter -[hidden]- Memento
+
+CareTaker "N" o-right-> Memento
