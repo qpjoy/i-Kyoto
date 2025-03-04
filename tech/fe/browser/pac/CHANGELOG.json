@@ -1,0 +1,17 @@
+{
+  "name": "@qpjoy/fe_browser_pac",
+  "entries": [
+    {
+      "version": "1.0.0",
+      "tag": "@qpjoy/fe_browser_pac_v1.0.0",
+      "date": "Tue, 07 Jan 2025 06:31:26 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "browser proxy pac"
+          }
+        ]
+      }
+    }
+  ]
+}

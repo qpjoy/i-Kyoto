@@ -30,6 +30,14 @@
   "projectFolderMaxDepth": 8,
   "variants": [],
   "projects": [
+    // # Fe
+    {
+      "packageName": "@qpjoy/fe_browser_pac",
+      "projectFolder": "tech/fe/browser/pac",
+      "reviewCategory": "fe",
+      "tags": ["fe"],
+      "shouldPublish": true
+    },
     // # dock
     // pushcode
     {
