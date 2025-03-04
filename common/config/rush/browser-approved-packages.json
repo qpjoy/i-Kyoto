@@ -500,7 +500,7 @@
     },
     {
       "name": "ts-node",
-      "allowedCategories": ["be", "rock"]
+      "allowedCategories": ["be", "fe", "rock"]
     },
     {
       "name": "tsconfig-paths",

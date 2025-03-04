@@ -31,12 +31,20 @@
   "variants": [],
   "projects": [
     // # Fe
+    // browser/pac
     {
       "packageName": "@qpjoy/fe_browser_pac",
       "projectFolder": "tech/fe/browser/pac",
       "reviewCategory": "fe",
       "tags": ["fe"],
       "shouldPublish": true
+    },
+    // algorithm
+    {
+      "packageName": "@qpjoy/algorithm",
+      "projectFolder": "tech/fe/methodology/algorithm",
+      "reviewCategory": "fe",
+      "tags": ["fe"]
     },
     // # dock
     // pushcode
