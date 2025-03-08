@@ -33,6 +33,8 @@ rush add --package example-lib@1.2.3 --caret
 rush add --package example-lib@1.2.3 --make-consistent
 
 
+# install git-lfs serve large files
+
 rush remove --package example-lib
 
 rush upgrade-interactive
