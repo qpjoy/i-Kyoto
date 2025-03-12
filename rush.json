@@ -33,6 +33,13 @@
     // # Fe
     // browser/pac
     {
+      "packageName": "joy_react",
+      "projectFolder": "tech/fe/react/joy",
+      "reviewCategory": "fe",
+      "tags": ["fe"],
+      "shouldPublish": true
+    },
+    {
       "packageName": "@qpjoy/fe_browser_pac",
       "projectFolder": "tech/fe/browser/pac",
       "reviewCategory": "fe",
@@ -47,6 +54,12 @@
     },
     {
       "packageName": "@qpjoy/design_pattern",
+      "projectFolder": "tech/fe/methodology/design-pattern",
+      "reviewCategory": "fe",
+      "tags": ["fe"]
+    },
+    {
+      "packageName": "@qpjoy/data_structure",
       "projectFolder": "tech/fe/methodology/design-pattern",
       "reviewCategory": "fe",
       "tags": ["fe"]
