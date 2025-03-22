@@ -10,6 +10,7 @@
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist", // Output directory for compiled files
     "rootDir": "./src", // Root directory for source files
+    "noImplicitThis": false,
     "resolveJsonModule": true // Allow importing .json files
   },
   "include": ["src/**/*.ts", "src/index.tsx"], // Include all TypeScript files in the src directory

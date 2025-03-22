@@ -60,7 +60,7 @@
     },
     {
       "packageName": "@qpjoy/data_structure",
-      "projectFolder": "tech/fe/methodology/design-pattern",
+      "projectFolder": "tech/fe/methodology/data-structure",
       "reviewCategory": "fe",
       "tags": ["fe"]
     },
