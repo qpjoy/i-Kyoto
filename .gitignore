@@ -137,3 +137,7 @@ uploads/*
 # videos
 **/*.mp4
 **/*.gz
+
+
+# dev
+skaffold
