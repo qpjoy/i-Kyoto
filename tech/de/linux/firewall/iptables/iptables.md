@@ -5,6 +5,10 @@
 ```bash
 apt-get install net-tools
 apt-get install open-vm-tools-desktop
+
+# List all
+iptables -S
+
 # DROP
 ping 192.168.1.9
 iptables -t filter -A INPUT -p icmp -j DROP

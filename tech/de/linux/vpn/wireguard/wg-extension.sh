@@ -12,3 +12,13 @@ apt-get remove --purge -y wireguard wireguard-tools
 
 ### wg manual
 systemctl status wg-quick@wg0.service
+ip addr show wg0
+wg show wg0
+
+### wg stop
+systemctl disable --now wg-iptables.service
+rm -f /etc/systemd/system/wg-iptables.service
+systemctl disable --now wg-quick@wg0.service
+rm -f /etc/sysctl.d/99-wireguard-forward.conf
+rm -rf /etc/wireguard/
+apt-get remove --purge -y wireguard wireguard-tools

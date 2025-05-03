@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# 屏蔽国内网站
 echo "### BLOCKING CHINA ###"
 
 
