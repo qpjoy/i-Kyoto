@@ -1,7 +1,7 @@
 ```bash
 npm install -g @microsoft/rush --loglevel verbose
 
-git clone git@github.com:qpjoy/i-know.git
+git clone git@github.com:qpjoy/i-Kyoto.git
 rush init
 
 # ~~~ git blame

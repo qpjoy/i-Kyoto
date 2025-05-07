@@ -40,6 +40,13 @@
       "shouldPublish": true
     },
     {
+      "packageName": "micro_state_react",
+      "projectFolder": "tech/fe/react/micro-state",
+      "reviewCategory": "fe",
+      "tags": ["fe"],
+      "shouldPublish": true
+    },
+    {
       "packageName": "@qpjoy/fe_browser_pac",
       "projectFolder": "tech/fe/browser/pac",
       "reviewCategory": "fe",
