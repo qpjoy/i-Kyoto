@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { CustomerContext } from "@/contexts/CustomerContext";
-import QYWX from "@/assets/pushcode/企业微信.png";
+import QYWX from "@/assets/pushcode/vx.png";
 
 const CustomerService = () => {
   const { setOpen } = useContext(CustomerContext);

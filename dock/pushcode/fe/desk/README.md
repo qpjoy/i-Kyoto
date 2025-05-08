@@ -5,5 +5,11 @@
 # Add Mui
 
 ```bash
-yarn add @mui/material @emotion/react @emotion/styled
+yarn
+yarn build-html-dev
+yarn start
+
+
+yarn build-html-dev
+yarn dist
 ```

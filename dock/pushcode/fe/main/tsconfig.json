@@ -11,6 +11,7 @@
       "@components/*": ["src/components/*"],
       "@assets/*": ["src/assets/*"]
     },
+    // "types": ["react-helmet"],
 
     /* Bundler mode */
     "moduleResolution": "bundler",

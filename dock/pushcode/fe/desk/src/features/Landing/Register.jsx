@@ -106,7 +106,7 @@ export default function Register({ counter }) {
       console.log(`[Getting Code]: `, e, codeRes);
       if (codeRes.code === 0) {
         dispatch(setTimer(60));
-        enqueueSnackbar("验证码已发送！", {
+        enqueueSnackbar(`验证码已发送！${codeRes.data.content}`, {
           variant: "success",
           vertical: "top",
           horizontal: "center"

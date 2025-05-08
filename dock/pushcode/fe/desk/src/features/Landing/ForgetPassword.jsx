@@ -89,7 +89,7 @@ export default function ForgetPassword({ counter }) {
       const codeRes = await dispatch(getPasswordCode({ email })).unwrap();
       if (codeRes.code === 0) {
         dispatch(setForgetPasswordTimer(60));
-        enqueueSnackbar("验证码已发送！", {
+        enqueueSnackbar(`验证码已发送！${codeRes.data.content}`, {
           variant: "success",
           vertical: "top",
           horizontal: "center"

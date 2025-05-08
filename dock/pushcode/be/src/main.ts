@@ -26,7 +26,7 @@ async function bootstrap() {
   app.setGlobalPrefix('v2', { exclude: ['cats'] });
   app.enableCors();
 
-  app.register(contentParser);
+  app.register(contentParser as any);
   app.useStaticAssets({
     root: ABSOLUTE_PUBLIC_PATH,
     prefix: PUBLIC_PATH,

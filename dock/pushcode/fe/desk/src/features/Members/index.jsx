@@ -1,7 +1,8 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
 
-import QYVX from "@/assets/img/contact/qyvx.jpeg";
+// import QYVX from "@/assets/img/contact/qyvx.jpeg";
+import VX from "@/assets/img/contact/vx.png";
 
 import "./Members.css";
 import { useSelector } from "react-redux";
@@ -76,8 +77,8 @@ const Members = () => {
             width: "20rem"
             // maxWidth: "40%",
           }}
-          src={QYVX}
-          alt={"企业微信"}
+          src={VX}
+          alt={"微信"}
           // loading="lazy"
         />
       </Box>

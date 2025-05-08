@@ -1,5 +1,5 @@
 import { Dialog } from "@mui/material";
-import QYWX from "@/assets/pushcode/企业微信.png";
+import QYWX from "@/assets/pushcode/vx.png";
 import { useContext } from "react";
 import { CustomerContext } from "@/contexts/CustomerContext";
 

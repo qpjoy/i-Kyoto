@@ -5,16 +5,17 @@ const workingSchema = 'push_code';
 export const config: any = {
   database: {
     dialect: 'postgres' as Dialect,
-    host: 'localhost',
-    // port: 5432,
-    port: 4057,
+    // host: 'localhost',
+    host: 'postgres',
+    port: 5432,
+    // port: 4057,
     username: 'root',
     password: 'postgres',
     database: 'push_code',
     logging: true,
   },
   redis: {
-    host: 'localhost',
+    host: 'redis',
     port: 6379,
     // url: `redis://localhost:6379`,
   },
@@ -74,7 +75,6 @@ export const config: any = {
       tokenUrl: 'https://aip.baidubce.com/oauth/2.0/token',
       botUrl:
         'https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/completions',
-      // ?access_token=24.32ba20cc1933c695655e3adaa8017caa.2592000.1704191138.282335-44234012
       client_id: 'IreqmbRSMNY6B8N02GTkpyaK',
       client_secret: '',
       grant_type: 'client_credentials',

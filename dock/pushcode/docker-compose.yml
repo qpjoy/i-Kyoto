@@ -1,0 +1,85 @@
+services:
+  push-main:
+    container_name: qpjoy.push-main
+    volumes:
+      - ./fe/main:/app
+    # image: qpjoy/push-main
+    build:
+      context: ./fe/main
+      dockerfile: Dockerfile
+    ports:
+      - 8088:80
+
+  push-be:
+    container_name: qpjoy.push-be
+    # image: qpjoy/push-be
+    build:
+      context: ./be
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+    ports:
+      - 9056:9056
+    networks:
+      - pg_admin
+  # volumes:
+  #   postgres-data:
+  #   pgadmin-data:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    hostname: postgres
+    expose:
+      - 5432
+    ports:
+      - 4057:5432
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: graphql_example
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+    volumes:
+      #     - postgres-data:/var/lib/postgresql/data
+      - D:/data/postgres-data:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - pg_admin
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    depends_on:
+      - postgres
+    ports:
+      - 4904:4904
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_LISTEN_PORT: 4904
+      # Allow pgAdmin to connect to any host
+      # PGADMIN_LISTEN_ADDRESS: "0.0.0.0"
+    volumes:
+      # TODO: chown -R 5050:5050 /Users/qpjoy/data/pgadmin-data
+      #       SEE .build.yml
+      - D:/data/pgadmin-data:/var/lib/pgadmin
+    restart: unless-stopped
+    networks:
+      - pg_admin
+  redis:
+    image: redis:latest
+    container_name: redis-server
+    ports:
+      - "6379:6379"
+    volumes:
+      - D:/data/redis-data:/data
+    networks:
+      - pg_admin
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: redis-commander-client
+    ports:
+      - "8081:8081"
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+networks:
+  pg_admin:

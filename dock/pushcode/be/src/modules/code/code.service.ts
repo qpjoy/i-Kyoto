@@ -86,10 +86,10 @@ export class CodeService {
         await coding.destroy();
       } else {
         // 验证码没有过期
-        await send({
-          code: coding.content,
-          email,
-        });
+        // await send({
+        //   code: coding.content,
+        //   email,
+        // });
         return coding;
       }
     }
@@ -107,10 +107,14 @@ export class CodeService {
     // code.expireAt = new Date();
     const codeData = await code.save();
 
-    await send({
-      code: code.content,
-      email,
-    });
+    // try {
+    //   await send({
+    //     code: code.content,
+    //     email,
+    //   });
+    // } catch (e) {
+    //   console.log(`[SendCodeError]: `, e);
+    // }
     return codeData;
   }
 
@@ -151,10 +155,10 @@ export class CodeService {
         await coding.destroy();
       } else {
         // 验证码没有过期
-        await forgetPassword({
-          code: coding.content,
-          email,
-        });
+        // await forgetPassword({
+        //   code: coding.content,
+        //   email,
+        // });
         return coding;
       }
     }
@@ -172,10 +176,10 @@ export class CodeService {
     // code.expireAt = new Date();
     const codeData = await code.save();
 
-    await forgetPassword({
-      code: code.content,
-      email,
-    });
+    // await forgetPassword({
+    //   code: code.content,
+    //   email,
+    // });
     return codeData;
   }
 

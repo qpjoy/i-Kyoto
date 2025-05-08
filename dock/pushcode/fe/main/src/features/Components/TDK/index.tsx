@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
-const TDK = ({ title, description, keywords }: any) => {
+const TDK = ({ title, description, keywords }: any): any => {
   const [dynamicTitle, setDynamicTitle] = useState(title);
   const [dynamicDescription, setDynamicDescription] = useState(description);
   const [dynamicKeywords, setDynamicKeywords] = useState(keywords);
@@ -12,13 +12,11 @@ const TDK = ({ title, description, keywords }: any) => {
     setDynamicKeywords(keywords);
   }, [title, description, keywords]);
   return (
-    <div>
-      <Helmet>
-        <title>{dynamicTitle}</title>
-        <meta name="description" content={dynamicDescription} />
-        <meta name="keywords" content={dynamicKeywords} />
-      </Helmet>
-    </div>
+    <Helmet defaultTitle="PushCode">
+      <title>{dynamicTitle}</title>
+      <meta name="description" content={dynamicDescription} />
+      <meta name="keywords" content={dynamicKeywords} />
+    </Helmet>
   );
 };
 
