@@ -12,7 +12,12 @@
     "start": "ts-node src/index.ts",
     "watch": "tsc -w"
   },
+  "dependencies": {
+    "inquirer": "^12.6.0",
+    "lowdb": "^7.0.1"
+  },
   "devDependencies": {
+    "@types/inquirer": "^9.0.8",
     "@types/node": "^22.15.14",
     "typescript": "^5.8.3"
   }
