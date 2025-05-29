@@ -121,7 +121,8 @@ function App() {
           <HashRouter>
             <Suspense fallback={<SpinnerFullPage />}>
               <Routes>
-                <Route index element={<Homepage />} />
+                <Route index element={<Navigate replace to="app/account" />} />
+                {/* <Route index element={<Homepage />} /> */}
                 <Route path="login" element={<Login />} />
                 <Route path="register" element={<Register counter={registerCounter} />} />
                 <Route path="register-next" element={<RegisterNext />} />

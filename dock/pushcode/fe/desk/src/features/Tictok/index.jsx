@@ -307,7 +307,7 @@ const Tictok = () => {
         抖音 账户
       </Typography>
 
-      {devices?.length > maxDeviceNum ? (
+      {/* {devices?.length > maxDeviceNum ? (
         // devices.map((device) => device.content).indexOf(deviceID) < 0 ?
         <Typography
           // component="h7"
@@ -354,202 +354,203 @@ const Tictok = () => {
           您的套餐计划已经过期，请联系客服！
         </Typography>
       ) : (
+       
+      )} */}
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          mt: "2rem"
+        }}
+      >
+        <Box sx={{ minWidth: 420 }}>
+          <FormControl fullWidth>
+            <InputLabel id="network-label">请选择您的网卡</InputLabel>
+            <Select
+              labelId="network-label"
+              id="network-select"
+              value={network}
+              label="Network"
+              autoWidth={true}
+              onChange={handleNetworkChange}
+              onOpen={handleNetworkOpen}
+              // onClose={handleNetworkChange}
+            >
+              {networks.map((network, idx) => {
+                return (
+                  <MenuItem key={`network_${idx}`} value={network.number}>
+                    {network.wifi}
+                  </MenuItem>
+                );
+              })}
+              {/* <MenuItem value={10}>Ten</MenuItem>
+                <MenuItem value={20}>Twenty</MenuItem>
+                <MenuItem value={30}>Thirty</MenuItem> */}
+            </Select>
+          </FormControl>
+        </Box>
+
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between"
+            // flexDirection:
+          }}
+        >
+          <Box
+            sx={{
+              m: "1rem 0",
+              display: "flex",
+              width: "80%",
+              minWidth: "400px"
+            }}
+          >
+            <Typography variant="h7" color="inherit" noWrap>
+              服务器：
+            </Typography>
+
+            <Typography
+              variant="h7"
+              color="inherit"
+              noWrap
+              sx={{
+                color: "#9d9d9d",
+                ml: "1rem"
+              }}
+            >
+              {isGenerating ? "正在生成中..." : server.url || ""}
+            </Typography>
+          </Box>
+
+          <Button variant="outlined" size="small" onClick={handleCopyUrl}>
+            复制
+          </Button>
+        </Box>
+
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between"
+            // flexDirection:
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              width: "80%",
+              minWidth: "400px"
+            }}
+          >
+            <Typography
+              variant="h7"
+              color="inherit"
+              noWrap
+              sx={{
+                flexShrink: 0
+              }}
+            >
+              串流密钥：
+            </Typography>
+
+            <Typography
+              variant="h7"
+              color="inherit"
+              noWrap
+              sx={{
+                color: "#9d9d9d"
+              }}
+            >
+              {isGenerating ? "正在生成中..." : server.token || ""}
+            </Typography>
+          </Box>
+
+          <Button variant="outlined" size="small" onClick={handleCopyToken}>
+            复制
+          </Button>
+        </Box>
+
+        {/* <Button variant="outlined" size="small" onClick={handleWebSocket}>
+            自动设置用户名密码（仅需一次）
+          </Button> */}
+
         <Box
           sx={{
             display: "flex",
             flexDirection: "column",
-            mt: "2rem"
+            // alignItems: "",
+            // justifyContent: "space-between",
+            // flexDirection:
+            marginTop: "1rem"
           }}
         >
-          <Box sx={{ minWidth: 420 }}>
-            <FormControl fullWidth>
-              <InputLabel id="network-label">请选择您的网卡</InputLabel>
-              <Select
-                labelId="network-label"
-                id="network-select"
-                value={network}
-                label="Network"
-                autoWidth={true}
-                onChange={handleNetworkChange}
-                onOpen={handleNetworkOpen}
-                // onClose={handleNetworkChange}
-              >
-                {networks.map((network, idx) => {
-                  return (
-                    <MenuItem key={`network_${idx}`} value={network.number}>
-                      {network.wifi}
-                    </MenuItem>
-                  );
-                })}
-                {/* <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem> */}
-              </Select>
-            </FormControl>
-          </Box>
-
-          <Box
+          <FormControlLabel
+            control={
+              <IOSSwitch
+                sx={{ m: 1 }}
+                // defaultChecked
+                // value={"123"}
+                checked={automation}
+                onChange={handleAutomation}
+              />
+            }
+            label="自动化流程"
+          />
+          <Typography
+            // component="h7"
+            // variant="h7"
+            color="var(--color-content)"
+            // noWrap
             sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between"
-              // flexDirection:
+              fontSize: "1rem",
+              // paddingTop: ".4rem",
+              color: "#9d9d9d"
+              // fontSize: "1rem",
             }}
           >
-            <Box
-              sx={{
-                m: "1rem 0",
-                display: "flex",
-                width: "80%",
-                minWidth: "400px"
-              }}
-            >
-              <Typography variant="h7" color="inherit" noWrap>
-                服务器：
-              </Typography>
-
-              <Typography
-                variant="h7"
-                color="inherit"
-                noWrap
-                sx={{
-                  color: "#9d9d9d",
-                  ml: "1rem"
-                }}
-              >
-                {isGenerating ? "正在生成中..." : server.url || ""}
-              </Typography>
-            </Box>
-
-            <Button variant="outlined" size="small" onClick={handleCopyUrl}>
-              复制
-            </Button>
-          </Box>
-
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between"
-              // flexDirection:
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                width: "80%",
-                minWidth: "400px"
-              }}
-            >
-              <Typography
-                variant="h7"
-                color="inherit"
-                noWrap
-                sx={{
-                  flexShrink: 0
-                }}
-              >
-                串流密钥：
-              </Typography>
-
-              <Typography
-                variant="h7"
-                color="inherit"
-                noWrap
-                sx={{
-                  color: "#9d9d9d"
-                }}
-              >
-                {isGenerating ? "正在生成中..." : server.token || ""}
-              </Typography>
-            </Box>
-
-            <Button variant="outlined" size="small" onClick={handleCopyToken}>
-              复制
-            </Button>
-          </Box>
-
-          {/* <Button variant="outlined" size="small" onClick={handleWebSocket}>
-            自动设置用户名密码（仅需一次）
-          </Button> */}
-
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              // alignItems: "",
-              // justifyContent: "space-between",
-              // flexDirection:
-              marginTop: "1rem"
-            }}
-          >
-            <FormControlLabel
-              control={
-                <IOSSwitch
-                  sx={{ m: 1 }}
-                  // defaultChecked
-                  // value={"123"}
-                  checked={automation}
-                  onChange={handleAutomation}
-                />
-              }
-              label="自动化流程"
-            />
-            <Typography
-              // component="h7"
-              // variant="h7"
-              color="var(--color-content)"
-              // noWrap
-              sx={{
-                fontSize: "1rem",
-                // paddingTop: ".4rem",
-                color: "#9d9d9d"
-                // fontSize: "1rem",
-              }}
-            >
-              开启后只需点击「直播伴侣-开始直播」，系统将自动启动OBS完成配置，并自动开播
-            </Typography>
-          </Box>
-
-          <Box
-            sx={{
-              display: "none",
-              flexDirection: "column",
-              // alignItems: "",
-              // justifyContent: "space-between",
-              // flexDirection:
-              marginTop: "2rem"
-            }}
-          >
-            <Button
-              sx={{
-                width: "20rem"
-              }}
-              variant="outlined"
-              size="small"
-              onClick={handleLive}
-              disabled={network && automation ? false : true}
-            >
-              一键直播
-            </Button>
-
-            <Typography
-              // component="h7"
-              // variant="h7"
-              color="var(--color-content)"
-              noWrap
-              sx={{
-                fontSize: "1rem",
-                // paddingTop: ".4rem",
-                color: "#9d9d9d"
-                // fontSize: "1rem",
-              }}
-            >
-              建议手动关闭直播伴侣和obs，一键开播
-            </Typography>
-          </Box>
+            开启后只需点击「直播伴侣-开始直播」，系统将自动启动OBS完成配置，并自动开播
+          </Typography>
         </Box>
-      )}
+
+        <Box
+          sx={{
+            display: "none",
+            flexDirection: "column",
+            // alignItems: "",
+            // justifyContent: "space-between",
+            // flexDirection:
+            marginTop: "2rem"
+          }}
+        >
+          <Button
+            sx={{
+              width: "20rem"
+            }}
+            variant="outlined"
+            size="small"
+            onClick={handleLive}
+            disabled={network && automation ? false : true}
+          >
+            一键直播
+          </Button>
+
+          <Typography
+            // component="h7"
+            // variant="h7"
+            color="var(--color-content)"
+            noWrap
+            sx={{
+              fontSize: "1rem",
+              // paddingTop: ".4rem",
+              color: "#9d9d9d"
+              // fontSize: "1rem",
+            }}
+          >
+            建议手动关闭直播伴侣和obs，一键开播
+          </Typography>
+        </Box>
+      </Box>
     </Box>
   );
 };
