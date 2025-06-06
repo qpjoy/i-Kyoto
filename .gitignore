@@ -141,3 +141,6 @@ uploads/*
 
 # dev
 skaffold
+
+# pdf
+StirlingPDF
