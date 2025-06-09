@@ -1,0 +1,19 @@
+server {
+    listen 80;
+    root /var/www/html/websites;
+    index index.html index.htm;
+    server_name memoscard.com;
+    access_log /var/log/nginx/memoscard.log;
+    # location / {
+    #     alias /var/www/html/websites/;
+    #     try_files $uri $uri/ /index.html =404;
+    # }
+    location / {
+        rewrite ^(.*)$ /quiz$1 permanent;
+    }
+
+    location /quiz {
+        alias /var/www/html/websites/quiz;
+        try_files $uri $uri/ /index.html =404;
+    }
+}

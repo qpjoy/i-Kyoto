@@ -1,0 +1,17 @@
+.banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+  &_title {
+    color: #292d33;
+    font-size: 0.4rem;
+  }
+
+  &_content {
+    margin-top: 0.125rem;
+    color: #9497a1;
+    font-size: 0.1875rem;
+  }
+}
