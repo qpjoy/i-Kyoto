@@ -13,3 +13,4 @@ services:
       - ./websites.conf:/etc/nginx/conf.d/websites.conf
       # need change ~ to workspace path in production
       - ~/workspace/websites/:/var/www/html/websites/
+      - ~/workspace/pdf/:/var/www/html/pdf/
