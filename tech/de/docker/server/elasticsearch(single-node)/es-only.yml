@@ -1,0 +1,53 @@
+# docker run -p 9201:9200 -p 9301:9300 --network esnet -e ES_JAVA_POTS="-Xms256m -Xmx256m" -e "discovery.type=single-node" --restart=always --name esbiubiubiu -d elasticsearch:7.9.3
+version: "3"
+services:
+  elasticsearch:
+    image: elasticsearch:7.6.2
+    # for mac M1/2
+    platform: linux/amd64
+    container_name: elasticsearch
+    environment:
+      - xpack.security.enabled=false
+      - xpack.security.transport.ssl.enabled=false
+      - xpack.security.http.ssl.enabled=false
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      # before 8.X
+      # /usr/share/elasticsearch/data
+      - /Users/qpjoy/data/elasticsearch-data:/var/lib/elasticsearch/data
+      - ./config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./config/elasticsearch-analysis-ik-7.6.2:/usr/share/elasticsearch/plugins/analysis-ik
+      - ./config/elasticsearch-analysis-hanlp-7.6.2:/usr/share/elasticsearch/plugins/analysis-hanlp
+    ports:
+      # - 19200:19200
+      - 9200:9200
+    networks:
+      - es_only
+
+  #     network:
+  #       - elastic1
+  # cluster.name: "docker-cluster"
+  # network.host: 0.0.0.0
+  # http.cors.enabled: true
+  # http.cors.allow-origin: "*"
+  # http.cors.allow-methods: OPTIONS, HEAD, GET, POST, PUT, DELETE
+  # http.cors.allow-headers: Content-Type, Accept, Authorization, x-requested-with
+  eshead:
+    image: mobz/elasticsearch-head:5-alpine
+    container_name: eshead
+    platform: linux/amd64
+    networks:
+      - es_only
+    volumes:
+      - ./config/vendor.js:/usr/src/app/_site/vendor.js
+    ports:
+      - 9100:9100
+
+networks:
+  es_only:
+    driver: bridge

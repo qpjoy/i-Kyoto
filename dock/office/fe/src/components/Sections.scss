@@ -1,0 +1,28 @@
+.sections {
+  width: 80%;
+  margin: 0 auto;
+  .section {
+  }
+  .section_title {
+    font-size: 0.3rem;
+    font-weight: bold;
+    color: #292d33;
+  }
+  .section_content {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 0.2rem;
+    display: flex;
+  }
+
+  .card {
+    display: flex;
+    align-items: center;
+
+    &_logo {
+      height: 0.6rem;
+    }
+    &_content {
+    }
+  }
+}

@@ -1,0 +1,26 @@
+version: "3.6"
+services:
+  Elasticsearch:
+    container_name: qpjoy.elasticsearch
+    # image: qpjoy/elasticsearch
+    image: elasticsearch:7.9.3
+    # platform: linux/amd64
+    # build:
+    #   context: ./elasticsearch
+    #   dockerfile: elasticsearch.dockerfile
+    environment:
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+      discovery.type: single-node
+
+    volumes:
+      - /Users/qpjoy/data/elasticsearch_data:/var/lib/elasticsearch/data
+      - ./elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      # - discovery.type=single-node
+      # - bootstrap.memory_lock=true
+      # - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+      # - http.cors.enabled=true
+      # - http.cors.allow-origin=*
+    ports:
+      - "3105:9200"
+      - "3106:9300"
+    restart: unless-stopped

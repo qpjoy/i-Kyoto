@@ -1,0 +1,61 @@
+version: "3.6"
+services:
+  Elasticsearch:
+    container_name: qpjoy.elasticsearch
+    image: qpjoy/elasticsearch
+    # image: elasticsearch:7.9.3
+    # platform: linux/amd64
+    build:
+      context: ./elasticsearch
+      dockerfile: elasticsearch.dockerfile
+    environment:
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+      discovery.type: single-node
+      # - discovery.type=single-node
+      # - bootstrap.memory_lock=true
+      # - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+      # - http.cors.enabled=true
+      # - http.cors.allow-origin=*
+    volumes:
+      - /Users/qpjoy/data/elasticsearch_data:/var/lib/elasticsearch/data:rw
+      - ./elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    ports:
+      - "3105:9200"
+      - "3106:9300"
+    networks:
+      - elk
+    restart: unless-stopped
+
+  Logstash:
+    image: logstash:7.9.3
+    container_name: logstash
+    restart: unless-stopped
+    volumes:
+      - ./logstash/:/logstash_dir
+    command: logstash -f /logstash_dir/logstash.conf
+    depends_on:
+      - Elasticsearch
+    ports:
+      - "1095:9600"
+    environment:
+      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+    networks:
+      - elk
+
+  Kibana:
+    image: kibana:7.9.3
+    container_name: kibana
+    restart: unless-stopped
+    ports:
+      - "4160:5601"
+    environment:
+      - ELASTICSEARCH_URL=https//elasticsearch:3105
+    depends_on:
+      - Elasticsearch
+    networks:
+      - elk
+# volumes:
+#   elastic_data:
+
+networks:
+  elk:
