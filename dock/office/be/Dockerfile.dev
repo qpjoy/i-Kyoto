@@ -1,0 +1,9 @@
+FROM node:20.18-alpine
+
+WORKDIR /app
+COPY package.json .
+COPY .npmrc yarn.lock ./
+RUN yarn install --verbose
+COPY . .
+
+CMD ["./node_modules/.bin/nest", "start", "pdf", "--watch"]
