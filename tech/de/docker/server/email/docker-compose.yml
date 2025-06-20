@@ -1,16 +1,21 @@
 services:
   postfix:
-    image: catatnight/postfix
+    image: boky/postfix
     container_name: postfix
     hostname: mail
-    domainname: memoscard.com
     environment:
-      - maildomain=memoscard.com
-      - smtp_user=admin:adminpassword
+      - POSTFIX_myhostname=mail.memoscard.com
+      - POSTFIX_mydomain=memoscard.com
+      - POSTFIX_smtp_tls_security_level=may
+      - POSTFIX_smtp_tls_loglevel=1
+      - POSTFIX_message_size_limit=30720000
+      - SMTP_USERNAME=admin@memoscard.com
+      - SMTP_PASSWORD=adminpassword
     ports:
       - "25:25"
+      - "587:587"
     volumes:
-      - ./data/maildata:/var/mail
+      - ./data/maildata:/var/spool/postfix
     restart: always
 
   dovecot:
@@ -51,7 +56,7 @@ services:
     depends_on:
       - postfix
     environment:
-      - SMTP_HOST=mail.memoscard.com
+      - SMTP_HOST=postfix
       - SMTP_PORT=587
       - SMTP_USER=admin@memoscard.com
       - SMTP_PASS=adminpassword
