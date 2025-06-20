@@ -42,9 +42,7 @@ services:
     volumes:
       - ./data/certbot:/etc/letsencrypt
     entrypoint: >
-      sh -c "certbot certonly --standalone --noninteractive
-             --agree-tos -m admin@memoscard.com
-             -d mail.memoscard.com --keep-until-expiring"
+      certbot certonly --standalone --noninteractive --agree-tos --email admin@memoscard.com -d mail.memoscard.com
     restart: "no"
 
   node:
