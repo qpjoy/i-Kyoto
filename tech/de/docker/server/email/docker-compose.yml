@@ -1,0 +1,60 @@
+services:
+  postfix:
+    image: catatnight/postfix
+    container_name: postfix
+    hostname: mail
+    domainname: memoscard.com
+    environment:
+      - maildomain=memoscard.com
+      - smtp_user=admin:adminpassword
+    ports:
+      - "25:25"
+    volumes:
+      - ./data/maildata:/var/mail
+    restart: always
+
+  dovecot:
+    image: tvial/dovecot
+    container_name: dovecot
+    ports:
+      - "143:143"
+    volumes:
+      - ./dovecot/dovecot.conf:/etc/dovecot/dovecot.conf:ro
+    restart: always
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/site.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./data/certbot:/etc/letsencrypt:ro
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - postfix
+    restart: always
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - ./data/certbot:/etc/letsencrypt
+    entrypoint: >
+      sh -c "certbot certonly --standalone --noninteractive
+             --agree-tos -m admin@memoscard.com
+             -d mail.memoscard.com --keep-until-expiring"
+    restart: "no"
+
+  node:
+    build: ./node
+    container_name: mailer
+    depends_on:
+      - postfix
+    environment:
+      - SMTP_HOST=mail.memoscard.com
+      - SMTP_PORT=587
+      - SMTP_USER=admin@memoscard.com
+      - SMTP_PASS=adminpassword
+    command: ["node", "sendMail.js"]
