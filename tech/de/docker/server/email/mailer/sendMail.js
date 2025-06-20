@@ -2,7 +2,7 @@ const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
-  port: process.env.SMTP_PORT,
+  port: parseInt(process.env.SMTP_PORT || "587"),
   secure: false,
   auth: {
     user: process.env.SMTP_USER,
@@ -15,10 +15,10 @@ const transporter = nodemailer.createTransport({
 
 transporter
   .sendMail({
-    from: '"Admin" <admin@memoscard.com>',
-    to: "409747494@qq.com",
-    subject: "Production Email Test",
+    from: process.env.SMTP_FROM,
+    to: process.env.SMTP_TO,
+    subject: "Mail Server Test ✔",
     text: "Hello! This is a secure production test."
   })
-  .then((info) => console.log("Email sent:", info.response))
-  .catch((err) => console.error("Email error:", err));
+  .then((info) => console.log("✅ Email sent:", info.response))
+  .catch((err) => console.error("❌ Failed to send email:", err));

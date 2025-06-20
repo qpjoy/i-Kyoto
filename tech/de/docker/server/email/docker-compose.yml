@@ -1,64 +1,44 @@
 services:
-  postfix:
-    image: boky/postfix
-    container_name: postfix
+  mail:
+    image: tozd/mail
+    container_name: mail
     hostname: mail
-    environment:
-      - POSTFIX_myhostname=mail.memoscard.com
-      - POSTFIX_mydomain=memoscard.com
-      - POSTFIX_smtp_tls_security_level=may
-      - POSTFIX_smtp_tls_loglevel=1
-      - POSTFIX_message_size_limit=30720000
-      - SMTP_USERNAME=admin@memoscard.com
-      - SMTP_PASSWORD=adminpassword
+    domainname: memoscard.com
+    restart: always
     ports:
       - "25:25"
-      - "587:587"
-    volumes:
-      - ./data/maildata:/var/spool/postfix
-    restart: always
-
-  dovecot:
-    image: instrumentisto/dovecot
-    container_name: dovecot
-    ports:
       - "143:143"
+      - "587:587"
+      - "993:993"
     volumes:
-      - ./dovecot/conf:/etc/dovecot/dovecot.conf:ro
-      - ./data/mail:/var/mail
-    restart: always
+      - ./data/mail:/var/lib/mail
+      - ./data/acme:/var/lib/acme
+      - ./data/letsencrypt:/etc/letsencrypt
+      - ./secrets:/etc/keys
+    environment:
+      - MAILNAME=mail.memoscard.com
+      - VIRTUAL_DOMAINS=memoscard.com
+      - USERS=admin@memoscard.com
+      - SMTP_PASSWORD_FILE=/etc/keys/smtp_password
+      - DKIM_SELECTOR=mail
+      - DKIM_DOMAINS=memoscard.com
+      - DKIM_PRIVATE_KEY_FILE=/etc/keys/dkim_private.key
+      - LETSENCRYPT_EMAIL=admin@memoscard.com
+      - RELAY_NETWORKS=192.168.0.0/16 172.0.0.0/8 127.0.0.0/8
+      - TLS_POLICY_LEVEL=encrypt
+    cap_add:
+      - NET_ADMIN
 
-  nginx:
-    image: nginx:latest
-    container_name: nginx
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./nginx/site.conf:/etc/nginx/conf.d/default.conf:ro
-      - ./data/certbot:/etc/letsencrypt:ro
-    ports:
-      - "80:80"
-      - "443:443"
-    depends_on:
-      - postfix
-    restart: always
-
-  certbot:
-    image: certbot/certbot
-    container_name: certbot
-    volumes:
-      - ./data/certbot:/etc/letsencrypt
-    entrypoint: >
-      certbot certonly --standalone --noninteractive --agree-tos --email admin@memoscard.com -d mail.memoscard.com
-    restart: "no"
-
-  node:
-    build: ./node
+  mailer:
+    build: ./mailer
     container_name: mailer
     depends_on:
-      - postfix
+      - mail
     environment:
-      - SMTP_HOST=postfix
+      - SMTP_HOST=mail
       - SMTP_PORT=587
-      - SMTP_USER=admin@memoscard.com
+      - SMTP_USER=admin@yourdomain.com
       - SMTP_PASS=adminpassword
+      - SMTP_FROM=admin@yourdomain.com
+      - SMTP_TO=test@receiver.com
     command: ["node", "sendMail.js"]
