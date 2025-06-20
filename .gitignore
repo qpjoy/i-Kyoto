@@ -144,3 +144,6 @@ skaffold
 
 # pdf
 StirlingPDF
+
+# mail
+data/mail

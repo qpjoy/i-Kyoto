@@ -19,12 +19,13 @@ services:
     restart: always
 
   dovecot:
-    image: tvial/dovecot
+    image: instrumentisto/dovecot
     container_name: dovecot
     ports:
       - "143:143"
     volumes:
-      - ./dovecot/dovecot.conf:/etc/dovecot/dovecot.conf:ro
+      - ./dovecot/conf:/etc/dovecot/dovecot.conf:ro
+      - ./data/mail:/var/mail
     restart: always
 
   nginx:
