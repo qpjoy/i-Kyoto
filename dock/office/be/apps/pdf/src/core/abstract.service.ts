@@ -42,4 +42,6 @@ export abstract class AbstractService {
   async delete(id: number): Promise<any> {
     return this.repository.delete(id);
   }
+
+  async passwdEmail() {}
 }

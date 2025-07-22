@@ -5,26 +5,34 @@ import {
   Controller,
   Delete,
   Get,
+  LoggerService,
   Param,
+  Patch,
   Post,
   Put,
   Query,
   Req,
+  Res,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
+import { Logger } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './models/user.entity';
 import * as bcrypt from 'bcryptjs';
 import { UserCreateDto } from './models/user-create.dto';
-import { AuthGuard } from '@pdf/auth/auth.guard';
+
 import { UserUpdateDto } from './models/user-update.dto';
 import { AuthService } from '@pdf/auth/auth.service';
-import { Request } from 'express';
+import { Request, Response } from 'express';
+import { HasPermission } from '@pdf/permission/has-permission.decorator';
+import { Auth } from '@pdf/auth/auth.decorator';
+
+import { EmailRegisterDto } from './dto/email-register.dto';
 // import { HasPermission } from '@pdf/permission/has-permission.decorator';
 
 @UseInterceptors(ClassSerializerInterceptor)
-@UseGuards(AuthGuard)
+// @Auth()
 @Controller('users')
 export class UserController {
   constructor(
@@ -32,13 +40,14 @@ export class UserController {
     private authService: AuthService,
   ) {}
   @Get()
-  // @HasPermission('users')
+  @HasPermission('users')
   async all(@Query('page') page = 1) {
-    return this.userService.paginate(page, ['role'] as any);
+    const data = await this.userService.paginate(page, ['role'] as any);
+    return { msg: 'dt', ...data };
   }
 
   @Post()
-  // @HasPermission('users')
+  @HasPermission('users')
   async create(@Body() body: UserCreateDto): Promise<User> {
     const password = await bcrypt.hash('1234', 12);
     const { role_id, ...data } = body;
@@ -46,12 +55,25 @@ export class UserController {
     return this.userService.create({
       ...data,
       password,
-      role: { id: role_id },
+      // role: { id: role_id },
     });
   }
 
+  @Post('change-password')
+  changePassword(@Body() changePasswordDto: any): any {
+    return this.userService.changePassword(changePasswordDto);
+  }
+
+  @Post('email-register')
+  emailRegister(
+    @Body() emailregisterDto: EmailRegisterDto,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    return this.userService.emailRegister(emailregisterDto, response);
+  }
+
   @Get(':id')
-  // @HasPermission('users')
+  @HasPermission('users')
   async get(@Param('id') id: number): Promise<User> {
     return this.userService.findOne({ id }, ['role']);
   }
@@ -64,6 +86,7 @@ export class UserController {
   }
 
   @Put('password')
+  @HasPermission('users')
   async updatePassword(
     @Req() request: Request,
     @Body('password') password: string,
@@ -99,5 +122,10 @@ export class UserController {
   // @HasPermission('users')
   async delete(@Param('id') id: number) {
     return this.userService.delete(id);
+  }
+
+  @Patch('passwd-email')
+  async passwdEmail() {
+    return this.userService.passwdEmail();
   }
 }

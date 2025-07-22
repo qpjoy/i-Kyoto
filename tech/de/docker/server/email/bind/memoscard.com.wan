@@ -1,0 +1,18 @@
+$TTL 86400
+@   IN  SOA     mail.memoscard.com. root.memoscard.com. (
+        ;; when updating a zone file, update the serial number as well
+        2024071001 ;Serial
+        3600       ;Refresh
+        1800       ;Retry
+        604800     ;Expire
+        86400      ;Minimum TTL
+)
+        IN  NS     mail.memoscard.com.
+        IN  A      23.225.161.60
+        IN  MX 10  mail.memoscard.com.
+        ;; add SPF settings to a TXT record
+        ;; specify the host to use as the mail server
+        IN  TXT    "v=spf1 +ip4:23.225.161.60 -all"
+
+mail     IN  A      23.225.161.60
+www     IN  A      23.225.161.60

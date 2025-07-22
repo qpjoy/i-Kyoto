@@ -1,0 +1,37 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &-title {
+    font-size: 1.5rem;
+    margin: 1rem;
+  }
+  &-action {
+    display: flex;
+    span {
+      // align-self: flex-end;
+      margin-left: auto;
+      margin-bottom: 1rem;
+      font-size: 0.8rem;
+    }
+  }
+
+  .MuiInputBase-root {
+    margin-bottom: 1rem;
+  }
+}
+.login-action {
+  font-size: 0.8rem;
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    color: lighten(#000, 20%);
+  }
+}
+
+.go-register {
+  margin: 1rem 0;
+  @extend .login-action;
+}

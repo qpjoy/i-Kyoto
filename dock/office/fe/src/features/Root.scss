@@ -1,3 +1,9 @@
+// @use "library";
+
 .root {
   background-color: #f1f6fa;
+
+  @include respond("desktop") {
+    background-color: yellow;
+  }
 }

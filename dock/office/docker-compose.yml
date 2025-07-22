@@ -33,6 +33,8 @@ services:
     volumes:
       - ./be:/app
       - /app/node_modules
+    environment:
+      - NODE_ENV=dev
 
   db:
     image: postgres:latest

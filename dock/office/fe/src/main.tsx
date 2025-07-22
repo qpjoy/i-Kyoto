@@ -2,14 +2,16 @@
 import { createRoot } from "react-dom/client";
 
 import "@/assets/css/reset.css";
-
+import "./assets/scss/global.scss";
+import { SnackbarProvider } from "notistack";
 import { createBrowserRouter, RouterProvider } from "react-router";
-import "amfe-flexible";
+import "@/assets/js/amfe-flexible.js";
+// import "@/assets/scss/index.scss";
 import Root from "@/features/Root.tsx";
 import Home from "./features/Home/index.tsx";
 import About from "./features/About/index.tsx";
 import Office from "./features/Office/index.tsx";
-import PDF from "./features/Office/pdf.tsx";
+import PDF2WORD from "./features/Office/pdf2word.tsx";
 
 const router = createBrowserRouter([
   {
@@ -19,13 +21,29 @@ const router = createBrowserRouter([
       { index: true, Component: Home },
       { path: "about", Component: About },
 
+      // {
+      //   path: "office",
+      //   Component: Office,
+      //   children: [{ index: true, Component: PDF }]
+      // },
       {
-        path: "office",
+        path: "pdf-to-word",
         Component: Office,
-        children: [{ index: true, Component: PDF }]
+        children: [{ index: true, Component: PDF2WORD }]
       }
     ]
   }
 ]);
 
-createRoot(document.getElementById("root")!).render(<RouterProvider router={router} />);
+createRoot(document.getElementById("root")!).render(
+  <SnackbarProvider
+    maxSnack={3}
+    autoHideDuration={4000}
+    anchorOrigin={{
+      vertical: "top",
+      horizontal: "center"
+    }}
+  >
+    <RouterProvider router={router} />
+  </SnackbarProvider>
+);

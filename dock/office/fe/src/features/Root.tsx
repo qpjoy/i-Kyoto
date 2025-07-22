@@ -5,10 +5,9 @@ import "./Root.scss";
 
 export default function Root() {
   return (
-    <div>
+    <>
       <Header />
-
       <Outlet />
-    </div>
+    </>
   );
 }

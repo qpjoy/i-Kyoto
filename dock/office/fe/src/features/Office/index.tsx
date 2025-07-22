@@ -1,11 +1,14 @@
 import { Outlet } from "react-router";
+import Footer from "@/components/Footer";
+import "./index.scss";
 
 export default function Office() {
   return (
-    <div>
-      <h1>Office</h1>
+    <div className="body-container">
       {/* will either be <PDF> or <Settings> */}
       <Outlet />
+
+      <Footer />
     </div>
   );
 }

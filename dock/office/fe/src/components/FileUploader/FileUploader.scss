@@ -1,0 +1,39 @@
+.uploder {
+  width: 60%;
+
+  img {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+.uploader-box {
+  display: flex;
+
+  flex-direction: column;
+  align-items: center;
+  width: 60vw;
+  border: 2px dashed #2196f3;
+  margin: 2rem 0 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  color: #666;
+  cursor: pointer;
+
+  img {
+    width: 3rem;
+    height: 3rem;
+  }
+}
+.uploader-button {
+  font-size: 0.8rem;
+  border: 1px solid #0162e8;
+  border-radius: 5px;
+  padding: 0.5rem 2rem;
+  margin: 0.8rem 0 0.5rem;
+  &:hover {
+  }
+}
+.uploader-title {
+  font-size: 0.8rem;
+}

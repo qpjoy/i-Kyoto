@@ -1,6 +1,9 @@
 header {
   width: 100%;
   border-bottom: 1px solid #e5e5e5;
+  @include respond("phone") {
+    background-color: black;
+  }
 
   nav {
     flex-direction: row;
@@ -14,7 +17,7 @@ header {
       list-style: none;
     }
     li {
-      margin-right: 0.5rem;
+      // margin-right: 5rem;
       a {
         text-decoration: none;
         color: #292d33;
@@ -25,7 +28,7 @@ header {
       }
     }
     img {
-      height: 0.5rem;
+      height: 1.5rem;
     }
 
     .contact {

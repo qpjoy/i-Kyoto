@@ -3,15 +3,15 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 3rem;
+  height: 6rem;
   &_title {
     color: #292d33;
-    font-size: 0.4rem;
+    font-size: 1.5rem;
   }
 
   &_content {
-    margin-top: 0.125rem;
+    margin-top: 0.5rem;
     color: #9497a1;
-    font-size: 0.1875rem;
+    font-size: 0.65rem;
   }
 }
