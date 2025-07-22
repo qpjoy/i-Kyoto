@@ -12,7 +12,7 @@ async function bootstrap() {
     logger: ['error', 'warn', 'log', 'debug', 'verbose'],
   });
 
-  const port = 3000;
+  const port = 9101;
   app.setGlobalPrefix('api');
 
   app.useGlobalInterceptors(new ResponseInterceptor());
@@ -56,6 +56,6 @@ async function bootstrap() {
     },
   );
 
-  await app.listen(process.env.port ?? port);
+  await app.listen(process.env.port ?? port, '0.0.0.0');
 }
 bootstrap();

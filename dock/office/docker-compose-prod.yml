@@ -4,8 +4,8 @@ services:
     build:
       context: ./fe
       dockerfile: Dockerfile.prod
-    depends_on:
-      - office-be
+    # depends_on:
+    #   - office-be
     ports:
       - 80:80 # assuming frontend is served on 80 after build (e.g., with nginx)
     environment:
@@ -14,20 +14,20 @@ services:
     networks:
       - office
 
-  office-be:
-    container_name: qpjoy.office-be.prod
-    build:
-      context: ./be
-      dockerfile: Dockerfile.prod
-    depends_on:
-      - db
-    ports:
-      - 9101:3000
-    environment:
-      - NODE_ENV=production
-    restart: unless-stopped
-    networks:
-      - office
+  # office-be:
+  #   container_name: qpjoy.office-be.prod
+  #   build:
+  #     context: ./be
+  #     dockerfile: Dockerfile.prod
+  #   depends_on:
+  #     - db
+  #   ports:
+  #     - 9101:3000
+  #   environment:
+  #     - NODE_ENV=production
+  #   restart: unless-stopped
+  #   networks:
+  #     - office
 
   db:
     image: postgres:latest
