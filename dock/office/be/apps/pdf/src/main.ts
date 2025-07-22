@@ -28,6 +28,8 @@ async function bootstrap() {
     origin: (origin, callback) => {
       const allowlist = [
         'http://localhost:5173',
+        'http://www.memoscard.com',
+        'http://43.246.210.144',
         'http://pdf.memoscard.com',
         'https://pdf.memoscard.com/',
       ];
