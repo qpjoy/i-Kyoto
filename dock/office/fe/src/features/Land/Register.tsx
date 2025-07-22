@@ -182,7 +182,7 @@ export default function Register({ counter }: any) {
                     marginRight: "auto",
                     ":hover": {
                       cursor: "pointer",
-                      color: lighten("#315EE7", 0.2)
+                      color: "#3160ef"
                       // fontSize: "3.5rem"
                     }
                     // top: "-1rem"
