@@ -1,11 +1,11 @@
 # Build stage
-FROM node:20-alpine AS builder
+FROM node:20.18-alpine AS builder
 WORKDIR /app
 COPY . .
-RUN npm install --frozen-lockfile && npm run build
+RUN yarn install --frozen-lockfile --production && yarn build
 
 # Runtime stage
-FROM node:20-alpine
+FROM node:20.18-alpine
 WORKDIR /app
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
