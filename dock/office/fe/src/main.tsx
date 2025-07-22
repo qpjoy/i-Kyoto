@@ -12,6 +12,7 @@ import Home from "./features/Home/index.tsx";
 import About from "./features/About/index.tsx";
 import Office from "./features/Office/index.tsx";
 import PDF2WORD from "./features/Office/pdf2word.tsx";
+import { ThemeProvider, Typography, createTheme } from "@mui/material";
 
 const router = createBrowserRouter([
   {

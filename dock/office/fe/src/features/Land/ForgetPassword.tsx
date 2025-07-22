@@ -1,5 +1,3 @@
-import { useNavigate } from "react-router";
-
 import { useLandStore } from "@/store/slices/landSlice";
 
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
@@ -40,13 +38,16 @@ export default function ForgetPassword({ counter }: any) {
     setForgetCode(code);
   };
 
-  const handleGetCode = async (e) => {
+  const handleGetCode = async (e: any) => {
     e && e.preventDefault();
     if (!email) {
       enqueueSnackbar("请输入邮箱", {
         variant: "warning",
-        vertical: "top",
-        horizontal: "center"
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center"
+        }
+        // horizontal: "center"
       });
       return {
         message: "请输入邮箱",
@@ -58,8 +59,10 @@ export default function ForgetPassword({ counter }: any) {
     if (!isEmailValid) {
       enqueueSnackbar("邮箱格式错误", {
         variant: "warning",
-        vertical: "top",
-        horizontal: "center"
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center"
+        }
       });
 
       return {
@@ -76,14 +79,18 @@ export default function ForgetPassword({ counter }: any) {
         setForgetTimer(60);
         enqueueSnackbar(`验证码已发送！${codeRes.data.content}`, {
           variant: "success",
-          vertical: "top",
-          horizontal: "center"
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center"
+          }
         });
       } else {
         enqueueSnackbar(codeRes.msg, {
           variant: "warning",
-          vertical: "top",
-          horizontal: "center"
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center"
+          }
         });
       }
     }
@@ -97,7 +104,7 @@ export default function ForgetPassword({ counter }: any) {
     };
   };
 
-  async function handleSubmit(e) {
+  async function handleSubmit(e: any) {
     e.preventDefault();
     const getCodeRes = await handleGetCode(null);
 
@@ -106,8 +113,10 @@ export default function ForgetPassword({ counter }: any) {
     if (!code) {
       enqueueSnackbar("请输入验证码", {
         variant: "warning",
-        vertical: "top",
-        horizontal: "center"
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center"
+        }
       });
       return {
         message: "请输入验证码",
@@ -154,7 +163,7 @@ export default function ForgetPassword({ counter }: any) {
               }}
             />
           </a>
-          <Typography component="h1" variant="title" align="center" noWrap>
+          <Typography component="h1" align="center" noWrap>
             找回密码
           </Typography>
         </Box>
