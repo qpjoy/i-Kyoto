@@ -1,4 +1,3 @@
-import React from "react";
 import TextField from "@mui/material/TextField";
 import { useSnackbar } from "notistack";
 import Button from "@mui/material/Button";
@@ -24,12 +23,12 @@ const Login = ({ handleClose }: any) => {
     setLoginEmail(e.target.value);
   };
 
-  const handlePassword = (e) => {
+  const handlePassword = (e: any) => {
     console.log(`[e]: `, e);
     setLoginPassword(e.target.value);
   };
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: any) => {
     e.preventDefault();
 
     if (!email || !password) {

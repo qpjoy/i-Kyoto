@@ -1,20 +1,16 @@
-import { useState } from "react";
 import { useSnackbar } from "notistack";
-import { Link, useNavigate } from "react-router";
 
-import { Box, Button, Checkbox, Typography, lighten, FormControlLabel } from "@mui/material";
+import { Box, Button, Checkbox, Typography, lighten } from "@mui/material";
 import styles from "./Register.module.css";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
 import { darken } from "@mui/material/styles";
-import { type LandState, useLandStore } from "@/store/slices/landSlice";
+import { useLandStore } from "@/store/slices/landSlice";
 import { validateEmail } from "@/utils/reg";
-import { url } from "@/store/variables";
 import AgreementDialog from "@/components/Dialog/AgreementDialog";
 
 export default function Register({ counter }: any) {
   const { enqueueSnackbar } = useSnackbar();
-  const navigate = useNavigate();
   const {
     register: { email, code, isAccept },
     setStatus,
@@ -66,7 +62,7 @@ export default function Register({ counter }: any) {
     }
     // const res = await dispatch(register({ email, code })).unwrap();
     if (e) {
-      const codeRes = await getRegisterCode({ email });
+      const codeRes: any = await getRegisterCode({ email });
       console.log(`[Getted Code]: `, e, codeRes);
       if (codeRes.code === 0) {
         // dispatch(setTimer(60));
@@ -99,10 +95,10 @@ export default function Register({ counter }: any) {
     };
   };
 
-  async function handleSubmit(e) {
+  async function handleSubmit(e: any) {
     e.preventDefault();
 
-    const getCodeRes = await handleGetCode(null);
+    const getCodeRes: any = await handleGetCode(null);
 
     console.log(`[Console]: `, getCodeRes);
 
@@ -253,7 +249,7 @@ export default function Register({ counter }: any) {
                   },
                   ":disabled": {
                     color: "white",
-                    backgroundColor: darken("#2483e2", 0.4)
+                    backgroundColor: darken("#cde0f2", 0.4)
                   }
                 }}
                 disabled={!!counter}

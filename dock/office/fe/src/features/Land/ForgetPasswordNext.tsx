@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
-
 import styles from "./ForgetPasswordNext.module.css";
-import { Box, Button, Checkbox, FormControlLabel, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import PasswordInput from "../../components/Input/PasswordInput";
 import { useSnackbar } from "notistack";
 import { useLandStore } from "@/store/slices/landSlice";
@@ -22,7 +20,7 @@ const ForgetPasswordNext = () => {
 
   const navigate = useNavigate();
 
-  async function handleSubmit(e) {
+  async function handleSubmit(e: any) {
     e.preventDefault();
     if (!password || !password2 || password !== password2) {
       enqueueSnackbar("两次密码不匹配!", {

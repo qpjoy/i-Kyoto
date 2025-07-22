@@ -6,11 +6,11 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-export default function AgreementDialog({ agree, children, style }) {
+export default function AgreementDialog({ agree, children, style }: any) {
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState("paper");
 
-  const handleClickOpen = () => () => {
+  const handleClickOpen: any = () => () => {
     setOpen(true);
   };
 
@@ -23,7 +23,7 @@ export default function AgreementDialog({ agree, children, style }) {
     agree();
   };
 
-  const descriptionElementRef = React.useRef(null);
+  const descriptionElementRef: any = React.useRef(null);
   React.useEffect(() => {
     if (open) {
       const { current: descriptionElement } = descriptionElementRef;

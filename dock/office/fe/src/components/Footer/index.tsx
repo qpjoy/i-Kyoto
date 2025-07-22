@@ -1,4 +1,3 @@
-import React from "react";
 import "./index.scss";
 import KeySVG from "@assets/img/svg/key.svg";
 import BrainSVG from "@assets/img/svg/brain.svg";

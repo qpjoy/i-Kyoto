@@ -1,7 +1,6 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Close from "@/ui/icons/close";
 
 import Modal from "@mui/material/Modal";
@@ -50,6 +49,7 @@ function LandPopup({ registerCounter, forgetCounter }: any) {
           if (reason === "backdropClick" || reason === "escapeKeyDown") {
             return;
           }
+          console.log(`[event]: `, event);
           setOpen(false); // allow programmatic closing only
         }}
         aria-labelledby="modal-modal-title"

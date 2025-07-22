@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
-
 import styles from "./RegisterNext.module.css";
-import { Box, Button, Checkbox, FormControlLabel, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import PasswordInput from "@/components/Input/PasswordInput";
 import { useSnackbar } from "notistack";
-import { type LandState, useLandStore } from "@/store/slices/landSlice";
+import { useLandStore } from "@/store/slices/landSlice";
 
 const RegisterNext = ({ handleClose }: any) => {
   const { enqueueSnackbar } = useSnackbar();
@@ -21,7 +19,7 @@ const RegisterNext = ({ handleClose }: any) => {
 
   const navigate = useNavigate();
 
-  async function handleSubmit(e) {
+  async function handleSubmit(e: any) {
     e.preventDefault();
 
     if (!password || !password2 || password !== password2) {
@@ -144,7 +142,7 @@ const RegisterNext = ({ handleClose }: any) => {
           /> */}
             <PasswordInput
               password={password2}
-              handlePassword={(e) => setRegisterPassword2(e.target.value)}
+              handlePassword={(e: any) => setRegisterPassword2(e.target.value)}
             />
           </div>
 

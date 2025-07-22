@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 import { useLandStore } from "@/store/slices/landSlice";
 
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import { Box, Button, Checkbox, FormControlLabel, Typography, darken, lighten } from "@mui/material";
+import { Box, Button, Typography, darken } from "@mui/material";
 
 import styles from "./ForgetPassword.module.css";
 import { validateEmail } from "../../utils/reg";
@@ -24,7 +23,7 @@ export default function ForgetPassword({ counter }: any) {
   } = useLandStore();
 
   // const isAuthenticated = useSelector(getIsAuthenticated);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // const timer = useSelector((state) => state.account.register.timer);
 
@@ -70,7 +69,7 @@ export default function ForgetPassword({ counter }: any) {
     }
 
     if (e) {
-      const codeRes = await getForgetCode({ email });
+      const codeRes: any = await getForgetCode({ email });
       console.log(`[Getting Code]: `, codeRes);
       if (codeRes.code === 0) {
         // dispatch(setForgetPasswordTimer(60));
