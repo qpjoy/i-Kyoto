@@ -1,0 +1,42 @@
+FROM node:20.18-alpine AS builder
+
+WORKDIR /app
+
+# Copy package.json and yarn.lock (or package-lock.json) first
+# This allows Docker to cache the `yarn install` step if dependencies haven't changed
+COPY . .
+
+# Install production dependencies only.
+# --frozen-lockfile ensures deterministic builds by using the exact versions from yarn.lock.
+# --production skips devDependencies.
+RUN yarn install --frozen-lockfile --production && yarn build
+
+# Copy the rest of your application code
+
+# Build the frontend application.
+# Vite automatically picks up environment variables prefixed with VITE_ (e.g., VITE_APP_BASE_URL)
+# that are passed to the container during the `docker compose up` command.
+# These values will be baked into your JavaScript bundle.
+
+
+# Stage 2: Serve the built application with Nginx
+# Use a lightweight Nginx image for serving static files
+FROM nginx:alpine
+
+# Copy the built static assets from the 'builder' stage into Nginx's default web root
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Remove the default Nginx configuration file
+RUN rm /etc/nginx/conf.d/default.conf
+
+# Copy your custom Nginx configuration for this specific frontend.
+# This file should be simple, just serving the static files.
+# Create this file at: fe/nginx-local/nginx.conf
+COPY nginx.prod.conf /etc/nginx/conf.d/default.conf
+
+# Expose port 80 internally within the Docker network.
+# The central Nginx proxy will connect to this port.
+EXPOSE 80
+
+# Command to start Nginx. 'daemon off;' keeps Nginx in the foreground.
+CMD ["nginx", "-g", "daemon off;"]

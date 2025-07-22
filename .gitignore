@@ -109,6 +109,7 @@ common/temp/
 common/autoinstallers/*/.npmrc
 **/.rush/temp/
 *.lock
+!yarn.lock
 
 # Common toolchain intermediate files
 temp/

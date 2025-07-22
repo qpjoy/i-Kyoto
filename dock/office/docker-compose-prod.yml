@@ -3,41 +3,34 @@ services:
     container_name: qpjoy.office-fe
     build:
       context: ./fe
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.prod
     depends_on:
       - office-be
     ports:
-      - 5173:5173
+      - 80:80 # assuming frontend is served on 80 after build (e.g., with nginx)
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
     networks:
       - office
-    volumes:
-      - ./fe:/app
-      - /app/node_modules
-    environment:
-      - NODE_ENV=development
-      # - /app/node_modules # prevent host/node_modules overwrite
-    command: yarn dev
 
   office-be:
     container_name: qpjoy.office-be
-    # image: qpjoy/office-be
     build:
       context: ./be
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.prod
     depends_on:
       - db
     ports:
       - 9101:3000
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
     networks:
       - office
-    volumes:
-      - ./be:/app
-      - /app/node_modules
-    environment:
-      - NODE_ENV=dev
 
   db:
-    image: postgres:latest
+    image: postgres:15
     container_name: qpjoy.office-postgres
     hostname: postgres
     ports:
@@ -48,8 +41,7 @@ services:
       POSTGRES_DB: pdf
       POSTGRES_HOST_AUTH_METHOD: "trust"
     volumes:
-      #     - postgres-data:/var/lib/postgresql/data
-      - /Users/qpjoy/data/pdf-postgres-data:/var/lib/postgresql/data
+      - /qpjoy/data/pdf-postgres-data:/var/lib/postgresql/data
     restart: unless-stopped
     networks:
       - office
@@ -60,21 +52,38 @@ services:
     depends_on:
       - db
     ports:
-      - 4904:4904
+      - 4904:80
     environment:
       PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
       PGADMIN_DEFAULT_PASSWORD: admin
-      PGADMIN_LISTEN_PORT: 4904
-      # Allow pgAdmin to connect to any host
-      # PGADMIN_LISTEN_ADDRESS: "*:*"
+      PGADMIN_LISTEN_PORT: 80
       PGADMIN_LISTEN_ADDRESS: "0.0.0.0"
     volumes:
-      # TODO: chown -R 5050:5050 /Users/qpjoy/data/pgadmin-data
-      #       SEE .build.yml
-      # - D:/data/pgadmin-data:/var/lib/pgadmin
-      - /Users/qpjoy/data/pgadmin-data:/var/lib/pgadmin
+      - /qpjoy/data/pgadmin-data:/var/lib/pgadmin
     restart: unless-stopped
     networks:
       - office
+
+  # Optional NGINX reverse proxy
+  # nginx:
+  #   image: nginx:alpine
+  #   container_name: qpjoy.office-nginx
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   volumes:
+  #     - ./nginx.conf:/etc/nginx/nginx.conf:ro
+  #     - ./certs:/etc/nginx/certs:ro
+  #   depends_on:
+  #     - office-fe
+  #     - office-be
+  #   networks:
+  #     - office
+  #   restart: unless-stopped
+
+volumes:
+  pdf-postgres-data:
+  pgadmin-data:
+
 networks:
   office:
