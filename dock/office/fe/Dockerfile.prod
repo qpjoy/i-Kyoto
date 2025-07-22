@@ -10,7 +10,6 @@ COPY . .
 # --frozen-lockfile ensures deterministic builds by using the exact versions from yarn.lock.
 # --production skips devDependencies.
 RUN yarn install --frozen-lockfile --production
-RUN yarn build --verbose
 CMD ["./node_modules/.bin/tsc", "-b", "&&", "./node_modules/.bin/vite", "build"]
     
 # Copy the rest of your application code
