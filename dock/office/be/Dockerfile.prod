@@ -2,7 +2,8 @@
 FROM node:20.18-alpine AS builder
 WORKDIR /app
 COPY . .
-RUN yarn install --frozen-lockfile --production && yarn build
+RUN yarn install --frozen-lockfile --production
+RUN yarn build --verbose
 
 # Runtime stage
 FROM node:20.18-alpine

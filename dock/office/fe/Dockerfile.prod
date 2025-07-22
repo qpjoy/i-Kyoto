@@ -9,7 +9,8 @@ COPY . .
 # Install production dependencies only.
 # --frozen-lockfile ensures deterministic builds by using the exact versions from yarn.lock.
 # --production skips devDependencies.
-RUN yarn install --frozen-lockfile --production && yarn build
+RUN yarn install --frozen-lockfile --production
+RUN yarn build --verbose
 
 # Copy the rest of your application code
 
