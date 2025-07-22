@@ -1,6 +1,6 @@
 services:
   office-fe:
-    container_name: qpjoy.office-fe
+    container_name: qpjoy.office-fe.prod
     build:
       context: ./fe
       dockerfile: Dockerfile.prod
@@ -15,7 +15,7 @@ services:
       - office
 
   office-be:
-    container_name: qpjoy.office-be
+    container_name: qpjoy.office-be.prod
     build:
       context: ./be
       dockerfile: Dockerfile.prod
@@ -31,7 +31,7 @@ services:
 
   db:
     image: postgres:latest
-    container_name: qpjoy.office-postgres
+    container_name: qpjoy.office-postgres.prod
     hostname: postgres
     ports:
       - 5432:5432
@@ -41,14 +41,14 @@ services:
       POSTGRES_DB: pdf
       POSTGRES_HOST_AUTH_METHOD: "trust"
     volumes:
-      - /qpjoy/data/pdf-postgres-data:/var/lib/postgresql/data
+      - /Users/qpjoy/data/pdf-postgres-data:/var/lib/postgresql/data
     restart: unless-stopped
     networks:
       - office
 
   pgadmin:
     image: dpage/pgadmin4
-    container_name: qpjoy.office-pgadmin
+    container_name: qpjoy.office-pgadmin.prod
     depends_on:
       - db
     ports:
@@ -59,7 +59,7 @@ services:
       PGADMIN_LISTEN_PORT: 4904
       PGADMIN_LISTEN_ADDRESS: "0.0.0.0"
     volumes:
-      - /qpjoy/data/pgadmin-data:/var/lib/pgadmin
+      - /Users/qpjoy/data/pgadmin-data:/var/lib/pgadmin
     restart: unless-stopped
     networks:
       - office

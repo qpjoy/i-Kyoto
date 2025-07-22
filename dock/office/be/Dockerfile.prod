@@ -2,10 +2,11 @@
 FROM node:20.18-alpine AS builder
 WORKDIR /app
 COPY . .
-RUN yarn install --frozen-lockfile --production 
-# RUN yarn build
-RUN ls -al ./node_modules/
-CMD ["./node_modules/.bin/nest", "build"]
+RUN yarn install --frozen-lockfile
+RUN yarn build
+# RUN ls -al ./node_modules/
+# RUN /app/node_modules/.bin/nest build
+# CMD ["./node_modules/.bin/nest", "build"]
 
 # Runtime stage
 FROM node:20.18-alpine
@@ -16,4 +17,4 @@ COPY --from=builder /app/package.json ./
 
 ENV NODE_ENV=production
 EXPOSE 3000
-CMD ["node", "dist/main"]
+CMD ["node", "dist/apps/pdf/main"]
