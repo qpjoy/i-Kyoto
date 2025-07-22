@@ -3,7 +3,7 @@ import { ProductController } from './product.controller';
 import { ProductService } from './product.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Product } from './models/product.entity';
-import { UploadController } from '@pdf/upload/upload.controller';
+import { UploadController } from './upload/upload.controller';
 import { AuthModule } from '@pdf/auth/auth.module';
 
 @Module({
