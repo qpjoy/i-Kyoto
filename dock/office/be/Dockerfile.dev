@@ -2,7 +2,7 @@ FROM node:20.18-alpine
 
 WORKDIR /app
 COPY package.json .
-COPY .npmrc yarn.lock ./
+COPY .npmrc ./
 RUN yarn install --verbose
 COPY . .
 
