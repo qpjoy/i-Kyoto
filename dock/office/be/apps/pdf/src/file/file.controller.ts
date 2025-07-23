@@ -26,7 +26,7 @@ export class FileController {
   constructor(private readonly fileService: FileService) {}
 
   @Post()
-  @Auth()
+  // @Auth()
   @UseInterceptors(
     FileInterceptor('file', {
       storage: diskStorage({
