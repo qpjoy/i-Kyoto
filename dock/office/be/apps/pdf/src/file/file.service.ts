@@ -129,7 +129,7 @@ export class FileService {
           '--input',
           inputPdfPath,
           '--output',
-          outputDocxPath,
+          outputDirPath,
           '--use_pdf2docx',
         ],
         { timeout: 120000 },
