@@ -112,9 +112,9 @@ export class FileController {
         originalFileExtension,
       );
       const downloadFileName = `${fileNameWithoutExt}.docx`; // Use original name with .docx extension
-      return {
+      return res.status(200).json({
         downloadPath: downloadFileName,
-      };
+      });
 
       // res.setHeader(
       //   'Content-Type',
