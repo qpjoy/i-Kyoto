@@ -110,6 +110,19 @@ const FileUploader: React.FC = () => {
                   ✕
                 </button>
 
+                {f.url ? (
+                  <a
+                    href={`http://43.246.210.144:9101/api/uploads/pdf2word/${f.url}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    下载转换文件
+                    {f.url}
+                  </a>
+                ) : (
+                  <></>
+                )}
+
                 {/* simple progress bar */}
                 {f.status === "uploading" && (
                   <div style={{ height: 4, background: "#eee", marginTop: 4 }}>

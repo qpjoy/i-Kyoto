@@ -116,9 +116,9 @@ export class FileController {
         fileRecord.filename,
         convertedFileName,
       );
-      const downloadFileName = `${convertedFileNameWithoutExt}.docx`; // Use original name with .docx extension
+      // const downloadFileName = `${convertedFileNameWithoutExt}.docx`; // Use original name with .docx extension
       return res.status(200).json({
-        url: downloadFileName,
+        url: convertedFileNameWithoutExt,
       });
 
       // res.setHeader(
