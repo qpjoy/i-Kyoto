@@ -21,7 +21,6 @@ export class FileService {
   private readonly logger = new Logger(FileService.name);
   private readonly pythonScriptPath = join(
     '/root/workspace/rocks/PaddleOCR/ppstructure/pdf2word/pdf2word_server.py',
-    'pdf2word_converter.py',
   );
   constructor(
     @InjectRepository(FileEntity)
