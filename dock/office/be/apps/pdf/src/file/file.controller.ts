@@ -106,14 +106,19 @@ export class FileController {
       );
 
       // 4. Set headers for file download
-      const originalFileExtension = extname(fileRecord.originalname);
-      const fileNameWithoutExt = basename(
-        fileRecord.originalname,
-        originalFileExtension,
+      // const originalFileExtension = extname(fileRecord.originalname);
+      // const fileNameWithoutExt = basename(
+      //   fileRecord.originalname,
+      //   originalFileExtension,
+      // );
+      const convertedFileName = extname(fileRecord.filename);
+      const convertedFileNameWithoutExt = basename(
+        fileRecord.filename,
+        convertedFileName,
       );
-      const downloadFileName = `${fileNameWithoutExt}.docx`; // Use original name with .docx extension
+      const downloadFileName = `${convertedFileNameWithoutExt}.docx`; // Use original name with .docx extension
       return res.status(200).json({
-        downloadPath: downloadFileName,
+        url: downloadFileName,
       });
 
       // res.setHeader(
