@@ -104,6 +104,7 @@ export class FileService {
     const outputFileName = `${basename(inputPdfPath, '.pdf')}.docx`;
     const outputDirPath = dirname(inputPdfPath);
     const outputDocxPath = join(outputDirPath, outputFileName);
+    console.log(`[outputDocxPath --output]: `, outputDocxPath);
 
     this.logger.log(
       `Attempting to convert PDF for record ID ${fileId}: ${inputPdfPath} to DOCX: ${outputDocxPath}`,

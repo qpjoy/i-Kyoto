@@ -91,6 +91,7 @@ export class FileController {
       // 1. Save initial file metadata to database
       const user = req['user'] ?? null;
       fileRecord = await this.fileService.saveInitialFileRecord(file, user); // Cast req.user if using Passport/Auth
+      console.log(`[fileRecord --input]: `, fileRecord);
 
       // 2. Perform conversion
       const convertedFilePath = await this.fileService.convertPdfToWord(
