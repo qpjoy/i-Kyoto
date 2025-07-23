@@ -122,6 +122,13 @@ export class FileController {
       );
 
       // 5. Stream the converted file back to the client
+      console.log(
+        `[Stream convertedFilePath]: `,
+        originalFileExtension,
+        fileNameWithoutExt,
+        downloadFileName,
+        convertedFilePath,
+      );
       const fileStream = fs.createReadStream(convertedFilePath);
       fileStream.pipe(res);
 
