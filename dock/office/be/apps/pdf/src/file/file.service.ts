@@ -179,15 +179,15 @@ export class FileService {
       else this.logger.log(`Deleted input temp file: ${inputPath}`);
     });
 
-    if (outputPath && fs.existsSync(outputPath)) {
-      fs.unlink(outputPath, (err) => {
-        if (err)
-          this.logger.error(
-            `Failed to delete output temp file ${outputPath}: ${err.message}`,
-          );
-        else this.logger.log(`Deleted output temp file: ${outputPath}`);
-      });
-    }
+    // if (outputPath && fs.existsSync(outputPath)) {
+    //   fs.unlink(outputPath, (err) => {
+    //     if (err)
+    //       this.logger.error(
+    //         `Failed to delete output temp file ${outputPath}: ${err.message}`,
+    //       );
+    //     else this.logger.log(`Deleted output temp file: ${outputPath}`);
+    //   });
+    // }
   }
 
   async findAll() {
