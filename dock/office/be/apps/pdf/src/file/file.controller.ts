@@ -72,7 +72,7 @@ export class FileController {
       }),
     }),
   )
-  @Auth()
+  // @Auth()
   async uploadPdfAndConvert(
     @UploadedFile() file: Express.Multer.File,
     @Res() res: Response,
