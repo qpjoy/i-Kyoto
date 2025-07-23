@@ -79,7 +79,7 @@ const createFileSlice: StateCreator<FileState, [], [], FileState> = (set, get) =
     formData.append("file", item.file);
 
     try {
-      const res = await fetch(`${url}/uploads`, {
+      const res = await fetch(`${url}/uploads/pdf2word`, {
         method: "POST",
         body: formData,
         credentials: "include"
