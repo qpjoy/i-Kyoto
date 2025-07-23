@@ -10,12 +10,13 @@ import {
   Req,
   Logger,
   HttpStatus,
+  NotFoundException,
 } from '@nestjs/common';
 import * as fs from 'fs';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { FileService } from './file.service';
-import { basename, extname, join } from 'path';
+import path, { basename, extname, join } from 'path';
 import { Request, Response } from 'express';
 import { Auth } from '@pdf/auth/auth.decorator';
 import { FileEntity } from './models/file.entity';
@@ -72,7 +73,6 @@ export class FileController {
       }),
     }),
   )
-  // @Auth()
   async uploadPdfAndConvert(
     @UploadedFile() file: Express.Multer.File,
     @Res() res: Response,
@@ -112,44 +112,45 @@ export class FileController {
         originalFileExtension,
       );
       const downloadFileName = `${fileNameWithoutExt}.docx`; // Use original name with .docx extension
+      return {
+        downloadPath: downloadFileName,
+      };
 
-      res.setHeader(
-        'Content-Type',
-        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-      );
-      res.setHeader(
-        'Content-Disposition',
-        `attachment; filename="${downloadFileName}"`,
-      );
+      // res.setHeader(
+      //   'Content-Type',
+      //   'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      // );
+      // res.setHeader(
+      //   'Content-Disposition',
+      //   `attachment; filename="${downloadFileName}"`,
+      // );
+      // res.writeHead(200, {
+      //   'Content-Type':
+      //     'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      //   'Content-Disposition': `attachment; filename="${downloadFileName}"`,
+      // });
 
       // 5. Stream the converted file back to the client
-      // console.log(
-      //   `[Stream convertedFilePath]: `,
-      //   originalFileExtension,
-      //   fileNameWithoutExt,
-      //   downloadFileName,
-      //   convertedFilePath,
-      // );
-      const fileStream = fs.createReadStream(convertedFilePath);
-      fileStream.pipe(res);
+      // const fileStream = fs.createReadStream(convertedFilePath);
+      // fileStream.pipe(res);
 
-      fileStream.on('end', () => {
-        this.logger.log(
-          `Successfully sent converted file for record ID: ${fileRecord.id}`,
-        );
-        // Clean up temporary files after successful streaming
-        this.fileService.cleanupTempFiles(fileRecord.path, convertedFilePath);
-      });
+      // fileStream.on('end', () => {
+      //   this.logger.log(
+      //     `Successfully sent converted file for record ID: ${fileRecord.id}`,
+      //   );
+      //   // Clean up temporary files after successful streaming
+      //   this.fileService.cleanupTempFiles(fileRecord.path, convertedFilePath);
+      // });
 
-      fileStream.on('error', (err) => {
-        this.logger.error(
-          `Error streaming file for record ID ${fileRecord.id}: ${err.message}`,
-        );
-        this.fileService.cleanupTempFiles(fileRecord.path, convertedFilePath); // Clean up on error too
-        res
-          .status(HttpStatus.INTERNAL_SERVER_ERROR)
-          .send('Error streaming converted file.');
-      });
+      // fileStream.on('error', (err) => {
+      //   this.logger.error(
+      //     `Error streaming file for record ID ${fileRecord.id}: ${err.message}`,
+      //   );
+      //   this.fileService.cleanupTempFiles(fileRecord.path, convertedFilePath); // Clean up on error too
+      //   res
+      //     .status(HttpStatus.INTERNAL_SERVER_ERROR)
+      //     .send('Error streaming converted file.');
+      // });
     } catch (error) {
       this.logger.error(
         `File conversion process failed for ${file.originalname}: ${error.message}`,
@@ -169,5 +170,26 @@ export class FileController {
         .status(HttpStatus.INTERNAL_SERVER_ERROR)
         .send(`File conversion failed: ${error.message}`);
     }
+  }
+
+  @Get('pdf2word/:id')
+  download(@Param('filename') filename, @Res() res) {
+    const filePath = path.join('uploads', `${filename}.docx`);
+
+    if (!fs.existsSync(filePath)) {
+      throw new NotFoundException('File not found');
+    }
+
+    res.setHeader(
+      'Content-Disposition',
+      `attachment; filename="${filename}.docx"`,
+    );
+    res.setHeader(
+      'Content-Type',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    );
+
+    const stream = fs.createReadStream(filePath);
+    stream.pipe(res);
   }
 }
