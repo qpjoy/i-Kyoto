@@ -157,6 +157,7 @@ export class FileService {
       );
       return outputDocxPath;
     } catch (error) {
+      console.log(`[inside error]:  before lang cn`);
       try {
         const { stdout, stderr } = await execFilePromise(
           'python3',
@@ -166,6 +167,8 @@ export class FileService {
             inputPdfPath,
             '--output',
             outputDirPath,
+            '--lang',
+            'CN',
           ],
           { timeout: 120000 },
         );
@@ -191,7 +194,17 @@ export class FileService {
         );
         return outputDocxPath;
       } catch (e) {
-        console.log(`[imageBasedOcr]: catch in catch`);
+        this.logger.error(
+          `Error during Python imageBasedOcr script execution for record ID ${fileId}: ${e.message}`,
+        );
+        if (e.code === 'ERR_CHILD_PROCESS_STDIO_TIMEOUT') {
+          throw new InternalServerErrorException(
+            'PDF imageBasedOcr conversion timed out. The file might be too large or complex.',
+          );
+        }
+        throw new InternalServerErrorException(
+          `PDF imageBasedOcr conversion failed: ${e.message}`,
+        );
       }
 
       this.logger.error(
