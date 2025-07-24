@@ -93,10 +93,17 @@ export class FileController {
       fileRecord = await this.fileService.saveInitialFileRecord(file, user); // Cast req.user if using Passport/Auth
       console.log(`[fileRecord --input]: `, fileRecord);
 
+      const convertedFileName = extname(fileRecord.filename);
+      const convertedFileNameWithoutExt = basename(
+        fileRecord.filename,
+        convertedFileName,
+      );
+
       // 2. Perform conversion
       const convertedFilePath = await this.fileService.convertPdfToWord(
         fileRecord.path, // Use path from the saved record
         fileRecord.id, // Pass file ID for potential logging/updates in service
+        convertedFileNameWithoutExt,
       );
 
       // 3. Update file record with converted file details
@@ -111,11 +118,11 @@ export class FileController {
       //   fileRecord.originalname,
       //   originalFileExtension,
       // );
-      const convertedFileName = extname(fileRecord.filename);
-      const convertedFileNameWithoutExt = basename(
-        fileRecord.filename,
-        convertedFileName,
-      );
+      // const convertedFileName = extname(fileRecord.filename);
+      // const convertedFileNameWithoutExt = basename(
+      //   fileRecord.filename,
+      //   convertedFileName,
+      // );
       // const downloadFileName = `${convertedFileNameWithoutExt}.docx`; // Use original name with .docx extension
       return res.status(200).json({
         url: convertedFileNameWithoutExt,

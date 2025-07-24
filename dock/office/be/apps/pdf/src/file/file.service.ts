@@ -100,6 +100,7 @@ export class FileService {
   async convertPdfToWord(
     inputPdfPath: string,
     fileId: number,
+    convertedFileNameWithoutExt: string,
   ): Promise<string> {
     const outputFileName = `${basename(inputPdfPath, '.pdf')}.docx`;
     const outputDirPath = dirname(inputPdfPath);
@@ -156,6 +157,43 @@ export class FileService {
       );
       return outputDocxPath;
     } catch (error) {
+      try {
+        const { stdout, stderr } = await execFilePromise(
+          'python3',
+          [
+            this.pythonScriptPath,
+            '--input',
+            inputPdfPath,
+            '--output',
+            outputDirPath,
+          ],
+          { timeout: 120000 },
+        );
+
+        if (stderr) {
+          this.logger.warn(
+            `Python script imageBasedOcr stderr for record ID ${fileId}: ${stderr}`,
+          );
+        }
+
+        this.logger.log(
+          `Python script imageBasedOcr stdout for record ID ${fileId}: ${stdout}`,
+        );
+
+        if (!fs.existsSync(outputDocxPath)) {
+          throw new Error(
+            'Python script imageBasedOcr completed but output file was not found.',
+          );
+        }
+
+        this.logger.log(
+          `PDF imageBasedOcr successfully converted to Word for record ID ${fileId}: ${outputDocxPath}`,
+        );
+        return outputDocxPath;
+      } catch (e) {
+        console.log(`[imageBasedOcr]: catch in catch`);
+      }
+
       this.logger.error(
         `Error during Python script execution for record ID ${fileId}: ${error.message}`,
       );
