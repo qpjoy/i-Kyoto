@@ -167,8 +167,6 @@ export class FileService {
             inputPdfPath,
             '--output',
             outputDirPath,
-            '--lang',
-            'CN',
           ],
           { timeout: 120000 },
         );
