@@ -179,14 +179,27 @@ export class FileController {
 
   @Get('pdf2word/:id')
   download(@Param('id') id, @Res() res) {
-    const filePath = path.join('uploads', `${id}.docx`);
+    const baseDir = 'uploads';
+    const plainPath = path.join(baseDir, `${id}.docx`);
+    const ocrPath = path.join(baseDir, `${id}_ocr.docx`);
 
-    if (!fs.existsSync(filePath)) {
-      console.log(`[filePath]: `, filePath);
+    let filePath: string;
+
+    if (fs.existsSync(plainPath)) {
+      filePath = plainPath;
+    } else if (fs.existsSync(ocrPath)) {
+      filePath = ocrPath;
+    } else {
+      console.log(`[filePath]: `, plainPath, ocrPath);
       throw new NotFoundException('File not found');
     }
 
-    res.setHeader('Content-Disposition', `attachment; filename="${id}.docx"`);
+    const downloadName = path.basename(filePath);
+
+    res.setHeader(
+      'Content-Disposition',
+      `attachment; filename="${downloadName}"`,
+    );
     res.setHeader(
       'Content-Type',
       'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
