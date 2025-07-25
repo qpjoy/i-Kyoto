@@ -124,7 +124,7 @@ export class FileService {
 
     try {
       const { stdout, stderr } = await execFilePromise(
-        'python3',
+        'python3.8',
         [
           this.pythonScriptPath,
           '--input',
