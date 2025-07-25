@@ -84,8 +84,10 @@ const createFileSlice: StateCreator<FileState, [], [], FileState> = (set, get) =
         body: formData,
         credentials: "include"
       });
+      console.log(`[file res]: `, res);
 
-      if (!res.ok) throw new Error(await res.text());
+      if (!res.ok) throw new Error("转换出错，请联系管理员");
+      // if (!res.ok) throw new Error(await res.text());
 
       const data = await res.json(); // adjust to your backend response
       set(

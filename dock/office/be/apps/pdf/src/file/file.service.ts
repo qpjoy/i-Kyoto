@@ -20,7 +20,7 @@ const execFilePromise = promisify(execFile);
 export class FileService {
   private readonly logger = new Logger(FileService.name);
   private readonly pythonScriptPath = join(
-    '/root/workspace/rocks/PaddleOCR/ppstructure/pdf2word/pdf2word_server.py',
+    '/qpjoy/workspace/rocks/PaddleOCR/ppstructure/pdf2word/pdf2word_server.py',
   );
   constructor(
     @InjectRepository(FileEntity)
@@ -157,54 +157,6 @@ export class FileService {
       );
       return outputDocxPath;
     } catch (error) {
-      console.log(`[inside error]:  before lang cn`);
-      try {
-        const { stdout, stderr } = await execFilePromise(
-          'python3',
-          [
-            this.pythonScriptPath,
-            '--input',
-            inputPdfPath,
-            '--output',
-            outputDirPath,
-          ],
-          { timeout: 120000 },
-        );
-
-        if (stderr) {
-          this.logger.warn(
-            `Python script imageBasedOcr stderr for record ID ${fileId}: ${stderr}`,
-          );
-        }
-
-        this.logger.log(
-          `Python script imageBasedOcr stdout for record ID ${fileId}: ${stdout}`,
-        );
-
-        if (!fs.existsSync(outputDocxPath)) {
-          throw new Error(
-            'Python script imageBasedOcr completed but output file was not found.',
-          );
-        }
-
-        this.logger.log(
-          `PDF imageBasedOcr successfully converted to Word for record ID ${fileId}: ${outputDocxPath}`,
-        );
-        return outputDocxPath;
-      } catch (e) {
-        this.logger.error(
-          `Error during Python imageBasedOcr script execution for record ID ${fileId}: ${e.message}`,
-        );
-        if (e.code === 'ERR_CHILD_PROCESS_STDIO_TIMEOUT') {
-          throw new InternalServerErrorException(
-            'PDF imageBasedOcr conversion timed out. The file might be too large or complex.',
-          );
-        }
-        throw new InternalServerErrorException(
-          `PDF imageBasedOcr conversion failed: ${e.message}`,
-        );
-      }
-
       this.logger.error(
         `Error during Python script execution for record ID ${fileId}: ${error.message}`,
       );
