@@ -22,7 +22,8 @@ export default defineConfig(async () => {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: `@use "@/assets/scss/library" as *;`
+          // import first-level variables
+          additionalData: `@use "@/assets/scss/library" as *; @use "@/assets/scss/abstracts/variables" as *;`
           // includePaths: [path.resolve(__dirname, "src/assets/scss")]
         }
       }

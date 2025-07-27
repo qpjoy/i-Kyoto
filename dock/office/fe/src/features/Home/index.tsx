@@ -4,7 +4,7 @@ import Sections from "@/components/Sections";
 
 export default function Home() {
   return (
-    <div>
+    <div className="home-container">
       <Banner />
       {/* will either be <Home> or <Settings> */}
       <Sections />

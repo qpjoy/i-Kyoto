@@ -29,7 +29,7 @@ export class UploadController {
       }),
     }),
   )
-  uploadFile(@UploadedFile() file: any) {
+  pdf2word(@UploadedFile() file: any) {
     return {
       url: 'http://localhost:3000/api/uploads/' + file.filename,
     };

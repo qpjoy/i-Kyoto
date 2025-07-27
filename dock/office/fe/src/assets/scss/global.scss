@@ -1,5 +1,5 @@
-@import "./abstracts/_variables";
-@import "./components/button";
+@use "./components/index";
+
 body {
   margin: 0;
   padding: 0;

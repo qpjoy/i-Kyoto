@@ -11,13 +11,15 @@ import {
   Logger,
   HttpStatus,
   NotFoundException,
+  UploadedFiles,
+  All,
 } from '@nestjs/common';
 import * as fs from 'fs';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
+import multer, { diskStorage } from 'multer';
 import { FileService } from './file.service';
 import path, { basename, extname, join } from 'path';
-import { Request, Response } from 'express';
+import { Request, Response, Express } from 'express';
 import { Auth } from '@pdf/auth/auth.decorator';
 import { FileEntity } from './models/file.entity';
 
@@ -39,7 +41,7 @@ export class FileController {
       }),
     }),
   )
-  async uploadFile(
+  async saveFile(
     @Req() request: Request,
     @UploadedFile() file: Express.Multer.File,
     @Body('description') description?: string,
@@ -55,11 +57,11 @@ export class FileController {
     return this.fileService.findAll();
   }
 
-  @Auth()
-  @Get(':path')
-  async getImage(@Param('path') path, @Res() res: Response) {
-    res.sendFile(path, { root: './uploads' });
-  }
+  // @Auth()
+  // @Get(':path')
+  // async getImage(@Param('path') path, @Res() res: Response) {
+  //   res.sendFile(path, { root: './uploads' });
+  // }
 
   @Post('pdf2word')
   @UseInterceptors(
@@ -73,7 +75,7 @@ export class FileController {
       }),
     }),
   )
-  async uploadPdfAndConvert(
+  async pdf2word(
     @UploadedFile() file: Express.Multer.File,
     @Res() res: Response,
     @Req() req: Request, // Use @Req() to get the request object for user info
@@ -100,7 +102,7 @@ export class FileController {
       );
 
       // 2. Perform conversion
-      const convertedFilePath = await this.fileService.convertPdfToWord(
+      const convertedFilePath = await this.fileService.pdf2word(
         fileRecord.path, // Use path from the saved record
         fileRecord.id, // Pass file ID for potential logging/updates in service
         convertedFileNameWithoutExt,
@@ -184,7 +186,41 @@ export class FileController {
     }
   }
 
-  @Get('pdf2word/:id')
+  @Post('merge-pdfs')
+  @UseInterceptors(
+    FilesInterceptor('files', 10, {
+      storage: multer.memoryStorage(),
+    }),
+  )
+  async mergePdfs(
+    @UploadedFiles() files: Express.Multer.File[],
+    @Res() res: Response,
+    @Body('sortType') sortType: string,
+    @Body('removeCertSign') removeCertSign: string, // note: string if from form
+  ) {
+    return this.fileService.mergePdfs(files, res);
+  }
+
+  // @Post('merge-pdfs')
+  // proxyToStirling(@Req() req: Request, @Res() res: Response) {
+  //   proxy.web(
+  //     req,
+  //     res,
+  //     {
+  //       target: 'http://localhost:8080/api/v1/general/merge-pdfs',
+  //       changeOrigin: true,
+  //       ignorePath: false,
+  //       prependPath: false,
+  //       selfHandleResponse: false,
+  //     },
+  //     (err) => {
+  //       console.error('[Proxy Error]:', err);
+  //       res.status(500).send('Proxy error');
+  //     },
+  //   );
+  // }
+
+  @Get(':id')
   download(@Param('id') id, @Res() res) {
     const baseDir = 'uploads';
     const plainPath = path.join(baseDir, `${id}.docx`);

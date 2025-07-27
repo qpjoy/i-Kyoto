@@ -7,6 +7,9 @@ import { ResponseInterceptor } from './core/interceptors/response.interceptor';
 import { AllExceptionsFilter } from './core/filters/http-exception.filter';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
+
+// import { createProxyMiddleware } from 'http-proxy-middleware';
+
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(PdfModule, {
     logger: ['error', 'warn', 'log', 'debug', 'verbose'],
@@ -22,8 +25,6 @@ async function bootstrap() {
   app.useStaticAssets(join(__dirname, '..', 'uploads'), {
     prefix: '/uploads/',
   });
-
-  app.use(cookieParser());
   app.enableCors({
     origin: (origin, callback) => {
       const allowlist = [
@@ -41,6 +42,17 @@ async function bootstrap() {
     },
     credentials: true,
   });
+
+  // app.use(
+  //   '/api/uploads/merge-pdfs',
+  //   createProxyMiddleware({
+  //     target: 'http://localhost:8080',
+  //     changeOrigin: true,
+  //     pathRewrite: { '^/api/uploads': '/api/v1/general' },
+  //   }),
+  // );
+  app.use(cookieParser());
+
   Logger.log('Nest application unsuccessfully started');
   Logger.verbose('123');
   Logger.debug('345');

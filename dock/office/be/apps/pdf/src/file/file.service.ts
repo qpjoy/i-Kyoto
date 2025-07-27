@@ -12,15 +12,24 @@ import { promisify } from 'util';
 import { exec, execFile } from 'child_process';
 import { User } from '@pdf/user/models/user.entity';
 import { basename, dirname, join } from 'path';
+import { api } from '@pdf/utils/variables';
+import axios from 'axios';
+import { ReadStream, createReadStream } from 'fs';
+import FormData from 'form-data';
+import { Readable } from 'stream';
 
 const execPromise = promisify(exec);
 const execFilePromise = promisify(execFile);
+
+const env = process.env.NODE_ENV;
 
 @Injectable()
 export class FileService {
   private readonly logger = new Logger(FileService.name);
   private readonly pythonScriptPath = join(
-    '/qpjoy/workspace/rocks/PaddleOCR/ppstructure/pdf2word/pdf2word_server.py',
+    env === 'host'
+      ? '/Users/qpjoy/workspace/qpjoy/rocks/PaddleOCR/ppstructure/pdf2word/pdf2word_server.py'
+      : '/qpjoy/workspace/rocks/PaddleOCR/ppstructure/pdf2word/pdf2word_server.py',
   );
   constructor(
     @InjectRepository(FileEntity)
@@ -39,9 +48,13 @@ export class FileService {
     });
     const fileRes = await this.fileRepo.save(fileEntity);
     return {
-      url: 'http://localhost:9101/api/uploads/' + file.filename,
+      url: env === `${api}/uploads/` + file.filename,
       ...fileRes,
     };
+  }
+
+  async saveMultipleFiles(files: Express.Multer.File[]): Promise<FileEntity[]> {
+    return Promise.all(files.map((f) => this.saveFile(f)));
   }
 
   async saveInitialFileRecord(
@@ -97,7 +110,37 @@ export class FileService {
     return await this.fileRepo.save(fileRecord);
   }
 
-  async convertPdfToWord(
+  cleanupTempFiles(inputPath: string, outputPath?: string) {
+    fs.unlink(inputPath, (err) => {
+      if (err)
+        this.logger.error(
+          `Failed to delete input temp file ${inputPath}: ${err.message}`,
+        );
+      else this.logger.log(`Deleted input temp file: ${inputPath}`);
+    });
+
+    // if (outputPath && fs.existsSync(outputPath)) {
+    //   fs.unlink(outputPath, (err) => {
+    //     if (err)
+    //       this.logger.error(
+    //         `Failed to delete output temp file ${outputPath}: ${err.message}`,
+    //       );
+    //     else this.logger.log(`Deleted output temp file: ${outputPath}`);
+    //   });
+    // }
+  }
+
+  async findAll() {
+    return this.fileRepo.find({
+      relations: ['user'],
+    });
+  }
+
+  async findOne(id: number) {
+    return this.fileRepo.findOne({ where: { id }, relations: ['user'] });
+  }
+
+  async pdf2word(
     inputPdfPath: string,
     fileId: number,
     convertedFileNameWithoutExt: string,
@@ -124,7 +167,7 @@ export class FileService {
 
     try {
       const { stdout, stderr } = await execFilePromise(
-        'python3.8',
+        env === 'host' ? 'python3' : 'python3.8',
         [
           this.pythonScriptPath,
           '--input',
@@ -171,33 +214,54 @@ export class FileService {
     }
   }
 
-  cleanupTempFiles(inputPath: string, outputPath?: string) {
-    fs.unlink(inputPath, (err) => {
-      if (err)
-        this.logger.error(
-          `Failed to delete input temp file ${inputPath}: ${err.message}`,
-        );
-      else this.logger.log(`Deleted input temp file: ${inputPath}`);
-    });
+  async mergePdfs(files: Express.Multer.File[], res) {
+    try {
+      const form = new FormData();
 
-    // if (outputPath && fs.existsSync(outputPath)) {
-    //   fs.unlink(outputPath, (err) => {
-    //     if (err)
-    //       this.logger.error(
-    //         `Failed to delete output temp file ${outputPath}: ${err.message}`,
-    //       );
-    //     else this.logger.log(`Deleted output temp file: ${outputPath}`);
-    //   });
-    // }
-  }
+      // Append uploaded files
+      for (const file of files) {
+        // console.log(`[file]: `, file.originalname);
+        // const stream = Readable.from(file.buffer);
+        // form.append('fileInput', stream, file.originalname);
+        // console.log(`[file.buffer]: `, file.buffer);
+        form.append('fileInput', file.buffer, file.originalname);
+      }
+      // "name", "date", or "manual"
+      // form.append('sortType', sortType ?? 'name'); // or 'NONE', 'ASCENDING_NAME', etc.
+      // form.append('removeCertSign', removeCertSign ?? true);
+      console.log(`[form.getHeaders(),]: `, form.getHeaders());
 
-  async findAll() {
-    return this.fileRepo.find({
-      relations: ['user'],
-    });
-  }
+      const stirlingUrl = 'http://localhost:8080/api/v1/general/merge-pdfs'; // or Docker host
 
-  async findOne(id: number) {
-    return this.fileRepo.findOne({ where: { id }, relations: ['user'] });
+      // Forward to Stirling-PDF
+      const response = await axios.post(
+        stirlingUrl, // adjust to Stirling endpoint
+        form,
+        {
+          headers: form.getHeaders(),
+          maxBodyLength: Infinity,
+          responseType: 'arraybuffer',
+        },
+      );
+      console.log(`[response]: `, response);
+      // return {
+      //   buffer: Buffer.from(response.data),
+      // };
+
+      const stream = Readable.from(response.data);
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', 'attachment; filename=merged.pdf');
+      stream.pipe(res);
+    } catch (e) {
+      console.log(`[e merge]: `, e);
+    }
+
+    // response.b
+    // console.log(`[Logger]: `, Logger);
+
+    // return {
+    //   msg: 'PDFs merged successfully.',
+    //   url: 'http://localhost:3000/api/files/merge',
+    // };
   }
 }

@@ -1,40 +1,40 @@
 services:
-  office-fe:
-    container_name: qpjoy.office-fe
-    build:
-      context: ./fe
-      dockerfile: Dockerfile.dev
-    depends_on:
-      - office-be
-    ports:
-      - 5173:5173
-    networks:
-      - office
-    volumes:
-      - ./fe:/app
-      - /app/node_modules
-    environment:
-      - NODE_ENV=development
-      # - /app/node_modules # prevent host/node_modules overwrite
-    command: yarn dev
+  # office-fe:
+  #   container_name: qpjoy.office-fe
+  #   build:
+  #     context: ./fe
+  #     dockerfile: Dockerfile.dev
+  #   depends_on:
+  #     - office-be
+  #   ports:
+  #     - 5173:5173
+  #   networks:
+  #     - office
+  #   volumes:
+  #     - ./fe:/app
+  #     - /app/node_modules
+  #   environment:
+  #     - NODE_ENV=development
+  #     # - /app/node_modules # prevent host/node_modules overwrite
+  #   command: yarn dev
 
-  office-be:
-    container_name: qpjoy.office-be
-    # image: qpjoy/office-be
-    build:
-      context: ./be
-      dockerfile: Dockerfile.dev
-    depends_on:
-      - db
-    ports:
-      - 9101:3000
-    networks:
-      - office
-    volumes:
-      - ./be:/app
-      - /app/node_modules
-    environment:
-      - NODE_ENV=dev
+  # office-be:
+  #   container_name: qpjoy.office-be
+  #   # image: qpjoy/office-be
+  #   build:
+  #     context: ./be
+  #     dockerfile: Dockerfile.dev
+  #   depends_on:
+  #     - db
+  #   ports:
+  #     - 9101:3000
+  #   networks:
+  #     - office
+  #   volumes:
+  #     - ./be:/app
+  #     - /app/node_modules
+  #   environment:
+  #     - NODE_ENV=dev
 
   db:
     image: postgres:latest

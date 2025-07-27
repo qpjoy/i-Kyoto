@@ -12,6 +12,7 @@ import Home from "./features/Home/index.tsx";
 import About from "./features/About/index.tsx";
 import Office from "./features/Office/index.tsx";
 import PDF2WORD from "./features/Office/pdf2word.tsx";
+import MergePDF from "./features/Office/mergePDF.tsx";
 import "@/utils/polyfill/crypto-randomuuid.ts";
 
 const router = createBrowserRouter([
@@ -31,6 +32,11 @@ const router = createBrowserRouter([
         path: "pdf-to-word",
         Component: Office,
         children: [{ index: true, Component: PDF2WORD }]
+      },
+      {
+        path: "merge-pdf",
+        Component: Office,
+        children: [{ index: true, Component: MergePDF }]
       }
     ]
   }

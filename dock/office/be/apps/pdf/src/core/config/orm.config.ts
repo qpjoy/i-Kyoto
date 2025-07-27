@@ -18,7 +18,9 @@ import { FileEntity } from '@pdf/file/models/file.entity';
 const ormConfig = (): DataSourceOptions => ({
   type: 'postgres',
   host:
-    process.env.NODE_ENV === 'host' ? 'localhost' : process.env.DB_HOST || 'db',
+    process.env.NODE_ENV === 'host'
+      ? 'localhost'
+      : process.env.DB_HOST || 'localhost',
   port: parseInt(process.env.DB_PORT || '5432'),
   username: process.env.DB_USER || 'postgres',
   password: process.env.DB_PASS || 'postgres',

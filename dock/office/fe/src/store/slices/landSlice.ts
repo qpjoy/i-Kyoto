@@ -3,7 +3,7 @@ import { produce } from "immer";
 import { immer } from "zustand/middleware/immer";
 import { devtools, persist, subscribeWithSelector } from "zustand/middleware";
 import { createSelectors } from "@/utils/createSelectors";
-import { url } from "@/store/variables";
+import { api } from "@/store/variables";
 
 // const url = "https://your-api.com"; // replace with actual URL
 
@@ -239,7 +239,7 @@ export const createLandSlice: StateCreator<LandState, any, [], LandState> = (set
       _code = "";
     let data = {};
     try {
-      const res = await fetch(`${url}/users/change-password`, {
+      const res = await fetch(`${api}/users/change-password`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -273,7 +273,7 @@ export const createLandSlice: StateCreator<LandState, any, [], LandState> = (set
     let data = {};
 
     try {
-      const res = await fetch(`${url}/codes/forget`, {
+      const res = await fetch(`${api}/codes/forget`, {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         //   mode: "cors", // no-cors, *cors, same-origin
         //   cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -313,7 +313,7 @@ export const createLandSlice: StateCreator<LandState, any, [], LandState> = (set
     let data = {};
 
     try {
-      const res = await fetch(`${url}/codes/send`, {
+      const res = await fetch(`${api}/codes/send`, {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         //   mode: "cors", // no-cors, *cors, same-origin
         //   cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -352,7 +352,7 @@ export const createLandSlice: StateCreator<LandState, any, [], LandState> = (set
       _code: any = -1;
     let data: any = {};
     try {
-      const res = await fetch(`${url}/users/email-register`, {
+      const res = await fetch(`${api}/users/email-register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -397,7 +397,7 @@ export const createLandSlice: StateCreator<LandState, any, [], LandState> = (set
     let _data: any = null;
 
     try {
-      const res = await fetch(`${url}/auth/login`, {
+      const res = await fetch(`${api}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -441,7 +441,7 @@ export const createLandSlice: StateCreator<LandState, any, [], LandState> = (set
     );
 
     try {
-      const res = await fetch(`${url}/auth/forgot-password`, {
+      const res = await fetch(`${api}/auth/forgot-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, deviceID })

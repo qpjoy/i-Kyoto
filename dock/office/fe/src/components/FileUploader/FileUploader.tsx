@@ -1,14 +1,16 @@
 import React, { useRef, useState } from "react";
-import { useFileStore } from "@/store/slices/fileSlice";
-import "./FileUploader.scss";
+import { Operation, useFileStore } from "@/store/slices/fileSlice";
 import CloudSVG from "@assets/img/svg/cloud.svg";
+import "./FileUploader.scss";
+import { api } from "@/store/variables";
 
-const FileUploader: React.FC = () => {
+const FileUploader: any = (operation: Operation) => {
   const addFiles = useFileStore.use.addFiles();
-  const uploadFile = useFileStore.use.uploadFile();
-  const uploadAll = useFileStore.use.uploadAll();
+  const uploadFile = useFileStore.use.pdf2word();
+  // const uploadAll = useFileStore.use.uploadAll();
   const removeFile = useFileStore.use.removeFile();
   const clearAll = useFileStore.use.clearAll();
+  const mergePDFs = useFileStore.use.mergePDFs();
   const files = useFileStore.use.files();
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -48,6 +50,10 @@ const FileUploader: React.FC = () => {
   //   } finally {
   //     setUploading(false);
   //   }
+  // };
+
+  // const mergePDF = async () => {
+  //   await mergePDFs();
   // };
 
   return (
@@ -111,11 +117,7 @@ const FileUploader: React.FC = () => {
                 </button>
 
                 {f.url ? (
-                  <a
-                    href={`http://43.246.210.144:9101/api/uploads/pdf2word/${f.url}`}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
+                  <a href={`${api}/uploads/${f.url}`} target="_blank" rel="noreferrer">
                     下载转换文件
                     {f.url}
                   </a>
@@ -134,8 +136,12 @@ const FileUploader: React.FC = () => {
             ))}
           </ul>
 
-          <button onClick={uploadAll} style={{ marginRight: 8 }}>
+          {/* <button onClick={() => {}} style={{ marginRight: 8 }}>
             Upload All
+          </button> */}
+
+          <button onClick={() => mergePDFs(files.map((file) => file.id))} style={{ marginRight: 8 }}>
+            Merge PDF
           </button>
           <button onClick={clearAll}>Clear</button>
         </div>

@@ -1,9 +1,10 @@
 import { Link } from "react-router";
-import "./Header.scss";
-import LOGO from "@/assets/pdftools.png";
 import LandPopup from "@/features/Land/Land";
 import { useCountDown } from "@/utils/hooks/useCountdown";
 import { useForgetCountdown } from "@/utils/hooks/useForgetCountdown";
+import LOGO from "@/assets/img/pdftools.png";
+import "./Header.scss";
+
 export default function Header() {
   const registerCounter = useCountDown()[0];
   const forgetCounter = useForgetCountdown()[0];
