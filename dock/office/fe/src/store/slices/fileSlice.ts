@@ -282,7 +282,7 @@ const createFileSlice: StateCreator<FileState, [], [], FileState> = (set, get) =
       a.remove();
       window.URL.revokeObjectURL(url);
     } catch (err: any) {
-      console.log(`[err mergePDFs]: `, err);
+      console.log(`[err image2pdf]: `, err);
     }
   },
 
@@ -332,7 +332,7 @@ const createFileSlice: StateCreator<FileState, [], [], FileState> = (set, get) =
       a.remove();
       window.URL.revokeObjectURL(url);
     } catch (err: any) {
-      console.log(`[err mergePDFs]: `, err);
+      console.log(`[err image2pdfs]: `, err);
     }
   }
 
