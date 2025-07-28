@@ -29,9 +29,9 @@ export default function Sections() {
             <div className="card_content">合并 PDF</div>
           </div>
 
-          <div className="card" onClick={() => navigate("jpg-to-pdf")}>
+          <div className="card" onClick={() => navigate("image-to-pdf")}>
             <img className="card_logo" src={JPG2PDF} />
-            <div className="card_content">JPG 转 PDF</div>
+            <div className="card_content">图片 转 PDF</div>
           </div>
 
           <div className="card" onClick={() => navigate("split-pdfs")}>

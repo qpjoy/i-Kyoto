@@ -243,7 +243,6 @@ export class FileService {
           responseType: 'arraybuffer',
         },
       );
-      console.log(`[response]: `, response);
       // return {
       //   buffer: Buffer.from(response.data),
       // };
@@ -255,13 +254,75 @@ export class FileService {
     } catch (e) {
       console.log(`[e merge]: `, e);
     }
+  }
 
-    // response.b
-    // console.log(`[Logger]: `, Logger);
+  async image2pdf(files: Express.Multer.File[], res, body) {
+    try {
+      const form = new FormData();
 
-    // return {
-    //   msg: 'PDFs merged successfully.',
-    //   url: 'http://localhost:3000/api/files/merge',
-    // };
+      // Append uploaded files
+      for (const file of files) {
+        // console.log(`[file]: `, file.originalname);
+        // const stream = Readable.from(file.buffer);
+        // form.append('fileInput', stream, file.originalname);
+        // console.log(`[file.buffer]: `, file.buffer);
+        form.append('fileInput', file.buffer, {
+          filename: file.originalname,
+          contentType: file.mimetype,
+        });
+      }
+
+      for (let item in body) {
+        form.append(item, body[item]);
+      }
+      // "name", "date", or "manual"
+      // form.append('sortType', sortType ?? 'name'); // or 'NONE', 'ASCENDING_NAME', etc.
+      // form.append('removeCertSign', removeCertSign ?? true);
+      console.log(`[form.getHeaders(),]: `, form.getHeaders());
+
+      const stirlingUrl = 'http://localhost:8080/api/v1/convert/img/pdf'; // or Docker host
+
+      // Forward to Stirling-PDF
+      const response = await axios.post(
+        stirlingUrl, // adjust to Stirling endpoint
+        form,
+        {
+          headers: form.getHeaders(),
+          maxBodyLength: Infinity,
+          responseType: 'stream',
+        },
+      );
+
+      const contentType = response.headers['content-type'];
+      const disposition =
+        body.override === 'multi'
+          ? 'attachment; filename=image2pdfconverted.zip'
+          : 'attachment; filename=image2pdfconverted.pdf';
+
+      console.log(
+        `[body, disposition, form, contentType]: `,
+        body,
+        disposition,
+        form,
+        contentType,
+        response.headers['content-type'],
+        response.headers['content-disposition'],
+      );
+      res.setHeader('Content-Type', contentType);
+      res.setHeader('Content-Disposition', disposition);
+
+      response.data.pipe(res);
+      // console.log(`[response]: `, response);
+      // // return {
+      // //   buffer: Buffer.from(response.data),
+      // // };
+
+      // const stream = Readable.from(response.data);
+      // res.setHeader('Content-Type', 'application/pdf');
+      // res.setHeader('Content-Disposition', 'attachment; filename=merged.pdf');
+      // stream.pipe(res);
+    } catch (e) {
+      console.log(`[e merge]: `, e);
+    }
   }
 }

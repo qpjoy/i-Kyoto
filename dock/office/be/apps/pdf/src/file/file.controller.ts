@@ -21,7 +21,14 @@ import { FileService } from './file.service';
 import path, { basename, extname, join } from 'path';
 import { Request, Response, Express } from 'express';
 import { Auth } from '@pdf/auth/auth.decorator';
+import axios from 'axios';
+import JSZip from 'jszip';
+import * as stream from 'stream';
+import { promisify } from 'util';
+import FormData from 'form-data';
 import { FileEntity } from './models/file.entity';
+
+const pipeline = promisify(stream.pipeline);
 
 @Controller('uploads')
 export class FileController {
@@ -199,6 +206,64 @@ export class FileController {
     @Body('removeCertSign') removeCertSign: string, // note: string if from form
   ) {
     return this.fileService.mergePdfs(files, res);
+  }
+
+  @Post('image-to-pdf')
+  @UseInterceptors(
+    FilesInterceptor('files', 10, {
+      storage: multer.memoryStorage(),
+    }),
+  )
+  async image2pdf(
+    @UploadedFiles() files: Express.Multer.File[],
+    @Res() res: Response,
+    @Body() body: any,
+  ) {
+    console.log(`[image2pdf body]: `, body);
+    return this.fileService.image2pdf(files, res, body);
+  }
+
+  @Post('image-to-pdf-zip')
+  @UseInterceptors(
+    FilesInterceptor('files', 10, {
+      storage: multer.memoryStorage(),
+    }),
+  )
+  async convertToZip(@Req() req, @Res() res) {
+    const files = req.files; // Assuming `multer` is used
+    const body = req.body;
+    const zip = new JSZip();
+    const stirlingUrl = 'http://localhost:8080/api/v1/convert/img/pdf';
+
+    await Promise.all(
+      files.map(async (file) => {
+        const form = new FormData();
+        form.append('fileInput', file.buffer, file.originalname);
+        form.append('override', 'single'); // per file
+        form.append('conversionType', 'convert');
+        form.append('fitOption', body['fitOption']);
+        form.append('autoRotate', body['autoRotate']);
+        form.append('colorType', body['colorType']);
+
+        const response = await axios.post(stirlingUrl, form, {
+          headers: form.getHeaders(),
+          responseType: 'arraybuffer', // use buffer for jszip
+          maxBodyLength: Infinity,
+        });
+
+        zip.file(file.originalname.replace(/\.\w+$/, '.pdf'), response.data);
+      }),
+    );
+
+    const zipBuffer = await zip.generateAsync({ type: 'nodebuffer' });
+
+    res.set({
+      'Content-Type': 'application/zip',
+      'Content-Disposition': 'attachment; filename=image2pdfconverted.zip',
+      'Content-Length': zipBuffer.length,
+    });
+
+    res.send(zipBuffer);
   }
 
   // @Post('merge-pdfs')

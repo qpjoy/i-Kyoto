@@ -18,8 +18,18 @@ export interface FileItem {
 
 export enum Operation {
   PDF2WORD = "pdf-to-word",
-  mergePDF = "merge-pdf"
+  mergePDF = "merge-pdf",
+  IMAGE2PDF = "image-to-pdf"
 }
+
+type Image2PDFOptions = {
+  fitOption: "fillPage" | "fitDocumentToImage" | "maintainAspectRatio" | string;
+  autoRotate: "on" | "off" | string;
+  colorType: "color" | "greyscale" | "blackwhite" | string;
+
+  override: "single" | "multi" | string;
+  conversionType: "merge" | "convert" | string;
+};
 
 export interface FileState {
   files: FileItem[];
@@ -33,6 +43,15 @@ export interface FileState {
   pdf2word: (id: string) => Promise<void>;
   mergePDFs: (ids: string[]) => Promise<void>;
 
+  // image2pdf
+  image2pdfOptions: Image2PDFOptions;
+  setImage2pdfOptions: <K extends keyof Image2PDFOptions>(
+    key: K,
+    value: Image2PDFOptions[K] extends object ? Partial<Image2PDFOptions[K]> : Image2PDFOptions[K]
+  ) => void;
+  image2pdf: (ids: string[]) => Promise<void>;
+  image2pdfs: (ids: string[]) => Promise<void>;
+
   // uploadAll: () => Promise<void>;
 }
 
@@ -44,6 +63,27 @@ const createFileSlice: StateCreator<FileState, [], [], FileState> = (set, get) =
 
   setOperation: (operation) => {
     set({ operation });
+  },
+
+  image2pdfOptions: {
+    fitOption: "fillPage",
+    autoRotate: "on",
+    colorType: "color",
+    override: "single",
+    conversionType: "merge"
+    // { override: multi, conversionType: convert }
+  },
+
+  setImage2pdfOptions: (key, value) => {
+    set((state): any => {
+      if (typeof value === "object" && !Array.isArray(value)) {
+        // Deep merge for nested object like convertType
+        Object.assign(state.image2pdfOptions[key], value);
+      } else {
+        // Replace for primitive fields
+        state.image2pdfOptions[key] = value as any;
+      }
+    });
   },
 
   /* ---------- Mutators ---------- */
@@ -193,6 +233,106 @@ const createFileSlice: StateCreator<FileState, [], [], FileState> = (set, get) =
       //     }
       //   })
       // );
+    }
+  },
+
+  image2pdf: async (ids: string[]) => {
+    const items = get().files.filter((f) => ids.includes(f.id));
+    if (items.length < 1) return;
+    const image2pdfOptions: any = get().image2pdfOptions;
+
+    // Mark all selected as uploading
+    set(
+      produce((state) => {
+        for (const id of ids) {
+          const file = state.files.find((f: any) => f.id === id);
+          if (file) file.status = "uploading";
+        }
+      })
+    );
+
+    const formData = new FormData();
+    for (const item of items) {
+      formData.append("files", item.file); // assumes backend accepts multiple "files"
+    }
+    for (let item in image2pdfOptions) {
+      formData.append(item, image2pdfOptions[item]);
+    }
+
+    try {
+      const res = await fetch(`${api}/uploads/image-to-pdf`, {
+        method: "POST",
+        body: formData,
+        credentials: "include"
+      });
+      console.log(`[merge-pdfs res]:`, res);
+
+      if (!res.ok) throw new Error("图片转换出错，请联系管理员");
+
+      const blob = await res.blob(); // get response as Blob
+      const contentType = res.headers.get("Content-Type");
+      const url = window.URL.createObjectURL(blob); // create temp URL
+      console.log(`[contentType, url]: `, contentType, url);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = contentType === "application/pdf" ? "image2pdfconverted.pdf" : "image2pdfconverted.zip";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (err: any) {
+      console.log(`[err mergePDFs]: `, err);
+    }
+  },
+
+  image2pdfs: async (ids: any) => {
+    const items = get().files.filter((f) => ids.includes(f.id));
+    if (items.length < 1) return;
+    const image2pdfOptions: any = get().image2pdfOptions;
+
+    // Mark all selected as uploading
+    set(
+      produce((state) => {
+        for (const id of ids) {
+          const file = state.files.find((f: any) => f.id === id);
+          if (file) file.status = "uploading";
+        }
+      })
+    );
+
+    const formData = new FormData();
+    for (const item of items) {
+      formData.append("files", item.file); // assumes backend accepts multiple "files"
+    }
+    for (let item in image2pdfOptions) {
+      formData.append(item, image2pdfOptions[item]);
+    }
+
+    try {
+      const res = await fetch(`${api}/uploads/image-to-pdf-zip`, {
+        method: "POST",
+        body: formData,
+        credentials: "include"
+      });
+      console.log(`[merge-pdfs res]:`, res);
+
+      if (!res.ok) throw new Error("图片转换出错，请联系管理员");
+
+      const blob = await res.blob(); // get response as Blob
+      const contentType = res.headers.get("Content-Type");
+      const url = window.URL.createObjectURL(blob); // create temp URL
+      console.log(`[contentType, url]: `, contentType, url);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = contentType === "application/pdf" ? "image2pdfconverted.pdf" : "image2pdfconverted.zip";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (err: any) {
+      console.log(`[err mergePDFs]: `, err);
     }
   }
 

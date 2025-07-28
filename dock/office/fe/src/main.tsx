@@ -14,6 +14,7 @@ import Office from "./features/Office/index.tsx";
 import PDF2WORD from "./features/Office/pdf2word.tsx";
 import MergePDF from "./features/Office/mergePDF.tsx";
 import "@/utils/polyfill/crypto-randomuuid.ts";
+import IMG2PDF from "./features/Office/img2pdf.tsx";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,11 @@ const router = createBrowserRouter([
         path: "merge-pdf",
         Component: Office,
         children: [{ index: true, Component: MergePDF }]
+      },
+      {
+        path: "image-to-pdf",
+        Component: Office,
+        children: [{ index: true, Component: IMG2PDF }]
       }
     ]
   }
