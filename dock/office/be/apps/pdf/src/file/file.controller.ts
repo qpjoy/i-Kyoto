@@ -266,24 +266,58 @@ export class FileController {
     res.send(zipBuffer);
   }
 
-  // @Post('merge-pdfs')
-  // proxyToStirling(@Req() req: Request, @Res() res: Response) {
-  //   proxy.web(
-  //     req,
-  //     res,
-  //     {
-  //       target: 'http://localhost:8080/api/v1/general/merge-pdfs',
-  //       changeOrigin: true,
-  //       ignorePath: false,
-  //       prependPath: false,
-  //       selfHandleResponse: false,
-  //     },
-  //     (err) => {
-  //       console.error('[Proxy Error]:', err);
-  //       res.status(500).send('Proxy error');
-  //     },
-  //   );
-  // }
+  @Post('split-pdf')
+  @UseInterceptors(
+    FileInterceptor('file', {
+      storage: multer.memoryStorage(),
+    }),
+  )
+  async splitPdf(
+    @UploadedFile() file: Express.Multer.File,
+    @Body() body: any,
+    @Res() res: Response,
+  ) {
+    const form = new FormData();
+
+    // File to split
+    form.append('fileInput', file.buffer, {
+      filename: file.originalname,
+      contentType: file.mimetype,
+    });
+
+    // Optional: append user-specified split options
+    for (const key in body) {
+      console.log(`[key, body[key]]: `, key, body[key]);
+      form.append(key, body[key]);
+    }
+
+    console.log(`[form]: `, form);
+
+    try {
+      const stirlingUrl = 'http://localhost:8080/api/v1/general/split-pages';
+
+      const response = await axios.post(stirlingUrl, form, {
+        headers: form.getHeaders(),
+        responseType: 'stream',
+        maxBodyLength: Infinity,
+      });
+
+      res.setHeader(
+        'Content-Disposition',
+        response.headers['content-disposition'] ||
+          'attachment; filename="split-pdf.zip"',
+      );
+      res.setHeader(
+        'Content-Type',
+        response.headers['content-type'] || 'application/zip',
+      );
+
+      response.data.pipe(res);
+    } catch (err) {
+      console.error('Split PDF error:', err.message);
+      res.status(500).json({ error: 'Failed to split PDF' });
+    }
+  }
 
   @Get(':id')
   download(@Param('id') id, @Res() res) {

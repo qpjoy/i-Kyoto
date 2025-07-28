@@ -34,7 +34,7 @@ export default function Sections() {
             <div className="card_content">图片 转 PDF</div>
           </div>
 
-          <div className="card" onClick={() => navigate("split-pdfs")}>
+          <div className="card" onClick={() => navigate("split-pdf")}>
             <img className="card_logo" src={MERGEPDF} />
             <div className="card_content">分割 PDF</div>
           </div>

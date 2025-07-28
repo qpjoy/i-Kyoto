@@ -19,7 +19,8 @@ export interface FileItem {
 export enum Operation {
   PDF2WORD = "pdf-to-word",
   mergePDF = "merge-pdf",
-  IMAGE2PDF = "image-to-pdf"
+  IMAGE2PDF = "image-to-pdf",
+  SPLITPDF = "split-pdf"
 }
 
 type Image2PDFOptions = {
@@ -29,6 +30,10 @@ type Image2PDFOptions = {
 
   override: "single" | "multi" | string;
   conversionType: "merge" | "convert" | string;
+};
+
+type SplitPDFOptions = {
+  pageNumbers: string;
 };
 
 export interface FileState {
@@ -51,6 +56,14 @@ export interface FileState {
   ) => void;
   image2pdf: (ids: string[]) => Promise<void>;
   image2pdfs: (ids: string[]) => Promise<void>;
+
+  // split pdf
+  splitpdfOptions: SplitPDFOptions;
+  setSplitpdfOptions: <K extends keyof SplitPDFOptions>(
+    key: K,
+    value: SplitPDFOptions[K] extends object ? Partial<SplitPDFOptions[K]> : SplitPDFOptions[K]
+  ) => void;
+  splitpdf: (id: string) => Promise<void>;
 
   // uploadAll: () => Promise<void>;
 }
@@ -89,6 +102,20 @@ const createFileSlice: StateCreator<FileState, [], [], FileState> = (set, get) =
   /* ---------- Mutators ---------- */
 
   addFiles: (newFiles) => {
+    // let operation = get().operation;
+    // if (operation === "split-pdf") {
+    //   if (newFiles.length > 1) return "分割文件不能超过1";
+
+    //   let files = get().files;
+    //   console.log(`[newFiles]: `, newFiles, files);
+
+    //   // if (files.length) {
+    //   //   set((state) => {
+    //   //     state.files = [...files, ...newFiles];
+    //   //   })
+    //   // }
+    // }
+
     set(
       produce((state) => {
         newFiles.forEach((f) =>
@@ -333,6 +360,73 @@ const createFileSlice: StateCreator<FileState, [], [], FileState> = (set, get) =
       window.URL.revokeObjectURL(url);
     } catch (err: any) {
       console.log(`[err image2pdfs]: `, err);
+    }
+  },
+
+  splitpdfOptions: {
+    pageNumbers: ""
+  },
+
+  setSplitpdfOptions: (key, value) => {
+    set((state): any => {
+      if (typeof value === "object" && !Array.isArray(value)) {
+        // Deep merge for nested object like convertType
+        Object.assign(state.splitpdfOptions[key], value);
+      } else {
+        // Replace for primitive fields
+        state.splitpdfOptions[key] = value as any;
+      }
+    });
+  },
+
+  splitpdf: async (id: any) => {
+    const items = get().files.filter((f) => f.id === id);
+    if (items.length > 1) return;
+    const splitpdfOptions: any = get().splitpdfOptions;
+    const item = items[0];
+
+    console.log(`[item]: `, item);
+
+    // Mark all selected as uploading
+    set(
+      produce((state) => {
+        const file = state.files.find((f: any) => f.id === id);
+        if (file) file.status = "uploading";
+      })
+    );
+
+    const formData = new FormData();
+
+    formData.append("file", item.file); // assumes backend accepts multiple "files"
+
+    for (let item in splitpdfOptions) {
+      formData.append(item, splitpdfOptions[item]);
+    }
+
+    try {
+      const res = await fetch(`${api}/uploads/split-pdf`, {
+        method: "POST",
+        body: formData,
+        credentials: "include"
+      });
+      console.log(`[split-pdfs res]:`, res);
+
+      if (!res.ok) throw new Error("图片转换出错，请联系管理员");
+
+      const blob = await res.blob(); // get response as Blob
+      const contentType = res.headers.get("Content-Type");
+      const url = window.URL.createObjectURL(blob); // create temp URL
+      console.log(`[contentType, url]: `, contentType, url);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = contentType === "application/pdf" ? "image2pdfconverted.pdf" : "image2pdfconverted.zip";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (err: any) {
+      console.log(`[err splitPDF]: `, err);
     }
   }
 

@@ -11,8 +11,14 @@ import {
   InputLabel,
   Select,
   FormControlLabel,
-  Checkbox
+  Checkbox,
+  TextField,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Typography
 } from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 // import { SelectChangeEvent } from "@mui/material/Select";
 
 const FileUploader: any = ({ operation }: any) => {
@@ -24,12 +30,15 @@ const FileUploader: any = ({ operation }: any) => {
   const mergePDFs = useFileStore.use.mergePDFs();
   const image2pdf = useFileStore.use.image2pdf();
   const image2pdfs = useFileStore.use.image2pdfs();
+  const splitpdf = useFileStore.use.splitpdf();
   const files = useFileStore.use.files();
   const setImage2pdfOptions = useFileStore.use.setImage2pdfOptions();
   const fitOption = useFileStore((s) => s.image2pdfOptions.fitOption);
   const autoRotate = useFileStore((s) => s.image2pdfOptions.autoRotate);
   const colorType = useFileStore((s) => s.image2pdfOptions.colorType);
   const override = useFileStore((s) => s.image2pdfOptions.override);
+  const pageNumbers = useFileStore((s) => s.splitpdfOptions.pageNumbers);
+  const setSplitpdfOptions = useFileStore.use.setSplitpdfOptions();
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   // const [files, setFiles] = useState<File[]>([]);
@@ -290,6 +299,65 @@ const FileUploader: any = ({ operation }: any) => {
               Merge PDF
             </button>
           </>
+        ) : operation === Operation.SPLITPDF ? (
+          <Box
+            sx={{
+              width: "60%"
+            }}
+          >
+            <TextField
+              label="输入要分割的页面："
+              variant="standard"
+              color="warning"
+              focused
+              value={pageNumbers}
+              onChange={(e) => setSplitpdfOptions("pageNumbers", e.target.value)}
+            />
+            <Accordion
+              sx={{
+                margin: ".5rem 0"
+              }}
+            >
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1-content"
+                id="panel1-header"
+              >
+                <Typography component="div" sx={{ fontSize: "1.3rem" }}>
+                  信息：
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography component="span" sx={{ fontSize: "1.3rem" }}>
+                  选择希望进行分割的页数
+                </Typography>
+                <Typography component="div" sx={{ fontSize: "1rem" }}>
+                  如选择1,3,7-9将把一个 10 页的文件分割成6个独立的PDF：
+                </Typography>
+                <Typography component="div" sx={{ fontSize: "1rem" }}>
+                  文档 #1：第 1 页
+                </Typography>
+                <Typography component="div" sx={{ fontSize: "1rem" }}>
+                  文档 #2：第 2 页和第 3 页{" "}
+                </Typography>
+                <Typography component="div" sx={{ fontSize: "1rem" }}>
+                  文档 #3：第 4 页、第 5 页、第 6 页和第 7 页{" "}
+                </Typography>
+                <Typography component="div" sx={{ fontSize: "1rem" }}>
+                  文档 #4：第 7 页{" "}
+                </Typography>
+                <Typography component="div" sx={{ fontSize: "1rem" }}>
+                  文档 #5：第 8 页{" "}
+                </Typography>
+                <Typography component="div" sx={{ fontSize: "1rem" }}>
+                  文档 #6：第 9 页和第 10 页{" "}
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+            <button onClick={() => splitpdf(files[0]["id"])} style={{ marginRight: 8 }}>
+              Split PDF
+            </button>
+          </Box>
         ) : null
       }
 
